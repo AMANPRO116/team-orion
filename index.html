@@ -268,20 +268,31 @@ model-viewer {
 </div>
 
 <script>
-// loader (fixed: no audio blocking)
+// loader + auto boot sound
 window.onload = () => {
+  const boot = document.getElementById('bootSound');
+
+  // try autoplay (muted first to bypass browser restriction)
+  if (boot) {
+    boot.muted = true;
+    boot.play().then(() => {
+      boot.muted = false;
+    }).catch(()=>{});
+
+    // stop after 3 seconds
+    setTimeout(() => {
+      boot.pause();
+      boot.currentTime = 0;
+    }, 3000);
+  }
+
+  // hide loader
   setTimeout(()=> {
     document.getElementById('loader').classList.add('hidden');
   }, 1500);
 };
 
-// FIX: play boot sound only after first user interaction
-function playBootSoundOnce() {
-  const boot = document.getElementById('bootSound');
-  if (boot) boot.play().catch(()=>{});
-  document.removeEventListener('click', playBootSoundOnce);
-}
-document.addEventListener('click', playBootSoundOnce);
+
 
 function goBack(){
   document.getElementById('projectContent').classList.add('hidden');
