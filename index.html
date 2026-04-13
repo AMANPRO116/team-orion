@@ -17,6 +17,25 @@ h1 { color:#00ff00; text-shadow:0 0 10px #00ff00; }
 .project-box h2, .project-box p { position:relative; z-index:1; }
 .project-box:hover { transform:scale(1.05); }
 .hidden { display:none; }
+
+/* transitions */
+.fade-in {
+  animation: fadeIn 1s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity:0; transform:translateY(20px); }
+  to { opacity:1; transform:translateY(0); }
+}
+
+.slide-open {
+  animation: slideOpen 0.8s ease forwards;
+}
+
+@keyframes slideOpen {
+  from { opacity:0; transform:scale(0.95); }
+  to { opacity:1; transform:scale(1); }
+}
 section { padding:40px; border-top:1px solid #003300; }
 .card { background:#001a00; padding:20px; border-radius:10px; border:1px solid #00ff00; margin:10px 0; }
 body.light .card { background:#fff; border:1px solid #333; }
@@ -57,13 +76,78 @@ model-viewer {
   border:none;
   cursor:pointer;
 }
+
+
+/* HUD overlay */
+.hud {
+  position:fixed; inset:0; pointer-events:none;
+  background: repeating-linear-gradient(0deg, rgba(0,255,0,0.05) 0px, rgba(0,255,0,0.05) 1px, transparent 2px, transparent 4px);
+}
+.scanline {
+  position:fixed; left:0; right:0; height:2px; background:#00ff00; opacity:0.4; animation: scan 4s linear infinite;
+}
+@keyframes scan { 0%{top:0} 100%{top:100%} }
+
+/* loader */
+.loader { position:fixed; inset:0; background:#000; display:flex; align-items:center; justify-content:center; flex-direction:column; color:#00ff00; z-index:9999; }
+.loader.hidden{ display:none; }
+.typing { border-right:2px solid #00ff00; white-space:nowrap; overflow:hidden; animation: typing 2.5s steps(30,end), blink .7s infinite; }
+@keyframes typing { from{ width:0 } to{ width:260px } }
+@keyframes blink { 50%{ border-color:transparent } }
+
+/* back button */
+.back { position:fixed; top:20px; left:20px; padding:10px 14px; border:1px solid #00ff00; background:#001a00; color:#00ff00; cursor:pointer; display:none; }
+
+/* status bar */
+.status { position:fixed; bottom:0; left:0; right:0; background:#001a00; border-top:1px solid #00ff00; padding:6px 10px; font-size:12px; display:flex; justify-content:space-between; }
+
+
+
+/* radar */
+.radar {
+  position:fixed;
+  top:20px;
+  right:20px;
+  width:150px;
+  height:150px;
+  border:2px solid #00ff00;
+  border-radius:50%;
+  overflow:hidden;
+}
+.radar::before {
+  content:"";
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:conic-gradient(#00ff00 0deg, transparent 60deg);
+  animation: rotateRadar 3s linear infinite;
+}
+@keyframes rotateRadar {
+  from { transform:rotate(0deg); }
+  to { transform:rotate(360deg); }
+}
+
 </style>
 </head>
 <body>
+<div class="loader" id="loader">
+  <div class="typing">INITIALIZING SYSTEM...</div>
+  <p>Loading TEAM ORION Interface</p>
+</div>
+<div class="hud"></div>
+<div class="scanline"></div>
+
+<!-- radar -->
+<div class="radar"></div>
+
+<!-- sounds -->
+<audio id="clickSound" src="click.mp3"></audio>
+<audio id="bootSound" src="boot.mp3"></audio>
+<button class="back" id="backBtn" onclick="goBack()">← BACK</button>
 
 <header>
 <h1>TEAM ORION</h1>
-<p>Project Catalog</p>
+<p id="statusText">SYSTEM READY</p>
 </header>
 
 <div class="catalog">
@@ -122,6 +206,53 @@ model-viewer {
 </section>
 
 <section>
+<h2>Design Inspiration</h2>
+<div class="card">
+<p>Inspired by F-35 Lightning II</p>
+<ul>
+<li>Edge alignment</li>
+<li>Blended wing-body (BWB)</li>
+<li>Reduced vertical surfaces</li>
+<li>Adapted for subsonic UAV operation</li>
+</ul>
+</div>
+</section>
+
+<section>
+<h2>Objectives</h2>
+<div class="card">
+<ul>
+<li>Design a stealth-inspired UAV</li>
+<li>Reach sub-sonic speeds</li>
+<li>Cargo, surveillance & emergency medical applications</li>
+</ul>
+</div>
+</section>
+
+<section>
+<h2>Theoretical Calculations</h2>
+<div class="card">
+<p><b>Lift:</b> 220.5 N</p>
+<p><b>Drag:</b> 13.78 N</p>
+<p><b>L/D Ratio:</b> 16</p>
+<p><b>Reynolds Number:</b> 1.02 × 10^6</p>
+</div>
+</section>
+
+<section>
+<h2>Progress (Instagram)</h2>
+<div class="grid">
+<div class="card"><a href="https://www.instagram.com/reel/DQuQb1KEk-A/" target="_blank">Part 1</a></div>
+<div class="card"><a href="https://www.instagram.com/reel/DQztDomE3H0/" target="_blank">Part 2</a></div>
+<div class="card"><a href="https://www.instagram.com/reel/DQ7DV5CkrLg/" target="_blank">Part 3</a></div>
+<div class="card"><a href="https://www.instagram.com/reel/DRFg02_kmwo/" target="_blank">Part 4</a></div>
+<div class="card"><a href="https://www.instagram.com/reel/DRU6Qc6Esit/" target="_blank">Part 5</a></div>
+<div class="card"><a href="https://www.instagram.com/reel/DT79YQFgSec/" target="_blank">Part 6</a></div>
+<div class="card"><a href="https://www.instagram.com/reel/DXCmHrNkyyx/" target="_blank">Part 7</a></div>
+</div>
+</section>
+
+<section>
 <h2>Team</h2>
 <div class="grid">
 <div class="card"><b>Madasu Aman Siddharth</b><br>(Team Lead – Design, Fabrication & Simulation)</div>
@@ -135,8 +266,47 @@ model-viewer {
 </div>
 
 <script>
+// loader
+window.onload = () => {
+  document.getElementById('bootSound').play();
+  setTimeout(()=> document.getElementById('loader').classList.add('hidden'), 2000);
+};
+
+function goBack(){
+  document.getElementById('projectContent').classList.add('hidden');
+  document.getElementById('backBtn').style.display='none';
+}
+
 function openProject() {
-  document.getElementById("projectContent").classList.toggle("hidden");
+  const content = document.getElementById("projectContent");
+  const back = document.getElementById("backBtn");
+
+  document.getElementById('clickSound').play();
+
+  content.classList.remove("hidden");
+  back.style.display='block';
+
+  content.classList.add("slide-open");
+
+  document.querySelectorAll("section").forEach((sec, i) => {
+    sec.classList.remove('fade-in');
+    setTimeout(() => sec.classList.add("fade-in"), i * 120);
+  });
+
+  document.getElementById('statusText').innerText = 'MISSION DATA LOADED';
+
+  var vid = document.getElementById("bgVideo");
+  if (vid.paused) vid.play();
+});
+
+  document.getElementById('statusText').innerText = 'MISSION DATA LOADED';
+
+  var vid = document.getElementById("bgVideo");
+  if (vid.paused) vid.play();
+}, i * 150);
+    });
+  }
+
   var vid = document.getElementById("bgVideo");
   if (vid.paused) vid.play();
 }
