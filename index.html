@@ -266,22 +266,29 @@ model-viewer {
 </div>
 
 <script>
-// loader
+// loader (fixed: no audio blocking)
 window.onload = () => {
-  document.getElementById('bootSound').play();
-  setTimeout(()=> document.getElementById('loader').classList.add('hidden'), 2000);
+  setTimeout(()=> {
+    document.getElementById('loader').classList.add('hidden');
+    // play boot sound safely
+    const boot = document.getElementById('bootSound');
+    if (boot) boot.play().catch(()=>{});
+  }, 1500);
 };
 
 function goBack(){
   document.getElementById('projectContent').classList.add('hidden');
   document.getElementById('backBtn').style.display='none';
+  document.getElementById('statusText').innerText = 'SYSTEM READY';
 }
 
 function openProject() {
   const content = document.getElementById("projectContent");
   const back = document.getElementById("backBtn");
 
-  document.getElementById('clickSound').play();
+  // safe click sound
+  const click = document.getElementById('clickSound');
+  if (click) click.play().catch(()=>{});
 
   content.classList.remove("hidden");
   back.style.display='block';
@@ -290,29 +297,19 @@ function openProject() {
 
   document.querySelectorAll("section").forEach((sec, i) => {
     sec.classList.remove('fade-in');
-    setTimeout(() => sec.classList.add("fade-in"), i * 120);
+    setTimeout(() => {
+      sec.classList.add("fade-in");
+    }, i * 120);
   });
 
   document.getElementById('statusText').innerText = 'MISSION DATA LOADED';
 
-  var vid = document.getElementById("bgVideo");
-  if (vid.paused) vid.play();
-});
-
-  document.getElementById('statusText').innerText = 'MISSION DATA LOADED';
-
-  var vid = document.getElementById("bgVideo");
-  if (vid.paused) vid.play();
-}, i * 150);
-    });
-  }
-
-  var vid = document.getElementById("bgVideo");
-  if (vid.paused) vid.play();
+  const vid = document.getElementById("bgVideo");
+  if (vid && vid.paused) vid.play().catch(()=>{});
 }
 
 function toggleSettings() {
-  var panel = document.getElementById("settingsPanel");
+  const panel = document.getElementById("settingsPanel");
   panel.style.display = panel.style.display === "block" ? "none" : "block";
 }
 
