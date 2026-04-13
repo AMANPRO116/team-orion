@@ -51,6 +51,12 @@ a { color:#00ff00; }
   width:200px;
   height:200px;
   cursor:pointer;
+  z-index:9999; /* FIX: always on top */
+}
+model-viewer {
+  width:100%;
+  height:100%;
+  pointer-events:auto; /* ensure interaction */
 }
 model-viewer {
   width:100%;
@@ -163,8 +169,10 @@ model-viewer {
 </div>
 
 <!-- 3D MODEL -->
-<div class="model-container" onclick="toggleSettings()">
+<div class="model-container">
   <model-viewer id="planeModel" src="plane.glb" auto-rotate camera-controls rotation-per-second="30deg"></model-viewer>
+  <!-- settings toggle button -->
+  <button onclick="toggleSettings()" style="position:absolute; top:5px; right:5px; z-index:3; background:#00ff00; border:none; padding:5px; cursor:pointer;">⚙️</button>
 </div>
 
 <!-- SETTINGS -->
