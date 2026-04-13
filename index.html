@@ -85,6 +85,7 @@ model-viewer {
 }
 .scanline {
   position:fixed; left:0; right:0; height:2px; background:#00ff00; opacity:0.4; animation: scan 4s linear infinite;
+  pointer-events:none; /* FIX: allow clicks through */
 }
 @keyframes scan { 0%{top:0} 100%{top:100%} }
 
@@ -113,6 +114,7 @@ model-viewer {
   border:2px solid #00ff00;
   border-radius:50%;
   overflow:hidden;
+  pointer-events:none; /* FIX: don't block clicks */
 }
 .radar::before {
   content:"";
@@ -270,11 +272,16 @@ model-viewer {
 window.onload = () => {
   setTimeout(()=> {
     document.getElementById('loader').classList.add('hidden');
-    // play boot sound safely
-    const boot = document.getElementById('bootSound');
-    if (boot) boot.play().catch(()=>{});
   }, 1500);
 };
+
+// FIX: play boot sound only after first user interaction
+function playBootSoundOnce() {
+  const boot = document.getElementById('bootSound');
+  if (boot) boot.play().catch(()=>{});
+  document.removeEventListener('click', playBootSoundOnce);
+}
+document.addEventListener('click', playBootSoundOnce);
 
 function goBack(){
   document.getElementById('projectContent').classList.add('hidden');
