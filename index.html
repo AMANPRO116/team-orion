@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TEAM ORION</title>
+<style>
+body { margin:0; font-family: Arial; background:#000; color:#d4ffd4; }
+header { text-align:center; padding:20px; background:#001a00; border-bottom:2px solid #00ff00; }
+h1 { color:#00ff00; text-shadow:0 0 10px #00ff00; }
+.catalog { padding:40px; }
+.project-box {
+  position:relative;
+  background:#001a00;
+  border:2px solid #00ff00;
+  padding:30px;
+  border-radius:15px;
+  cursor:pointer;
+  text-align:center;
+  box-shadow:0 0 15px rgba(0,255,0,0.4);
+  transition:0.3s;
+  overflow:hidden;
+}
+.project-box video {
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  opacity:0.3;
+  z-index:0;
+}
+.project-box h2, .project-box p {
+  position:relative;
+  z-index:1;
+}
+.project-box:hover { transform:scale(1.05); }
+.hidden { display:none; }
+section { padding:40px; border-top:1px solid #003300; }
+.card { background:#001a00; padding:20px; border-radius:10px; border:1px solid #00ff00; margin:10px 0; }
+.grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(250px,1fr)); gap:20px; }
+img, video { width:100%; border-radius:10px; border:1px solid #00ff00; margin-top:10px; }
+a { color:#00ff00; }
+</style>
+</head>
+<body>
+
+<header>
+<h1>TEAM ORION</h1>
+<p>Project Catalog</p>
+</header>
+
+<div class="catalog">
+  <div class="project-box" onclick="openProject()">
+    <video autoplay muted loop>
+      <source src="background.mp4" type="video/mp4">
+    </video>
+    <h2>F-35D Stealth UAV</h2>
+    <p>Click to view full project</p>
+  </div>
+</div>
+
+<div id="projectContent" class="hidden">
+
+<section>
+<h2>Project Overview</h2>
+<div class="card">
+<img src="F35_render1.png">
+<img src="F35_top_view.png">
+</div>
+</section>
+
+<section>
+<h2>Simulation Videos</h2>
+<div class="grid">
+<div class="card"><video controls><source src="simulation1.mp4"></video></div>
+<div class="card"><video controls><source src="simulation2.mp4"></video></div>
+</div>
+</section>
+
+<section>
+<h2>Introduction</h2>
+<div class="card">
+<p>UAVs are critical in modern defense systems</p>
+<p>Key requirements:</p>
+<ul>
+<li>Low observability</li>
+<li>High aerodynamic efficiency</li>
+<li>Long endurance</li>
+</ul>
+<p>This work focuses on a stealth UAV platform inspired by advanced fighter aerodynamics</p>
+</div>
+</section>
+
+<section>
+<h2>Design Inspiration</h2>
+<div class="card">
+<p>Inspired by F-35 Lightning II</p>
+<p>Key adopted features:</p>
+<ul>
+<li>Edge alignment</li>
+<li>Blended wing-body (BWB)</li>
+<li>Reduced vertical surfaces</li>
+<li>Adapted for subsonic UAV operation</li>
+</ul>
+</div>
+</section>
+
+<section>
+<h2>Objective</h2>
+<div class="card">
+<ol>
+<li>Design a stealth-inspired UAV</li>
+<li>Reach sub-sonic speeds</li>
+<li>Making it more versatile :</li>
+</ol>
+<ul>
+<li>Cargo applications</li>
+<li>stealth applications</li>
+<li>Surveillance applications</li>
+<li>Emergency medical applications</li>
+</ul>
+</div>
+</section>
+
+<section>
+<h2>Theoretical Calculations</h2>
+<div class="card">
+<p><b>Lift Calculation :</b> L = 1/2 ρV²SC<sub>L</sub> → Final Answer: L = 220.5 N</p>
+<p><b>Drag Calculation :</b> D = 1/2 ρV²SC<sub>D</sub> → Final Answer: D = 13.78 N</p>
+<p><b>Aerodynamic Efficiency :</b> L/D = C<sub>L</sub>/C<sub>D</sub> = 0.8/0.05 → Final Answer: 16</p>
+<p><b>Reynolds Number :</b> Re = ρVL/μ → Final Answer ≈ 1.02 × 10⁶</p>
+</div>
+</section>
+
+<section>
+<h2>Physical Model</h2>
+<div class="card">
+<p>The Center of Gravity (CG) and Center of Mass (COM) of the UAV are yet to be determined, as the exact material distribution and component weights have not been finalized. Accurate evaluation will be performed after detailed weight estimation and material selection.</p>
+</div>
+</section>
+
+<section>
+<h2>Simulations</h2>
+<div class="card">
+<p>External flow domain created around UAV</p>
+<p>Domain Size: ~5–10 times UAV length</p>
+</div>
+</section>
+
+<section>
+<h2>Boundary Conditions</h2>
+<div class="card">
+<ul>
+<li>Velocity Inlet – Defines freestream airflow</li>
+<li>Pressure Outlet – Atmospheric condition</li>
+<li>UAV Surface – No-slip wall</li>
+</ul>
+</div>
+</section>
+
+<section>
+<h2>Wing Profile</h2>
+<div class="card">
+<p>The NACA 23012 is a 5-digit airfoil designed for good lift and stable performance at moderate speeds.</p>
+<ul>
+<li>Moderate camber → Produces lift even at low angles of attack</li>
+<li>Thickness (12%) → Good structural strength + space for internal components</li>
+<li>Low pitching moment → Stable and predictable behavior</li>
+<li>Good stall characteristics → Smooth, gradual stall</li>
+</ul>
+</div>
+</section>
+
+<section>
+<h2>EDF System</h2>
+<div class="card">
+<p><b>Front EDF:</b> 30 degrees mechanical tilt</p>
+<p><b>Back EDFs:</b> Three-bearing swivel duct nozzle</p>
+</div>
+</section>
+
+<section>
+<h2>Emergency Detachment System</h2>
+<div class="card">
+<p>The UAV incorporates an emergency detachment system in which the front section—housing the forward EDF unit and critical onboard systems—can be separated during high-risk scenarios such as rear EDF failure or incoming threats.</p>
+<p>The objective is to preserve mission-critical data and ensure controlled descent and recovery of the front module.</p>
+</div>
+</section>
+
+<section>
+<h2>System Modes</h2>
+<div class="card">
+<p><b>Combined Mode:</b> Hybrid VTOL aircraft with distributed propulsion and centralized control</p>
+<p><b>Separated Mode:</b> Splits into two independent UAVs with autonomous stabilization</p>
+</div>
+</section>
+
+<section>
+<h2>Progress</h2>
+<div class="grid">
+<div class="card"><a href="https://www.instagram.com/reel/DQuQb1KEk-A/" target="_blank">Part 1</a></div>
+<div class="card"><a href="https://www.instagram.com/reel/DQztDomE3H0/" target="_blank">Part 2</a></div>
+<div class="card"><a href="https://www.instagram.com/reel/DQ7DV5CkrLg/" target="_blank">Part 3</a></div>
+<div class="card"><a href="https://www.instagram.com/reel/DRFg02_kmwo/" target="_blank">Part 4</a></div>
+<div class="card"><a href="https://www.instagram.com/reel/DRU6Qc6Esit/" target="_blank">Part 5</a></div>
+<div class="card"><a href="https://www.instagram.com/reel/DT79YQFgSec/" target="_blank">Part 6</a></div>
+<div class="card"><a href="https://www.instagram.com/reel/DXCmHrNkyyx/" target="_blank">Part 7</a></div>
+</div>
+</section>
+
+<section>
+<h2>Team</h2>
+<div class="grid">
+<div class="card">Madasu Aman Siddharth<br>(Team Lead)</div>
+<div class="card">Rohan<br>(Electrical)</div>
+<div class="card">Mokshagna<br>(Electronics)</div>
+<div class="card">Rukesh<br>(Coadjutor)</div>
+<div class="card">Abhinav<br>(PR)</div>
+</div>
+</section>
+
+</div>
+
+<script>
+function openProject() {
+  document.getElementById("projectContent").classList.toggle("hidden");
+}
+</script>
+
+</body>
+</html>
