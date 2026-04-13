@@ -53,7 +53,7 @@ a { color:#00ff00; }
 
 <div class="catalog">
   <div class="project-box" onclick="openProject()">
-    <video autoplay muted loop>
+    <video id="bgVideo" muted loop>
       <source src="background.mp4" type="video/mp4">
     </video>
     <h2>F-35D Stealth UAV</h2>
@@ -74,8 +74,8 @@ a { color:#00ff00; }
 <section>
 <h2>Simulation Videos</h2>
 <div class="grid">
-<div class="card"><video controls><source src="simulation1.mp4"></video></div>
-<div class="card"><video controls><source src="simulation2.mp4"></video></div>
+<div class="card"><video autoplay muted loop><source src="simulation1.mp4"></video></div>
+<div class="card"><video autoplay muted loop><source src="simulation2.mp4"></video></div>
 </div>
 </section>
 
@@ -226,6 +226,12 @@ a { color:#00ff00; }
 <script>
 function openProject() {
   document.getElementById("projectContent").classList.toggle("hidden");
+
+  // play background video only after click
+  var vid = document.getElementById("bgVideo");
+  if (vid.paused) {
+    vid.play();
+  }
 }
 </script>
 
