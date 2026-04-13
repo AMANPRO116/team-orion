@@ -52,7 +52,7 @@ a { color:#00ff00; }
   width:200px;
   height:200px;
   cursor:pointer;
-  z-index:9999; /* FIX: always on top */
+  z-index:9998; /* slightly below buttons */
 }
 model-viewer {
   width:100%;
@@ -74,6 +74,7 @@ model-viewer {
   padding:15px;
   border-radius:10px;
   display:none;
+  z-index:10000; /* FIX: always above content */
 }
 .settings button {
   display:block;
@@ -104,7 +105,7 @@ model-viewer {
 @keyframes blink { 50%{ border-color:transparent } }
 
 /* back button */
-.back { position:fixed; top:20px; left:20px; padding:10px 14px; border:1px solid #00ff00; background:#001a00; color:#00ff00; cursor:pointer; display:none; }
+.back { position:fixed; top:20px; left:20px; padding:10px 14px; border:1px solid #00ff00; background:#001a00; color:#00ff00; cursor:pointer; display:none; z-index:10000; /* FIX: always on top */ }
 
 /* status bar */
 .status { position:fixed; bottom:0; left:0; right:0; background:#001a00; border-top:1px solid #00ff00; padding:6px 10px; font-size:12px; display:flex; justify-content:space-between; }
