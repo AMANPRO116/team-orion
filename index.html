@@ -8,41 +8,52 @@
 <style>
 body {
   margin:0;
-  font-family: Arial;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color:#d4ffd4;
   transition:0.3s;
 
   /* RADAR MAP BACKGROUND */
   background:
-    radial-gradient(circle at center, rgba(0,255,0,0.15) 0%, transparent 60%),
+    radial-gradient(circle at center, rgba(0,255,0,0.12) 0%, transparent 60%),
     repeating-radial-gradient(circle at center,
-      rgba(0,255,0,0.08) 0px,
-      rgba(0,255,0,0.08) 2px,
+      rgba(0,255,0,0.06) 0px,
+      rgba(0,255,0,0.06) 2px,
       transparent 2px,
-      transparent 40px
-    ),
-    repeating-linear-gradient(
-      0deg,
-      rgba(0,255,0,0.05) 0px,
-      rgba(0,255,0,0.05) 1px,
-      transparent 1px,
-      transparent 40px
-    ),
-    repeating-linear-gradient(
-      90deg,
-      rgba(0,255,0,0.05) 0px,
-      rgba(0,255,0,0.05) 1px,
-      transparent 1px,
-      transparent 40px
+      transparent 60px
     ),
     #000;
 }
 body.light { background:#f5f5f5; color:#111; }
-header { text-align:center; padding:20px; background:#001a00; border-bottom:2px solid #00ff00; }
+header {
+  text-align:center;
+  padding:20px;
+  background: rgba(0, 26, 0, 0.7);
+  backdrop-filter: blur(10px);
+  border-bottom:1px solid rgba(0,255,0,0.3);
+}
 body.light header { background:#ddd; border-color:#333; }
-h1 { color:#00ff00; text-shadow:0 0 10px #00ff00; }
+h1 {
+  color:#00ff00;
+  letter-spacing:2px;
+  text-shadow:0 0 8px #00ff00, 0 0 20px rgba(0,255,0,0.5);
+}
 .catalog { padding:40px; }
-.project-box { position:relative; background:#001a00; border:2px solid #00ff00; padding:30px; border-radius:15px; cursor:pointer; text-align:center; box-shadow:0 0 15px rgba(0,255,0,0.4); transition:0.3s; overflow:hidden; }
+.project-box {
+  position:relative;
+  background: rgba(0, 26, 0, 0.7);
+  border:1px solid rgba(0,255,0,0.5);
+  padding:30px;
+  border-radius:15px;
+  cursor:pointer;
+  text-align:center;
+  box-shadow:0 0 25px rgba(0,255,0,0.25);
+  transition:0.3s;
+  overflow:hidden;
+}
+.project-box:hover {
+  transform:scale(1.04);
+  box-shadow:0 0 35px rgba(0,255,0,0.4);
+}
 .project-box video { position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; opacity:0.3; }
 .project-box h2, .project-box p { position:relative; z-index:1; }
 .project-box:hover { transform:scale(1.05); }
@@ -67,7 +78,20 @@ h1 { color:#00ff00; text-shadow:0 0 10px #00ff00; }
   to { opacity:1; transform:scale(1); }
 }
 section { padding:40px; border-top:1px solid #003300; }
-.card { background:#001a00; padding:20px; border-radius:10px; border:1px solid #00ff00; margin:10px 0; }
+.card {
+  background: rgba(0, 26, 0, 0.75);
+  backdrop-filter: blur(10px);
+  padding:20px;
+  border-radius:12px;
+  border:1px solid rgba(0,255,0,0.4);
+  margin:10px 0;
+  box-shadow: 0 0 20px rgba(0,255,0,0.15);
+  transition:0.3s;
+}
+.card:hover{
+  transform: translateY(-5px) scale(1.01);
+  box-shadow: 0 0 25px rgba(0,255,0,0.3);
+}
 body.light .card { background:#fff; border:1px solid #333; }
 .grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(250px,1fr)); gap:20px; }
 .team-img{ width:100%; height:220px; object-fit:cover; border-radius:10px; margin-bottom:10px; border:1px solid #00ff00; }
@@ -75,16 +99,22 @@ img, video { width:100%; border-radius:10px; border:1px solid #00ff00; margin-to
 a { color:#00ff00; }
 
 .linkedin-btn{
-  display:inline-block;
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
   margin-top:8px;
-  padding:6px 10px;
-  background:#00ff00;
+  padding:6px 12px;
+  background:linear-gradient(90deg,#00ff00,#00cc00);
   color:#000;
   font-size:12px;
-  border-radius:5px;
+  border-radius:20px;
   text-decoration:none;
   font-weight:bold;
-  transition:0.2s;
+  transition:0.3s;
+}
+.linkedin-btn:hover{
+  transform:scale(1.1);
+  box-shadow:0 0 10px #00ff00;
 }
 .linkedin-btn:hover{
   background:#00cc00;
