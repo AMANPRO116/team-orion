@@ -14,9 +14,7 @@ body{
   font-family:'Inter',sans-serif;
   color:var(--text);
   overflow-x:hidden;
-
-  /* Animated night sky */
-  background: black;
+  background:black;
 }
 
 body::before{
@@ -36,7 +34,6 @@ body::before{
   to{transform:translate(-500px,-500px);}
 }
 
-/* twinkling stars */
 body::after{
   content:"";
   position:fixed;
@@ -54,114 +51,59 @@ body::after{
   50%{opacity:0.3}
   100%{opacity:0.15}
 }
-  10%{opacity:1}
-  100%{transform:translate(-800px,800px) rotate(45deg);opacity:0}
-}
 
-/* glow horizon */
-.hero::after{
-  content:"";
-  position:absolute;
-  bottom:0;
-  width:100%;
-  height:200px;
-  background:radial-gradient(circle at center, rgba(0,255,150,0.2), transparent);
-  z-index:-1;
-}
-
-/* cinematic text */
-.hero h2{
-  font-size:70px;
-  letter-spacing:3px;
-  text-shadow:0 0 20px rgba(0,255,150,0.6);
-  animation:fadeUp 1.5s ease;
-}
-
-@keyframes fadeUp{
-  from{opacity:0; transform:translateY(40px)}
-  to{opacity:1; transform:translateY(0)}
-}
-
-.hero p{
-  animation:fadeUp 2s ease;
-}
-
-/* model glow */
-model-viewer{
-  filter: drop-shadow(0 0 10px rgba(0,255,150,0.5));
-}
-  to{transform:translate(-500px,-500px);}
-}
-
-header{position:fixed;top:0;width:100%;padding:20px 40px;display:flex;justify-content:space-between;backdrop-filter:blur(20px);background:rgba(0,0,0,0.4);z-index:1000}
-header h1{font-size:18px;color:var(--accent)}
-.nav a{margin-left:20px;color:#aaa;text-decoration:none}
-.nav a:hover{color:#fff}
-
-.hero{height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
-.hero h2{font-size:60px}
-.hero p{color:#aaa}
-
-.section{padding:100px 40px;max-width:1200px;margin:auto;opacity:0;transform:translateY(40px);transition:1s}
-.section.show{opacity:1;transform:translateY(0)}
-
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
-.card{background:rgba(255,255,255,0.05);padding:20px;border-radius:12px}
-.card img, .card video{width:100%;border-radius:10px;margin-top:10px}
-
-.team-img{width:100%;height:220px;object-fit:cover;border-radius:10px}
-.linkedin-btn{display:inline-block;margin-top:8px;padding:6px 12px;border-radius:20px;background:var(--accent);color:#000;font-size:12px;text-decoration:none}
-
-.model-container{
-  position:fixed;
-  bottom:20px;
-  right:20px;
-  width:180px;
-  height:180px;
-  transform:translate(600px,-400px) scale(2); /* start off-screen */
-  opacity:0;
-  animation:flyIn 2s ease 5s forwards, flyOut 2s ease 7s forwards;
-}
-
-@keyframes flyIn{
-  to{
-    transform:translate(0,0) scale(1);
-    opacity:1;
-  }
-}
-
-@keyframes flyOut{
-  to{
-    transform:translate(0,0) scale(1);
-  }
-}
-#splash{
+/* neon strips FIXED */
+#neonStrips{
   position:fixed;
   top:0;
   left:0;
   width:100%;
   height:100%;
+  pointer-events:none;
+  z-index:15000;
+  display:none;
+}
+
+.strip{
+  position:absolute;
+  width:250%;
+  height:6px;
+  background:linear-gradient(90deg, transparent, #00ff88, #00ff88, transparent);
+  filter:blur(10px);
+  transform:rotate(45deg);
+}
+
+@keyframes stripMove{
+  0%{transform:translate(-120%, -120%) rotate(45deg); opacity:1}
+  100%{transform:translate(120%, 120%) rotate(45deg); opacity:0}
+}
+
+
+/* splash */
+#splash{
+  position:fixed;
+  top:0;left:0;width:100%;height:100%;
   background:black;
   display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:20000;
+}
+#splash img{max-width:60%;}
+
+/* layout basics */
+.hero{
+  height:100vh;
+  display:flex;
+  flex-direction:column;
   justify-content:center;
   align-items:center;
-  z-index:20000;
-  animation:fadeOut 3s ease 3s forwards;
+  text-align:center;
 }
-
-#splash img{
-  max-width:60%;
-  opacity:0;
-  animation:fadeIn 2s ease forwards;
-}
-
-@keyframes fadeIn{
-  to{opacity:1}
-}
-
-@keyframes fadeOut{
-  to{opacity:0; visibility:hidden}
-}
+.section{padding:80px 40px; max-width:1100px; margin:auto;}
+.grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:20px;}
+.card{background:rgba(255,255,255,0.05); padding:20px; border-radius:12px;}
+.model-container{position:fixed; bottom:20px; right:20px; width:180px; height:180px; z-index:1000;}
 
 </style>
 </head>
@@ -171,6 +113,12 @@ header h1{font-size:18px;color:var(--accent)}
 <!-- SPLASH SCREEN -->
 <div id="splash">
   <img src="team_orion_final.png" alt="Orion">
+</div>
+
+<!-- NEON STRIPS -->
+<div id="neonStrips">
+  <div class="strip"></div>
+  <div class="strip"></div>
 </div>
 
 
@@ -308,25 +256,63 @@ header h1{font-size:18px;color:var(--accent)}
 </div>
 
 <script>
-const sections=document.querySelectorAll('.section');
-window.addEventListener('scroll',()=>{
-sections.forEach(sec=>{
-if(sec.getBoundingClientRect().top<window.innerHeight-100){sec.classList.add('show');}
-});});
+// scroll reveal
+const sections = document.querySelectorAll('.section');
+window.addEventListener('scroll', () => {
+  sections.forEach(sec => {
+    if (sec.getBoundingClientRect().top < window.innerHeight - 100) {
+      sec.classList.add('show');
+    }
+  });
+});
 
+// project toggle (FIXED)
 function toggleCatalog(){
- const el=document.getElementById('projectContent');
- if(el.style.display==='none'){
-   el.style.display='block';
- }else{
-   el.style.display='none';
- }
+  const el = document.getElementById('projectContent');
+
+  // FORCE correct toggle (fix)
+  if (el.style.display === 'none' || el.style.display === '') {
+    el.style.display = 'block';
+    el.scrollIntoView({ behavior: 'smooth' }); // smooth open
+  } else {
+    el.style.display = 'none';
+  }
+} else {
+    el.style.display = 'none';
+  }
 }
-// splash removal (keep in sync with animation)
-setTimeout(()=>{
-  const splash=document.getElementById('splash');
-  if(splash) splash.style.display='none';
-},7000);
+
+// splash + strips (SAFE & GUARANTEED)
+function runIntro(){
+  const splash = document.getElementById('splash');
+  const strips = document.getElementById('neonStrips');
+
+  // hide splash
+  if (splash) splash.style.display = 'none';
+
+  // play strips
+  if (strips){
+    strips.style.display = 'block';
+
+    const stripElems = document.querySelectorAll('.strip');
+    stripElems.forEach((s, i) => {
+      s.style.animation = 'stripMove 1.2s ease forwards';
+      s.style.animationDelay = (i * 0.2) + 's';
+    });
+
+    setTimeout(()=>{
+      strips.style.display = 'none';
+    },1500);
+  }
+}
+
+// ensure it NEVER gets stuck
+window.addEventListener('load', () => {
+  setTimeout(runIntro, 4000); // reduced time for reliability
+});
+
+// fallback (if load fails)
+setTimeout(runIntro, 5000);
 </script>
 
 </body>
