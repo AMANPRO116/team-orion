@@ -105,29 +105,54 @@ body::after{
 .card{background:rgba(255,255,255,0.05); padding:20px; border-radius:12px;}
 .model-container{position:fixed; bottom:20px; right:20px; width:180px; height:180px; z-index:1000;}
 
+/* Added missing Team & Button CSS */
+.team-img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 15px;
+  border: 2px solid var(--accent);
+}
+
+.linkedin-btn {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 8px 16px;
+  background: #0077b5;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: 600;
+  transition: opacity 0.3s;
+}
+
+.linkedin-btn:hover {
+  opacity: 0.8;
+}
+
+/* Added hidden class for initial load */
+.hidden {
+  display: none;
+}
 </style>
 </head>
 
 <body>
 
-<!-- SPLASH SCREEN -->
 <div id="splash">
   <img src="team_orion_final.png" alt="Orion">
 </div>
 
-<!-- NEON STRIPS -->
 <div id="neonStrips">
   <div class="strip"></div>
   <div class="strip"></div>
 </div>
 
-
-
 <section class="hero">
 <h2>TEAM ORION</h2>
 <p>Next-generation stealth platform</p>
 
-<!-- PROJECT CATALOG -->
 <div style="margin-top:40px; max-width:500px;" onclick="toggleCatalog()">
   <div style="padding:25px; border:1px solid rgba(255,255,255,0.1); border-radius:14px; cursor:pointer; background:rgba(255,255,255,0.03); transition:0.3s;">
     <h3 style="margin-bottom:5px;">F-35D Project</h3>
@@ -136,30 +161,30 @@ body::after{
 </div>
 </section>
 
-<div id="projectContent" class="hidden" style="display:none;">
+<div id="projectContent" class="hidden">
 
 <section class="section">
 <h2>Project Overview</h2>
 <div class="card">
-<img src="F35_render1.png">
-<img src="F35_top_view.png">
+<img src="F35_render1.png" style="max-width:100%; border-radius:8px; margin-bottom:10px;">
+<img src="F35_top_view.png" style="max-width:100%; border-radius:8px;">
 </div>
 </section>
 
 <section class="section">
 <h2>Simulation Videos</h2>
 <div class="grid">
-<div class="card"><video autoplay muted loop><source src="simulation1.mp4"></video></div>
-<div class="card"><video autoplay muted loop><source src="simulation2.mp4"></video></div>
+<div class="card"><video autoplay muted loop style="max-width:100%; border-radius:8px;"><source src="simulation1.mp4"></video></div>
+<div class="card"><video autoplay muted loop style="max-width:100%; border-radius:8px;"><source src="simulation2.mp4"></video></div>
 </div>
 </section>
 
 <section class="section">
 <h2>Introduction</h2>
 <div class="card">
-<p><b>Objective:</b> Design a stealth UAV inspired by modern fighter aircraft with enhanced aerodynamic performance and mission adaptability.</p>
-<p>The F-35D UAV project focuses on integrating aerodynamics, control systems, and structural design to create a high-efficiency unmanned platform.</p>
-<ul>
+<p><b>Objective:</b> Design a stealth UAV inspired by modern fighter aircraft with enhanced aerodynamic performance and mission adaptability.</p><br>
+<p>The F-35D UAV project focuses on integrating aerodynamics, control systems, and structural design to create a high-efficiency unmanned platform.</p><br>
+<ul style="margin-left:20px; line-height:1.6;">
 <li>Low observability using stealth shaping</li>
 <li>High aerodynamic efficiency for extended endurance</li>
 <li>Autonomous and semi-autonomous operation</li>
@@ -171,8 +196,8 @@ body::after{
 <section class="section">
 <h2>Design Inspiration</h2>
 <div class="card">
-<p>The design draws inspiration from 5th generation fighter aircraft to achieve stealth and performance.</p>
-<ul>
+<p>The design draws inspiration from 5th generation fighter aircraft to achieve stealth and performance.</p><br>
+<ul style="margin-left:20px; line-height:1.6;">
 <li>Edge alignment to reduce radar cross-section</li>
 <li>Blended wing-body configuration</li>
 <li>Minimized vertical stabilizers</li>
@@ -184,7 +209,7 @@ body::after{
 <section class="section">
 <h2>System Architecture</h2>
 <div class="card">
-<ul>
+<ul style="margin-left:20px; line-height:1.6;">
 <li>Dual EDF (Electric Ducted Fan) propulsion system</li>
 <li>Flight controller with IMU-based stabilization</li>
 <li>Sensor integration for environmental awareness</li>
@@ -197,8 +222,8 @@ body::after{
 <section class="section">
 <h2>Safety System (CAASS)</h2>
 <div class="card">
-<p>Control Authority Aware Safety System (CAASS) ensures stable and safe operation by continuously monitoring system parameters.</p>
-<ul>
+<p>Control Authority Aware Safety System (CAASS) ensures stable and safe operation by continuously monitoring system parameters.</p><br>
+<ul style="margin-left:20px; line-height:1.6;">
 <li>Thrust effectiveness monitoring</li>
 <li>Tilt response validation</li>
 <li>IMU-based motion tracking</li>
@@ -212,8 +237,8 @@ body::after{
 <section class="section">
 <h2>Emergency Detachment System</h2>
 <div class="card">
-<p>The aircraft is equipped with a detachable front module designed for critical failure scenarios.</p>
-<ul>
+<p>The aircraft is equipped with a detachable front module designed for critical failure scenarios.</p><br>
+<ul style="margin-left:20px; line-height:1.6;">
 <li>Front EDF module detaches during rear propulsion failure</li>
 <li>Ensures survival of critical onboard data</li>
 <li>Improves mission success in hostile environments</li>
@@ -227,90 +252,32 @@ body::after{
 <div class="card">
 <p><b>Lift:</b> 220.5 N</p>
 <p><b>Drag:</b> 13.78 N</p>
-<p><b>L/D Ratio:</b> 16</p>
+<p><b>L/D Ratio:</b> 16</p><br>
 <p>These values indicate high aerodynamic efficiency suitable for long-duration missions.</p>
-</div>
-</section>
-
-<section class="section">
-<h2>System Architecture</h2>
-<div class="card">
-<ul>
-<li>Dual EDF propulsion system</li>
-<li>Flight controller with IMU-based stabilization</li>
-<li>Sensor integration for environment awareness</li>
-<li>Communication module for remote operation</li>
-</ul>
-</div>
-</section>
-
-<section class="section">
-<h2>Safety System (CAASS)</h2>
-<div class="card">
-<p>Control Authority Aware Safety System continuously monitors system performance and ensures stable flight.</p>
-<ul>
-<li>Thrust effectiveness monitoring</li>
-<li>Tilt response validation</li>
-<li>IMU-based motion tracking</li>
-<li>Power system health check</li>
-<li>Communication integrity</li>
-</ul>
-</div>
-</section>
-
-<section class="section">
-<h2>Emergency System</h2>
-<div class="card">
-<p>The aircraft features a detachable front module designed for critical failure scenarios.</p>
-<ul>
-<li>Front EDF module detaches during rear failure</li>
-<li>Data preservation during hostile threats</li>
-<li>Improves survivability of mission data</li>
-</ul>
-</div>
-</section>
-
-<section class="section">
-<h2>Design Inspiration</h2>
-<div class="card">
-<ul>
-<li>Edge alignment</li>
-<li>Blended wing-body</li>
-<li>Reduced vertical surfaces</li>
-</ul>
-</div>
-</section>
-
-<section class="section">
-<h2>Theoretical Calculations</h2>
-<div class="card">
-<p>Lift: 220.5 N</p>
-<p>Drag: 13.78 N</p>
-<p>L/D: 16</p>
 </div>
 </section>
 
 <section class="section">
 <h2>Progress</h2>
 <div class="grid">
-<div class="card"><a href="https://www.instagram.com/reel/DQuQb1KEk-A/" target="_blank">Part 1</a></div>
-<div class="card"><a href="https://www.instagram.com/reel/DQztDomE3H0/" target="_blank">Part 2</a></div>
-<div class="card"><a href="https://www.instagram.com/reel/DQ7DV5CkrLg/" target="_blank">Part 3</a></div>
-<div class="card"><a href="https://www.instagram.com/reel/DRFg02_kmwo/" target="_blank">Part 4</a></div>
-<div class="card"><a href="https://www.instagram.com/reel/DRU6Qc6Esit/" target="_blank">Part 5</a></div>
-<div class="card"><a href="https://www.instagram.com/reel/DT79YQFgSec/" target="_blank">Part 6</a></div>
-<div class="card"><a href="https://www.instagram.com/reel/DXCmHrNkyyx/" target="_blank">Part 7</a></div>
+<div class="card" style="text-align:center;"><a href="https://www.instagram.com/reel/DQuQb1KEk-A/" target="_blank" style="color:var(--accent); text-decoration:none;">Part 1</a></div>
+<div class="card" style="text-align:center;"><a href="https://www.instagram.com/reel/DQztDomE3H0/" target="_blank" style="color:var(--accent); text-decoration:none;">Part 2</a></div>
+<div class="card" style="text-align:center;"><a href="https://www.instagram.com/reel/DQ7DV5CkrLg/" target="_blank" style="color:var(--accent); text-decoration:none;">Part 3</a></div>
+<div class="card" style="text-align:center;"><a href="https://www.instagram.com/reel/DRFg02_kmwo/" target="_blank" style="color:var(--accent); text-decoration:none;">Part 4</a></div>
+<div class="card" style="text-align:center;"><a href="https://www.instagram.com/reel/DRU6Qc6Esit/" target="_blank" style="color:var(--accent); text-decoration:none;">Part 5</a></div>
+<div class="card" style="text-align:center;"><a href="https://www.instagram.com/reel/DT79YQFgSec/" target="_blank" style="color:var(--accent); text-decoration:none;">Part 6</a></div>
+<div class="card" style="text-align:center;"><a href="https://www.instagram.com/reel/DXCmHrNkyyx/" target="_blank" style="color:var(--accent); text-decoration:none;">Part 7</a></div>
 </div>
 </section>
 
 <section class="section">
 <h2>Team</h2>
-<div class="grid">
-<div class="card"><img class="team-img" src="aman.jpeg"><b>Madasu Aman Siddharth</b><br>(Team Lead – Design, Fabrication & Simulation)<br><a class="linkedin-btn" href="https://www.linkedin.com/in/aman-siddharth-madasu-4b6908402" target="_blank">LinkedIn</a></div>
-<div class="card"><img class="team-img" src="rohan.jpeg"><b>Rohan</b><br>(Electrical and Control Systems)<br><a class="linkedin-btn" href="https://www.linkedin.com/in/chilukuri-rohan-sashank-reddy-undefined-aa169336a" target="_blank">LinkedIn</a></div>
-<div class="card"><img class="team-img" src="mokshagna.jpeg"><b>Mokshagna</b><br>(Electronics and Flight Control)<br><a class="linkedin-btn" href="https://www.linkedin.com/in/mokshagna-baineni-54bb1a37a" target="_blank">LinkedIn</a></div>
-<div class="card"><img class="team-img" src="rukesh.jpeg"><b>Rukesh</b><br>(Coadjutor)<br><a class="linkedin-btn" href="https://www.linkedin.com/in/rukeshkasturi" target="_blank">LinkedIn</a></div>
-<div class="card"><img class="team-img" src="abhinav.jpeg"><b>Abhinav</b><br>(Public Relations (PR))<br><a class="linkedin-btn" href="https://www.linkedin.com/in/abhinav-varma-mudunuri-816b0a378" target="_blank">LinkedIn</a></div>
+<div class="grid" style="text-align:center;">
+<div class="card"><img class="team-img" src="aman.jpeg"><br><b>Madasu Aman Siddharth</b><br><span style="font-size:14px; color:#aaa;">(Team Lead – Design, Fabrication & Simulation)</span><br><a class="linkedin-btn" href="https://www.linkedin.com/in/aman-siddharth-madasu-4b6908402" target="_blank">LinkedIn</a></div>
+<div class="card"><img class="team-img" src="rohan.jpeg"><br><b>Rohan</b><br><span style="font-size:14px; color:#aaa;">(Electrical and Control Systems)</span><br><a class="linkedin-btn" href="https://www.linkedin.com/in/chilukuri-rohan-sashank-reddy-undefined-aa169336a" target="_blank">LinkedIn</a></div>
+<div class="card"><img class="team-img" src="mokshagna.jpeg"><br><b>Mokshagna</b><br><span style="font-size:14px; color:#aaa;">(Electronics and Flight Control)</span><br><a class="linkedin-btn" href="https://www.linkedin.com/in/mokshagna-baineni-54bb1a37a" target="_blank">LinkedIn</a></div>
+<div class="card"><img class="team-img" src="rukesh.jpeg"><br><b>Rukesh</b><br><span style="font-size:14px; color:#aaa;">(Coadjutor)</span><br><a class="linkedin-btn" href="https://www.linkedin.com/in/rukeshkasturi" target="_blank">LinkedIn</a></div>
+<div class="card"><img class="team-img" src="abhinav.jpeg"><br><b>Abhinav</b><br><span style="font-size:14px; color:#aaa;">(Public Relations (PR))</span><br><a class="linkedin-btn" href="https://www.linkedin.com/in/abhinav-varma-mudunuri-816b0a378" target="_blank">LinkedIn</a></div>
 </div>
 </section>
 
@@ -339,10 +306,6 @@ function toggleCatalog(){
     el.style.display = 'block';
     el.scrollIntoView({ behavior: 'smooth' });
   } else {
-    el.style.display = 'none';
-  }
-}
-} else {
     el.style.display = 'none';
   }
 }
