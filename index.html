@@ -256,35 +256,37 @@ body::after{
 </div>
 
 <script>
-const sections=document.querySelectorAll('.section');
-window.addEventListener('scroll',()=>{
-sections.forEach(sec=>{
-if(sec.getBoundingClientRect().top<window.innerHeight-100){sec.classList.add('show');}
-});});
+// scroll reveal
+const sections = document.querySelectorAll('.section');
+window.addEventListener('scroll', () => {
+  sections.forEach(sec => {
+    if (sec.getBoundingClientRect().top < window.innerHeight - 100) {
+      sec.classList.add('show');
+    }
+  });
+});
 
+// project toggle (FIXED)
 function toggleCatalog(){
   const el = document.getElementById('projectContent');
-  if(el.style.display === 'none' || el.style.display === ''){
+  if (el.style.display === 'none' || el.style.display === ''){
     el.style.display = 'block';
   } else {
     el.style.display = 'none';
   }
-}else{
-   el.style.display='none';
- }
-}else{
-   el.style.display='none';
- }
 }
-// splash removal (keep in sync with animation)
-setTimeout(()=>{
-  const splash=document.getElementById('splash');
-  const strips=document.getElementById('neonStrips');
 
-  if(splash) splash.style.display='none';
+// splash + strips (SAFE & GUARANTEED)
+function runIntro(){
+  const splash = document.getElementById('splash');
+  const strips = document.getElementById('neonStrips');
 
-  if(strips){
-    strips.style.display='block';
+  // hide splash
+  if (splash) splash.style.display = 'none';
+
+  // play strips
+  if (strips){
+    strips.style.display = 'block';
 
     const stripElems = document.querySelectorAll('.strip');
     stripElems.forEach((s, i) => {
@@ -293,11 +295,18 @@ setTimeout(()=>{
     });
 
     setTimeout(()=>{
-      strips.style.display='none';
+      strips.style.display = 'none';
     },1500);
   }
+}
 
-},7000);
+// ensure it NEVER gets stuck
+window.addEventListener('load', () => {
+  setTimeout(runIntro, 4000); // reduced time for reliability
+});
+
+// fallback (if load fails)
+setTimeout(runIntro, 5000);
 </script>
 
 </body>
