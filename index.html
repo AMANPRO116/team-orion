@@ -16,7 +16,6 @@ body{
   font-family:'Inter',sans-serif;
   color:var(--text);
   background:black;
-  overflow-x:hidden;
 }
 
 /* STAR BACKGROUND */
@@ -47,51 +46,22 @@ body::after{
   opacity:0.2;
   z-index:-1;
 }
-@keyframes twinkle{
-  0%{opacity:0.1}
-  50%{opacity:0.3}
-  100%{opacity:0.15}
-}
 
 /* SPLASH */
 #splash{
   position:fixed;
-  top:0;left:0;
-  width:100%;height:100%;
+  width:100%;
+  height:100%;
   background:black;
   display:flex;
-  align-items:center;
   justify-content:center;
+  align-items:center;
   z-index:20000;
   pointer-events:none;
   animation:fadeOut 2s ease 3s forwards;
 }
-#splash img{max-width:60%;}
-
 @keyframes fadeOut{
   to{opacity:0; visibility:hidden;}
-}
-
-/* NEON STRIPS */
-#neonStrips{
-  position:fixed;
-  width:100%;
-  height:100%;
-  display:none;
-  z-index:15000;
-  pointer-events:none;
-}
-.strip{
-  position:absolute;
-  width:250%;
-  height:6px;
-  background:linear-gradient(90deg, transparent, #00ff88, #00ff88, transparent);
-  filter:blur(10px);
-  transform:rotate(45deg);
-}
-@keyframes stripMove{
-  from{transform:translate(-120%,-120%) rotate(45deg);opacity:1}
-  to{transform:translate(120%,120%) rotate(45deg);opacity:0}
 }
 
 /* HERO */
@@ -103,28 +73,11 @@ body::after{
   align-items:center;
   text-align:center;
 }
-.hero h2{
-  font-size:60px;
-  text-shadow:0 0 20px #00ff88;
-}
-.hero p{color:#aaa}
 
-/* CONTENT */
 .section{padding:80px 40px; max-width:1100px; margin:auto;}
 .grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:20px;}
 .card{background:rgba(255,255,255,0.05); padding:20px; border-radius:12px;}
-.card img, video{width:100%; border-radius:10px; margin-top:10px;}
 
-/* MODEL */
-.model-container{
-  position:fixed;
-  bottom:20px;
-  right:20px;
-  width:180px;
-  height:180px;
-}
-
-/* TEAM */
 .team-img{width:100%; height:220px; object-fit:cover; border-radius:10px;}
 .linkedin-btn{
   display:inline-block;
@@ -141,18 +94,10 @@ body::after{
 
 <body>
 
-<!-- SPLASH -->
 <div id="splash">
-  <img src="team_orion_final.png">
+  <img src="team_orion_final.png" style="max-width:60%;">
 </div>
 
-<!-- NEON STRIPS -->
-<div id="neonStrips">
-  <div class="strip"></div>
-  <div class="strip"></div>
-</div>
-
-<!-- HERO -->
 <section class="hero">
 <h2>TEAM ORION</h2>
 <p>Next-generation stealth platform</p>
@@ -165,7 +110,6 @@ body::after{
 </div>
 </section>
 
-<!-- PROJECT -->
 <div id="projectContent" style="display:none;">
 
 <section class="section">
@@ -177,7 +121,7 @@ body::after{
 </section>
 
 <section class="section">
-<h2>Simulation</h2>
+<h2>Simulation Videos</h2>
 <div class="grid">
 <div class="card"><video autoplay muted loop src="simulation1.mp4"></video></div>
 <div class="card"><video autoplay muted loop src="simulation2.mp4"></video></div>
@@ -185,48 +129,94 @@ body::after{
 </section>
 
 <section class="section">
+<h2>Introduction</h2>
+<div class="card">
+<p>The F-35D UAV is an advanced unmanned aerial platform focused on stealth, efficiency, and adaptability.</p>
+<ul>
+<li>Low observability</li>
+<li>High aerodynamic efficiency</li>
+<li>Autonomous capabilities</li>
+</ul>
+</div>
+</section>
+
+<section class="section">
+<h2>System Architecture</h2>
+<div class="card">
+<ul>
+<li>Dual EDF propulsion</li>
+<li>IMU-based flight control</li>
+<li>Sensor integration</li>
+<li>Communication module</li>
+</ul>
+</div>
+</section>
+
+<section class="section">
+<h2>Safety System (CAASS)</h2>
+<div class="card">
+<ul>
+<li>Thrust monitoring</li>
+<li>Tilt validation</li>
+<li>IMU tracking</li>
+<li>Power monitoring</li>
+</ul>
+</div>
+</section>
+
+<section class="section">
 <h2>Team</h2>
 <div class="grid">
-<div class="card"><img class="team-img" src="aman.jpeg"><b>Aman</b></div>
-<div class="card"><img class="team-img" src="rohan.jpeg"><b>Rohan</b></div>
-<div class="card"><img class="team-img" src="mokshagna.jpeg"><b>Mokshagna</b></div>
-<div class="card"><img class="team-img" src="rukesh.jpeg"><b>Rukesh</b></div>
-<div class="card"><img class="team-img" src="abhinav.jpeg"><b>Abhinav</b></div>
+
+<div class="card">
+<img class="team-img" src="aman.jpeg">
+<b>Madasu Aman Siddharth</b><br>
+(Team Lead – Design, Fabrication & Simulation)<br>
+<a class="linkedin-btn" href="https://www.linkedin.com/in/aman-siddharth-madasu-4b6908402" target="_blank">LinkedIn</a>
+</div>
+
+<div class="card">
+<img class="team-img" src="rohan.jpeg">
+<b>Rohan</b><br>
+(Electrical and Control Systems)<br>
+<a class="linkedin-btn" href="https://www.linkedin.com/in/chilukuri-rohan-sashank-reddy-undefined-aa169336a" target="_blank">LinkedIn</a>
+</div>
+
+<div class="card">
+<img class="team-img" src="mokshagna.jpeg">
+<b>Mokshagna</b><br>
+(Electronics and Flight Control)<br>
+<a class="linkedin-btn" href="https://www.linkedin.com/in/mokshagna-baineni-54bb1a37a" target="_blank">LinkedIn</a>
+</div>
+
+<div class="card">
+<img class="team-img" src="rukesh.jpeg">
+<b>Rukesh</b><br>
+(Coadjutor)<br>
+<a class="linkedin-btn" href="https://www.linkedin.com/in/rukeshkasturi" target="_blank">LinkedIn</a>
+</div>
+
+<div class="card">
+<img class="team-img" src="abhinav.jpeg">
+<b>Abhinav</b><br>
+(Public Relations (PR))<br>
+<a class="linkedin-btn" href="https://www.linkedin.com/in/abhinav-varma-mudunuri-816b0a378" target="_blank">LinkedIn</a>
+</div>
+
 </div>
 </section>
 
 </div>
 
-<!-- MODEL -->
-<div class="model-container">
-<model-viewer src="plane.glb" auto-rotate camera-controls></model-viewer>
-</div>
-
 <script>
 function toggleCatalog(){
   const el = document.getElementById('projectContent');
-  if(el.style.display === 'none' || el.style.display === ''){
-    el.style.display = 'block';
-    el.scrollIntoView({behavior:'smooth'});
-  } else {
-    el.style.display = 'none';
-  }
+  el.style.display = (el.style.display === 'block') ? 'none' : 'block';
 }
 
-// intro (SAFE)
 setTimeout(()=>{
-  document.getElementById('splash').remove();
-
-  const strips = document.getElementById('neonStrips');
-  strips.style.display='block';
-
-  document.querySelectorAll('.strip').forEach((s,i)=>{
-    s.style.animation = 'stripMove 1.2s ease forwards';
-    s.style.animationDelay = (i*0.2)+'s';
-  });
-
-  setTimeout(()=> strips.style.display='none',1500);
-
+  const splash = document.getElementById('splash');
+  if(splash) splash.remove();
 },4000);
 </script>
 
