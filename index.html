@@ -36,22 +36,24 @@ body::before{
   to{transform:translate(-500px,-500px);}
 }
 
-/* shooting stars */
+/* twinkling stars */
 body::after{
   content:"";
   position:fixed;
-  width:2px;
-  height:80px;
-  background:linear-gradient(white, transparent);
-  top:-100px;
-  left:50%;
-  opacity:0.6;
-  animation:shooting 6s linear infinite;
+  width:100%;
+  height:100%;
+  background:radial-gradient(white 1px, transparent 1px);
+  background-size:80px 80px;
+  animation:twinkle 4s ease-in-out infinite alternate;
+  opacity:0.2;
   z-index:-1;
 }
 
-@keyframes shooting{
-  0%{transform:translate(0,0) rotate(45deg);opacity:0}
+@keyframes twinkle{
+  0%{opacity:0.1}
+  50%{opacity:0.3}
+  100%{opacity:0.15}
+}
   10%{opacity:1}
   100%{transform:translate(-800px,800px) rotate(45deg);opacity:0}
 }
@@ -152,11 +154,50 @@ header h1{font-size:18px;color:var(--accent)}
 <section class="section">
 <h2>Introduction</h2>
 <div class="card">
-<p>UAVs are critical in modern defense systems</p>
+<p>The F-35D UAV is an advanced unmanned aerial platform designed with a focus on stealth, efficiency, and mission adaptability. It integrates aerodynamic optimization with modern control systems.</p>
 <ul>
-<li>Low observability</li>
-<li>High aerodynamic efficiency</li>
-<li>Long endurance</li>
+<li>Low observability and radar cross-section reduction</li>
+<li>High aerodynamic efficiency for extended missions</li>
+<li>Autonomous and semi-autonomous capabilities</li>
+<li>Optimized for surveillance and reconnaissance</li>
+</ul>
+</div>
+</section>
+
+<section class="section">
+<h2>System Architecture</h2>
+<div class="card">
+<ul>
+<li>Dual EDF propulsion system</li>
+<li>Flight controller with IMU-based stabilization</li>
+<li>Sensor integration for environment awareness</li>
+<li>Communication module for remote operation</li>
+</ul>
+</div>
+</section>
+
+<section class="section">
+<h2>Safety System (CAASS)</h2>
+<div class="card">
+<p>Control Authority Aware Safety System continuously monitors system performance and ensures stable flight.</p>
+<ul>
+<li>Thrust effectiveness monitoring</li>
+<li>Tilt response validation</li>
+<li>IMU-based motion tracking</li>
+<li>Power system health check</li>
+<li>Communication integrity</li>
+</ul>
+</div>
+</section>
+
+<section class="section">
+<h2>Emergency System</h2>
+<div class="card">
+<p>The aircraft features a detachable front module designed for critical failure scenarios.</p>
+<ul>
+<li>Front EDF module detaches during rear failure</li>
+<li>Data preservation during hostile threats</li>
+<li>Improves survivability of mission data</li>
 </ul>
 </div>
 </section>
