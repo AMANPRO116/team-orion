@@ -14,8 +14,9 @@
 
 body{
   font-family:'Inter',sans-serif;
-  color:var(--text);
   background:black;
+  color:var(--text);
+  overflow-x:hidden;
 }
 
 /* STAR BACKGROUND */
@@ -60,9 +61,8 @@ body::after{
   pointer-events:none;
   animation:fadeOut 2s ease 3s forwards;
 }
-@keyframes fadeOut{
-  to{opacity:0; visibility:hidden;}
-}
+#splash img{max-width:60%;}
+@keyframes fadeOut{to{opacity:0; visibility:hidden;}}
 
 /* HERO */
 .hero{
@@ -73,12 +73,61 @@ body::after{
   align-items:center;
   text-align:center;
 }
+.hero h2{
+  font-size:60px;
+  text-shadow:0 0 20px #00ff88;
+}
+.hero p{color:#aaa}
 
-.section{padding:80px 40px; max-width:1100px; margin:auto;}
-.grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:20px;}
-.card{background:rgba(255,255,255,0.05); padding:20px; border-radius:12px;}
+/* SECTIONS */
+.section{
+  padding:100px 20px;
+  max-width:1200px;
+  margin:auto;
+}
+.section h2{
+  font-size:28px;
+  margin-bottom:25px;
+}
 
-.team-img{width:100%; height:220px; object-fit:cover; border-radius:10px;}
+/* GRID */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:24px;
+}
+
+/* CARD */
+.card{
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:16px;
+  padding:20px;
+  backdrop-filter:blur(10px);
+  transition:0.3s;
+}
+.card:hover{
+  transform:translateY(-5px);
+  box-shadow:0 10px 30px rgba(0,255,136,0.15);
+}
+
+/* MEDIA */
+.card img,
+.card video{
+  width:100%;
+  height:260px;
+  object-fit:cover;
+  border-radius:12px;
+  margin-top:12px;
+}
+
+/* TEAM */
+.team-img{
+  width:100%;
+  height:220px;
+  object-fit:cover;
+  border-radius:12px;
+}
 .linkedin-btn{
   display:inline-block;
   margin-top:8px;
@@ -89,15 +138,26 @@ body::after{
   font-size:12px;
   text-decoration:none;
 }
+
+/* MODEL */
+.model-container{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  width:180px;
+  height:180px;
+}
 </style>
 </head>
 
 <body>
 
+<!-- SPLASH -->
 <div id="splash">
-  <img src="team_orion_final.png" style="max-width:60%;">
+  <img src="team_orion_final.png">
 </div>
 
+<!-- HERO -->
 <section class="hero">
 <h2>TEAM ORION</h2>
 <p>Next-generation stealth platform</p>
@@ -110,56 +170,33 @@ body::after{
 </div>
 </section>
 
+<!-- PROJECT CONTENT -->
 <div id="projectContent" style="display:none;">
 
 <section class="section">
 <h2>Project Overview</h2>
-<div class="card">
-<img src="F35_render1.png">
-<img src="F35_top_view.png">
+<div class="grid">
+<div class="card"><h3>Main Render</h3><img src="F35_render1.png"></div>
+<div class="card"><h3>Top View</h3><img src="F35_top_view.png"></div>
 </div>
 </section>
 
 <section class="section">
 <h2>Simulation Videos</h2>
 <div class="grid">
-<div class="card"><video autoplay muted loop src="simulation1.mp4"></video></div>
-<div class="card"><video autoplay muted loop src="simulation2.mp4"></video></div>
+<div class="card"><h3>Flow Simulation</h3><video autoplay muted loop src="simulation1.mp4"></video></div>
+<div class="card"><h3>Pressure Analysis</h3><video autoplay muted loop src="simulation2.mp4"></video></div>
 </div>
 </section>
 
 <section class="section">
 <h2>Introduction</h2>
 <div class="card">
-<p>The F-35D UAV is an advanced unmanned aerial platform focused on stealth, efficiency, and adaptability.</p>
+<p><b>Objective:</b> Design a stealth UAV inspired by fighter aircraft.</p>
 <ul>
 <li>Low observability</li>
 <li>High aerodynamic efficiency</li>
-<li>Autonomous capabilities</li>
-</ul>
-</div>
-</section>
-
-<section class="section">
-<h2>System Architecture</h2>
-<div class="card">
-<ul>
-<li>Dual EDF propulsion</li>
-<li>IMU-based flight control</li>
-<li>Sensor integration</li>
-<li>Communication module</li>
-</ul>
-</div>
-</section>
-
-<section class="section">
-<h2>Safety System (CAASS)</h2>
-<div class="card">
-<ul>
-<li>Thrust monitoring</li>
-<li>Tilt validation</li>
-<li>IMU tracking</li>
-<li>Power monitoring</li>
+<li>Autonomous capability</li>
 </ul>
 </div>
 </section>
@@ -206,6 +243,11 @@ body::after{
 </div>
 </section>
 
+</div>
+
+<!-- MODEL -->
+<div class="model-container">
+<model-viewer src="plane.glb" auto-rotate camera-controls></model-viewer>
 </div>
 
 <script>
