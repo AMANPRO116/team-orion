@@ -8,145 +8,30 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
-:root{
-  --bg:#050505;
-  --text:#ffffff;
-  --accent:#00ff88;
-}
-
+:root{--bg:#050505;--text:#fff;--accent:#00ff88}
 *{margin:0;padding:0;box-sizing:border-box}
-body{
-  font-family:'Inter',sans-serif;
-  background:var(--bg);
-  color:var(--text);
-  overflow-x:hidden;
-}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
 
-/* NAVBAR */
-header{
-  position:fixed;
-  top:0;
-  width:100%;
-  padding:20px 40px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  backdrop-filter: blur(20px);
-  background:rgba(0,0,0,0.4);
-  z-index:1000;
-}
+header{position:fixed;top:0;width:100%;padding:20px 40px;display:flex;justify-content:space-between;backdrop-filter:blur(20px);background:rgba(0,0,0,0.4);z-index:1000}
+header h1{font-size:18px;color:var(--accent)}
+.nav a{margin-left:20px;color:#aaa;text-decoration:none}
+.nav a:hover{color:#fff}
 
-header h1{
-  font-size:18px;
-  letter-spacing:2px;
-  color:var(--accent);
-}
+.hero{height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+.hero h2{font-size:60px}
+.hero p{color:#aaa}
 
-.nav a{
-  margin-left:20px;
-  text-decoration:none;
-  color:#aaa;
-  transition:0.3s;
-}
-.nav a:hover{color:white}
+.section{padding:100px 40px;max-width:1200px;margin:auto;opacity:0;transform:translateY(40px);transition:1s}
+.section.show{opacity:1;transform:translateY(0)}
 
-/* HERO */
-.hero{
-  height:100vh;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
+.card{background:rgba(255,255,255,0.05);padding:20px;border-radius:12px}
+.card img, .card video{width:100%;border-radius:10px;margin-top:10px}
 
-.hero h2{
-  font-size:60px;
-  font-weight:700;
-}
+.team-img{width:100%;height:220px;object-fit:cover;border-radius:10px}
+.linkedin-btn{display:inline-block;margin-top:8px;padding:6px 12px;border-radius:20px;background:var(--accent);color:#000;font-size:12px;text-decoration:none}
 
-.hero p{
-  margin-top:10px;
-  color:#aaa;
-}
-
-/* SCROLL EFFECT */
-.section{
-  padding:120px 40px;
-  max-width:1200px;
-  margin:auto;
-  opacity:0;
-  transform:translateY(40px);
-  transition:1s;
-}
-
-.section.show{
-  opacity:1;
-  transform:translateY(0);
-}
-
-/* CARDS */
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:20px;
-}
-
-.card{
-  background:rgba(255,255,255,0.03);
-  border-radius:16px;
-  padding:20px;
-  transition:0.4s;
-}
-
-.card:hover{
-  transform:scale(1.03);
-  background:rgba(255,255,255,0.08);
-}
-
-/* TEAM */
-.team-img{
-  width:100%;
-  height:220px;
-  object-fit:cover;
-  border-radius:12px;
-}
-
-.linkedin-btn{
-  display:inline-block;
-  margin-top:8px;
-  padding:6px 12px;
-  border-radius:20px;
-  background:var(--accent);
-  color:#000;
-  font-size:12px;
-  text-decoration:none;
-}
-
-/* MODEL */
-.model-container{
-  position:fixed;
-  bottom:20px;
-  right:20px;
-  width:180px;
-  height:180px;
-}
-
-/* BACK BTN */
-.back{
-  position:fixed;
-  top:80px;
-  left:20px;
-  padding:10px;
-  background:var(--accent);
-  color:black;
-  border:none;
-  border-radius:8px;
-  display:none;
-}
-
-.hidden{display:none}
-
+.model-container{position:fixed;bottom:20px;right:20px;width:180px;height:180px}
 </style>
 </head>
 
@@ -166,15 +51,67 @@ header h1{
 <p>Next-generation stealth platform</p>
 </section>
 
-<section class="section" id="project">
+<section class="section">
 <h2>Project Overview</h2>
-<p>Inspired by modern fighter jet aerodynamics and stealth design principles.</p>
+<div class="card">
+<img src="F35_render1.png">
+<img src="F35_top_view.png">
+</div>
+</section>
+
+<section class="section">
+<h2>Simulation Videos</h2>
+<div class="grid">
+<div class="card"><video autoplay muted loop><source src="simulation1.mp4"></video></div>
+<div class="card"><video autoplay muted loop><source src="simulation2.mp4"></video></div>
+</div>
+</section>
+
+<section class="section">
+<h2>Introduction</h2>
+<div class="card">
+<p>UAVs are critical in modern defense systems</p>
+<ul>
+<li>Low observability</li>
+<li>High aerodynamic efficiency</li>
+<li>Long endurance</li>
+</ul>
+</div>
+</section>
+
+<section class="section">
+<h2>Design Inspiration</h2>
+<div class="card">
+<ul>
+<li>Edge alignment</li>
+<li>Blended wing-body</li>
+<li>Reduced vertical surfaces</li>
+</ul>
+</div>
+</section>
+
+<section class="section">
+<h2>Theoretical Calculations</h2>
+<div class="card">
+<p>Lift: 220.5 N</p>
+<p>Drag: 13.78 N</p>
+<p>L/D: 16</p>
+</div>
+</section>
+
+<section class="section">
+<h2>Progress</h2>
+<div class="grid">
+<div class="card"><a href="https://www.instagram.com/reel/DQuQb1KEk-A/" target="_blank">Part 1</a></div>
+<div class="card"><a href="https://www.instagram.com/reel/DQztDomE3H0/" target="_blank">Part 2</a></div>
+<div class="card"><a href="https://www.instagram.com/reel/DQ7DV5CkrLg/" target="_blank">Part 3</a></div>
+</div>
 </section>
 
 <section class="section">
 <h2>Team</h2>
 <div class="grid">
-<div class="card"><img class="team-img" src="aman.jpeg"><b>Aman</b><br><a class="linkedin-btn" href="#">LinkedIn</a></div>
+<div class="card"><img class="team-img" src="aman.jpeg"><b>Aman</b><br><a class="linkedin-btn" href="https://www.linkedin.com/in/aman-siddharth-madasu-4b6908402">LinkedIn</a></div>
 <div class="card"><img class="team-img" src="rohan.jpeg"><b>Rohan</b></div>
 <div class="card"><img class="team-img" src="mokshagna.jpeg"><b>Mokshagna</b></div>
 <div class="card"><img class="team-img" src="rukesh.jpeg"><b>Rukesh</b></div>
@@ -187,18 +124,11 @@ header h1{
 </div>
 
 <script>
-
-// scroll animation
-const sections = document.querySelectorAll('.section');
-window.addEventListener('scroll', () => {
-  sections.forEach(sec => {
-    const top = sec.getBoundingClientRect().top;
-    if(top < window.innerHeight - 100){
-      sec.classList.add('show');
-    }
-  });
-});
-
+const sections=document.querySelectorAll('.section');
+window.addEventListener('scroll',()=>{
+sections.forEach(sec=>{
+if(sec.getBoundingClientRect().top<window.innerHeight-100){sec.classList.add('show');}
+});});
 </script>
 
 </body>
