@@ -5,434 +5,200 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TEAM ORION</title>
 <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
 <style>
-body {
-  margin:0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color:#d4ffd4;
-  transition:0.3s;
+:root{
+  --bg:#050505;
+  --text:#ffffff;
+  --accent:#00ff88;
+}
 
-  /* RADAR MAP BACKGROUND */
-  background:
-    radial-gradient(circle at center, rgba(0,255,0,0.12) 0%, transparent 60%),
-    repeating-radial-gradient(circle at center,
-      rgba(0,255,0,0.06) 0px,
-      rgba(0,255,0,0.06) 2px,
-      transparent 2px,
-      transparent 60px
-    ),
-    #000;
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:'Inter',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  overflow-x:hidden;
 }
-body.light { background:#f5f5f5; color:#111; }
-header {
-  text-align:center;
-  padding:20px;
-  background: rgba(0, 26, 0, 0.7);
-  backdrop-filter: blur(10px);
-  border-bottom:1px solid rgba(0,255,0,0.3);
+
+/* NAVBAR */
+header{
+  position:fixed;
+  top:0;
+  width:100%;
+  padding:20px 40px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  backdrop-filter: blur(20px);
+  background:rgba(0,0,0,0.4);
+  z-index:1000;
 }
-body.light header { background:#ddd; border-color:#333; }
-h1 {
-  color:#00ff00;
+
+header h1{
+  font-size:18px;
   letter-spacing:2px;
-  text-shadow:0 0 8px #00ff00, 0 0 20px rgba(0,255,0,0.5);
+  color:var(--accent);
 }
-.catalog { padding:40px; }
-.project-box {
-  position:relative;
-  background: rgba(0, 26, 0, 0.7);
-  border:1px solid rgba(0,255,0,0.5);
-  padding:30px;
-  border-radius:15px;
-  cursor:pointer;
+
+.nav a{
+  margin-left:20px;
+  text-decoration:none;
+  color:#aaa;
+  transition:0.3s;
+}
+.nav a:hover{color:white}
+
+/* HERO */
+.hero{
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
   text-align:center;
-  box-shadow:0 0 25px rgba(0,255,0,0.25);
-  transition:0.3s;
-  overflow:hidden;
-}
-.project-box:hover {
-  transform:scale(1.04);
-  box-shadow:0 0 35px rgba(0,255,0,0.4);
-}
-.project-box video { position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; opacity:0.3; }
-.project-box h2, .project-box p { position:relative; z-index:1; }
-.project-box:hover { transform:scale(1.05); }
-.hidden { display:none; }
-
-/* transitions */
-.fade-in {
-  animation: fadeIn 1s ease forwards;
 }
 
-@keyframes fadeIn {
-  from { opacity:0; transform:translateY(20px); }
-  to { opacity:1; transform:translateY(0); }
+.hero h2{
+  font-size:60px;
+  font-weight:700;
 }
 
-.slide-open {
-  animation: slideOpen 0.8s ease forwards;
+.hero p{
+  margin-top:10px;
+  color:#aaa;
 }
 
-@keyframes slideOpen {
-  from { opacity:0; transform:scale(0.95); }
-  to { opacity:1; transform:scale(1); }
+/* SCROLL EFFECT */
+.section{
+  padding:120px 40px;
+  max-width:1200px;
+  margin:auto;
+  opacity:0;
+  transform:translateY(40px);
+  transition:1s;
 }
-section { padding:40px; border-top:1px solid #003300; }
-.card {
-  background: rgba(0, 26, 0, 0.75);
-  backdrop-filter: blur(10px);
+
+.section.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* CARDS */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:20px;
+}
+
+.card{
+  background:rgba(255,255,255,0.03);
+  border-radius:16px;
   padding:20px;
-  border-radius:12px;
-  border:1px solid rgba(0,255,0,0.4);
-  margin:10px 0;
-  box-shadow: 0 0 20px rgba(0,255,0,0.15);
-  transition:0.3s;
+  transition:0.4s;
 }
+
 .card:hover{
-  transform: translateY(-5px) scale(1.01);
-  box-shadow: 0 0 25px rgba(0,255,0,0.3);
+  transform:scale(1.03);
+  background:rgba(255,255,255,0.08);
 }
-body.light .card { background:#fff; border:1px solid #333; }
-.grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(250px,1fr)); gap:20px; }
-.team-img{ width:100%; height:220px; object-fit:cover; border-radius:10px; margin-bottom:10px; border:1px solid #00ff00; }
-img, video { width:100%; border-radius:10px; border:1px solid #00ff00; margin-top:10px; }
-a { color:#00ff00; }
+
+/* TEAM */
+.team-img{
+  width:100%;
+  height:220px;
+  object-fit:cover;
+  border-radius:12px;
+}
 
 .linkedin-btn{
-  display:inline-flex;
-  align-items:center;
-  gap:5px;
+  display:inline-block;
   margin-top:8px;
   padding:6px 12px;
-  background:linear-gradient(90deg,#00ff00,#00cc00);
+  border-radius:20px;
+  background:var(--accent);
   color:#000;
   font-size:12px;
-  border-radius:20px;
   text-decoration:none;
-  font-weight:bold;
-  transition:0.3s;
-}
-.linkedin-btn:hover{
-  transform:scale(1.1);
-  box-shadow:0 0 10px #00ff00;
-}
-.linkedin-btn:hover{
-  background:#00cc00;
 }
 
-/* 3D model */
-.model-container {
+/* MODEL */
+.model-container{
   position:fixed;
-  right:20px;
   bottom:20px;
-  width:200px;
-  height:200px;
-  cursor:pointer;
-  z-index:9998; /* slightly below buttons */
-}
-model-viewer {
-  width:100%;
-  height:100%;
-  pointer-events:auto; /* ensure interaction */
-}
-model-viewer {
-  width:100%;
-  height:100%;
-}
-
-/* settings panel */
-.settings {
-  position:fixed;
   right:20px;
-  bottom:240px;
-  background:#001a00;
-  border:2px solid #00ff00;
-  padding:15px;
-  border-radius:10px;
-  display:none;
-  z-index:10000; /* FIX: always above content */
+  width:180px;
+  height:180px;
 }
-.settings button {
-  display:block;
-  margin:10px 0;
+
+/* BACK BTN */
+.back{
+  position:fixed;
+  top:80px;
+  left:20px;
   padding:10px;
-  background:#00ff00;
+  background:var(--accent);
+  color:black;
   border:none;
-  cursor:pointer;
+  border-radius:8px;
+  display:none;
 }
 
-
-/* HUD overlay */
-.hud {
-  position:fixed; inset:0; pointer-events:none;
-  background: repeating-linear-gradient(0deg, rgba(0,255,0,0.05) 0px, rgba(0,255,0,0.05) 1px, transparent 2px, transparent 4px);
-}
-.scanline {
-  position:fixed; left:0; right:0; height:2px; background:#00ff00; opacity:0.4; animation: scan 4s linear infinite;
-  pointer-events:none; /* FIX: allow clicks through */
-}
-@keyframes scan { 0%{top:0} 100%{top:100%} }
-
-/* loader */
-.loader { position:fixed; inset:0; background:#000; display:flex; align-items:center; justify-content:center; flex-direction:column; color:#00ff00; z-index:9999; }
-.loader.hidden{ display:none; }
-.typing { border-right:2px solid #00ff00; white-space:nowrap; overflow:hidden; animation: typing 2.5s steps(30,end), blink .7s infinite; }
-@keyframes typing { from{ width:0 } to{ width:260px } }
-@keyframes blink { 50%{ border-color:transparent } }
-
-/* back button */
-.back { position:fixed; top:20px; left:20px; padding:10px 14px; border:1px solid #00ff00; background:#001a00; color:#00ff00; cursor:pointer; display:none; z-index:10000; /* FIX: always on top */ }
-
-/* status bar */
-.status { position:fixed; bottom:0; left:0; right:0; background:#001a00; border-top:1px solid #00ff00; padding:6px 10px; font-size:12px; display:flex; justify-content:space-between; }
-
-
-
-
-  to { transform:rotate(360deg); }
-}
+.hidden{display:none}
 
 </style>
 </head>
+
 <body>
-<div class="loader" id="loader">
-  <div class="typing">INITIALIZING SYSTEM...</div>
-  <p>Loading TEAM ORION Interface</p>
-</div>
-<div class="hud"></div>
-<div class="scanline"></div>
-
-
-
-<!-- sounds -->
-<audio id="clickSound" src="click.mp3"></audio>
-<audio id="bootSound" src="boot.mp3"></audio>
-<button class="back" id="backBtn" onclick="goBack()">← BACK</button>
 
 <header>
 <h1>TEAM ORION</h1>
-<p id="statusText">SYSTEM READY</p>
+<div class="nav">
+<a href="#">Home</a>
+<a href="#">Project</a>
+<a href="#">Team</a>
+</div>
 </header>
 
-<div class="catalog">
-  <div class="project-box" onclick="openProject()">
-    <video id="bgVideo" muted loop>
-      <source src="background.mp4" type="video/mp4">
-    </video>
-    <h2>F-35D Stealth UAV</h2>
-    <p>Click to view full project</p>
-  </div>
-</div>
+<section class="hero">
+<h2>F-35D UAV</h2>
+<p>Next-generation stealth platform</p>
+</section>
 
-<!-- 3D MODEL -->
-<div class="model-container">
-  <model-viewer id="planeModel" src="plane.glb" auto-rotate camera-controls rotation-per-second="30deg"></model-viewer>
-  <!-- settings toggle button -->
-  <button onclick="toggleSettings()" style="position:absolute; top:5px; right:5px; z-index:3; background:#00ff00; border:none; padding:5px; cursor:pointer;">⚙️</button>
-</div>
-
-<!-- SETTINGS -->
-<div class="settings" id="settingsPanel">
-  <button onclick="toggleTheme()">Toggle Light Theme</button>
-  <button onclick="toggleRotation()">Toggle Rotation</button>
-  <button onclick="speedUp()">Increase Rotation Speed</button>
-  <button onclick="speedDown()">Decrease Rotation Speed</button>
-</div>
-
-<div id="projectContent" class="hidden">
-
-<section>
+<section class="section" id="project">
 <h2>Project Overview</h2>
-<div class="card">
-<img src="F35_render1.png">
-<img src="F35_top_view.png">
-</div>
+<p>Inspired by modern fighter jet aerodynamics and stealth design principles.</p>
 </section>
 
-<section>
-<h2>Simulation Videos</h2>
-<div class="grid">
-<div class="card"><video autoplay muted loop><source src="simulation1.mp4"></video></div>
-<div class="card"><video autoplay muted loop><source src="simulation2.mp4"></video></div>
-</div>
-</section>
-
-<section>
-<h2>Introduction</h2>
-<div class="card">
-<p>UAVs are critical in modern defense systems</p>
-<p>Key requirements:</p>
-<ul>
-<li>Low observability</li>
-<li>High aerodynamic efficiency</li>
-<li>Long endurance</li>
-</ul>
-<p>This work focuses on a stealth UAV platform inspired by advanced fighter aerodynamics</p>
-</div>
-</section>
-
-<section>
-<h2>Design Inspiration</h2>
-<div class="card">
-<p>Inspired by F-35 Lightning II</p>
-<ul>
-<li>Edge alignment</li>
-<li>Blended wing-body (BWB)</li>
-<li>Reduced vertical surfaces</li>
-<li>Adapted for subsonic UAV operation</li>
-</ul>
-</div>
-</section>
-
-<section>
-<h2>Objectives</h2>
-<div class="card">
-<ul>
-<li>Design a stealth-inspired UAV</li>
-<li>Reach sub-sonic speeds</li>
-<li>Cargo, surveillance & emergency medical applications</li>
-</ul>
-</div>
-</section>
-
-<section>
-<h2>Theoretical Calculations</h2>
-<div class="card">
-<p><b>Lift:</b> 220.5 N</p>
-<p><b>Drag:</b> 13.78 N</p>
-<p><b>L/D Ratio:</b> 16</p>
-<p><b>Reynolds Number:</b> 1.02 × 10^6</p>
-</div>
-</section>
-
-<section>
-<h2>Progress (Instagram)</h2>
-<div class="grid">
-<div class="card"><a href="https://www.instagram.com/reel/DQuQb1KEk-A/" target="_blank">Part 1</a></div>
-<div class="card"><a href="https://www.instagram.com/reel/DQztDomE3H0/" target="_blank">Part 2</a></div>
-<div class="card"><a href="https://www.instagram.com/reel/DQ7DV5CkrLg/" target="_blank">Part 3</a></div>
-<div class="card"><a href="https://www.instagram.com/reel/DRFg02_kmwo/" target="_blank">Part 4</a></div>
-<div class="card"><a href="https://www.instagram.com/reel/DRU6Qc6Esit/" target="_blank">Part 5</a></div>
-<div class="card"><a href="https://www.instagram.com/reel/DT79YQFgSec/" target="_blank">Part 6</a></div>
-<div class="card"><a href="https://www.instagram.com/reel/DXCmHrNkyyx/" target="_blank">Part 7</a></div>
-</div>
-</section>
-
-<section>
+<section class="section">
 <h2>Team</h2>
 <div class="grid">
-<div class="card">
-<img class="team-img" src="aman.jpeg">
-<b>Madasu Aman Siddharth</b><br>(Team Lead – Design, Fabrication & Simulation)<br><a class="linkedin-btn" href="https://www.linkedin.com/in/aman-siddharth-madasu-4b6908402" target="_blank">LinkedIn</a>
-</div>
-<div class="card">
-<img class="team-img" src="rohan.jpeg">
-<b>Rohan</b><br>(Electrical and Control Systems)<br><a class="linkedin-btn" href="https://www.linkedin.com/in/chilukuri-rohan-sashank-reddy-undefined-aa169336a" target="_blank">LinkedIn</a>
-</div>
-<div class="card">
-<img class="team-img" src="mokshagna.jpeg">
-<b>Mokshagna</b><br>(Electronics and Flight Control)<br><a class="linkedin-btn" href="https://www.linkedin.com/in/mokshagna-baineni-54bb1a37a" target="_blank">LinkedIn</a>
-</div>
-<div class="card">
-<img class="team-img" src="rukesh.jpeg">
-<b>Rukesh</b><br>(Coadjutor)<br><a class="linkedin-btn" href="https://www.linkedin.com/in/rukeshkasturi" target="_blank">LinkedIn</a>
-</div>
-<div class="card">
-<img class="team-img" src="abhinav.jpeg">
-<b>Abhinav</b><br>(Public Relations (PR))<br><a class="linkedin-btn" href="https://www.linkedin.com/in/abhinav-varma-mudunuri-816b0a378" target="_blank">LinkedIn</a>
-</div>
+<div class="card"><img class="team-img" src="aman.jpeg"><b>Aman</b><br><a class="linkedin-btn" href="#">LinkedIn</a></div>
+<div class="card"><img class="team-img" src="rohan.jpeg"><b>Rohan</b></div>
+<div class="card"><img class="team-img" src="mokshagna.jpeg"><b>Mokshagna</b></div>
+<div class="card"><img class="team-img" src="rukesh.jpeg"><b>Rukesh</b></div>
+<div class="card"><img class="team-img" src="abhinav.jpeg"><b>Abhinav</b></div>
 </div>
 </section>
 
+<div class="model-container">
+<model-viewer src="plane.glb" auto-rotate camera-controls></model-viewer>
 </div>
 
 <script>
-// loader + auto boot sound
-window.onload = () => {
-  const boot = document.getElementById('bootSound');
 
-  // try autoplay (muted first to bypass browser restriction)
-  if (boot) {
-    boot.muted = true;
-    boot.play().then(() => {
-      boot.muted = false;
-    }).catch(()=>{});
-
-    // stop after 3 seconds
-    setTimeout(() => {
-      boot.pause();
-      boot.currentTime = 0;
-    }, 3000);
-  }
-
-  // hide loader
-  setTimeout(()=> {
-    document.getElementById('loader').classList.add('hidden');
-  }, 1500);
-};
-
-
-
-function goBack(){
-  document.getElementById('projectContent').classList.add('hidden');
-  document.getElementById('backBtn').style.display='none';
-  document.getElementById('statusText').innerText = 'SYSTEM READY';
-}
-
-function openProject() {
-  const content = document.getElementById("projectContent");
-  const back = document.getElementById("backBtn");
-
-  // safe click sound
-  const click = document.getElementById('clickSound');
-  if (click) click.play().catch(()=>{});
-
-  content.classList.remove("hidden");
-  back.style.display='block';
-
-  content.classList.add("slide-open");
-
-  document.querySelectorAll("section").forEach((sec, i) => {
-    sec.classList.remove('fade-in');
-    setTimeout(() => {
-      sec.classList.add("fade-in");
-    }, i * 120);
+// scroll animation
+const sections = document.querySelectorAll('.section');
+window.addEventListener('scroll', () => {
+  sections.forEach(sec => {
+    const top = sec.getBoundingClientRect().top;
+    if(top < window.innerHeight - 100){
+      sec.classList.add('show');
+    }
   });
+});
 
-  document.getElementById('statusText').innerText = 'MISSION DATA LOADED';
-
-  const vid = document.getElementById("bgVideo");
-  if (vid && vid.paused) vid.play().catch(()=>{});
-}
-
-function toggleSettings() {
-  const panel = document.getElementById("settingsPanel");
-  panel.style.display = panel.style.display === "block" ? "none" : "block";
-}
-
-function toggleTheme() {
-  document.body.classList.toggle("light");
-}
-
-function toggleRotation() {
-  const model = document.getElementById("planeModel");
-  if (model.hasAttribute("auto-rotate")) {
-    model.removeAttribute("auto-rotate");
-  } else {
-    model.setAttribute("auto-rotate", "");
-  }
-}
-
-let speed = 30;
-function speedUp() {
-  speed += 10;
-  document.getElementById("planeModel").setAttribute("rotation-per-second", speed + "deg");
-}
-
-function speedDown() {
-  speed = Math.max(10, speed - 10);
-  document.getElementById("planeModel").setAttribute("rotation-per-second", speed + "deg");
-}
 </script>
 
 </body>
