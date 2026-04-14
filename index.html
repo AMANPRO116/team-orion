@@ -55,7 +55,7 @@ header h1{font-size:18px;color:var(--accent)}
 </div>
 </section>
 
-<div id="projectContent" class="hidden">
+<div id="projectContent" class="hidden" style="display:none;">
 
 <section class="section">
 <h2>Project Overview</h2>
@@ -111,6 +111,10 @@ header h1{font-size:18px;color:var(--accent)}
 <div class="card"><a href="https://www.instagram.com/reel/DQuQb1KEk-A/" target="_blank">Part 1</a></div>
 <div class="card"><a href="https://www.instagram.com/reel/DQztDomE3H0/" target="_blank">Part 2</a></div>
 <div class="card"><a href="https://www.instagram.com/reel/DQ7DV5CkrLg/" target="_blank">Part 3</a></div>
+<div class="card"><a href="https://www.instagram.com/reel/DRFg02_kmwo/" target="_blank">Part 4</a></div>
+<div class="card"><a href="https://www.instagram.com/reel/DRU6Qc6Esit/" target="_blank">Part 5</a></div>
+<div class="card"><a href="https://www.instagram.com/reel/DT79YQFgSec/" target="_blank">Part 6</a></div>
+<div class="card"><a href="https://www.instagram.com/reel/DXCmHrNkyyx/" target="_blank">Part 7</a></div>
 </div>
 </section>
 
@@ -140,7 +144,11 @@ if(sec.getBoundingClientRect().top<window.innerHeight-100){sec.classList.add('sh
 
 function toggleCatalog(){
  const el=document.getElementById('projectContent');
- el.classList.toggle('hidden');
+ if(el.style.display==='none'){
+   el.style.display='block';
+ }else{
+   el.style.display='none';
+ }
 }
 </script>
 
