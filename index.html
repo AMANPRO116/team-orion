@@ -163,6 +163,42 @@ header h1{font-size:18px;color:var(--accent)}
   to{opacity:0; visibility:hidden}
 }
 
+/* neon strips */
+#neonStrips{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  pointer-events:none;
+  z-index:15000;
+  opacity:0;
+}
+
+.strip{
+  position:absolute;
+  width:200%;
+  height:4px;
+  background:linear-gradient(90deg, transparent, #00ff88, transparent);
+  filter:blur(6px);
+  transform:rotate(45deg);
+  animation:stripMove 1.5s ease forwards;
+}
+
+.strip:nth-child(2){
+  top:30%;
+  animation-delay:0.2s;
+}
+
+.strip:nth-child(1){
+  top:50%;
+}
+
+@keyframes stripMove{
+  from{transform:translate(-100%, -100%) rotate(45deg); opacity:1}
+  to{transform:translate(100%, 100%) rotate(45deg); opacity:0}
+}
+
 </style>
 </head>
 
@@ -171,6 +207,12 @@ header h1{font-size:18px;color:var(--accent)}
 <!-- SPLASH SCREEN -->
 <div id="splash">
   <img src="team_orion_final.png" alt="Orion">
+</div>
+
+<!-- NEON STRIPS -->
+<div id="neonStrips">
+  <div class="strip"></div>
+  <div class="strip"></div>
 </div>
 
 
@@ -325,7 +367,17 @@ function toggleCatalog(){
 // splash removal (keep in sync with animation)
 setTimeout(()=>{
   const splash=document.getElementById('splash');
+  const strips=document.getElementById('neonStrips');
+
   if(splash) splash.style.display='none';
+
+  if(strips){
+    strips.style.opacity='1';
+    setTimeout(()=>{
+      strips.style.opacity='0';
+    },1500);
+  }
+
 },7000);
 </script>
 
