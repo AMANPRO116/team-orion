@@ -3,89 +3,42 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TEAM ORION</title>
+<title>TEAM ORION - SIMULATION MODE</title>
 
 <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
-:root{--text:#fff;--accent:#00ff88}
+:root{--accent:#00ff88}
 *{margin:0;padding:0;box-sizing:border-box}
 
 body{
   font-family:'Inter',sans-serif;
   background:black;
-  color:var(--text);
-  overflow-x:hidden;
+  color:white;
+  overflow:hidden;
 }
 
-/* 🎥 background video */
+/* VIDEO */
 #bgVideo{
   position:fixed;
   width:100%;
   height:100%;
   object-fit:cover;
-  z-index:-2;
   opacity:0;
-  transition:opacity 1s ease;
+  z-index:-2;
+  transition:1s;
 }
 
-/* 🌌 stars */
-body::before{
-  content:"";
-  position:fixed;
-  width:200%;
-  height:200%;
-  background:radial-gradient(white 1px, transparent 1px);
-  background-size:50px 50px;
-  animation:starsMove 60s linear infinite;
-  opacity:0.15;
-  z-index:-1;
-}
-@keyframes starsMove{to{transform:translate(-500px,-500px);}}
-
-/* 🎬 splash */
-#splash{
-  position:fixed;
-  width:100%;
-  height:100%;
-  background:black;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  z-index:20000;
-}
-
-/* ⚡ neon */
-#neonStrips{
-  position:fixed;
-  width:100%;
-  height:100%;
-  display:none;
-  z-index:15000;
-}
-.strip{
-  position:absolute;
-  width:250%;
-  height:6px;
-  background:linear-gradient(90deg,transparent,#00ff88,#00ff88,transparent);
-  filter:blur(10px);
-  transform:rotate(45deg);
-}
-@keyframes stripMove{
-  from{transform:translate(-120%,-120%) rotate(45deg);}
-  to{transform:translate(120%,120%) rotate(45deg);}
-}
-
-/* 🎯 HUD */
+/* HUD */
 #hud{
   position:fixed;
   width:100%;
   height:100%;
   pointer-events:none;
-  z-index:5000;
   color:#00ff88;
   font-family:monospace;
+  z-index:10;
 }
 .crosshair{
   position:absolute;
@@ -94,235 +47,124 @@ body::before{
   border:2px solid #00ff88;
   transform:translate(-50%,-50%);
 }
-.hud-text{
-  position:absolute;
-  top:20px;
-  left:20px;
-  font-size:12px;
-}
 
-/* 📡 telemetry */
+/* telemetry */
 #telemetry{
   position:fixed;
   bottom:20px;
   left:20px;
   font-size:12px;
-  color:#00ff88;
 }
 
-/* layout */
-.hero{
-  height:100vh;
+/* splash */
+#splash{
+  position:fixed;
+  width:100%;
+  height:100%;
+  background:black;
   display:flex;
-  flex-direction:column;
   justify-content:center;
   align-items:center;
-}
-
-.section{padding:80px 40px; max-width:1100px; margin:auto;}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;}
-.card{background:rgba(255,255,255,0.05);padding:20px;border-radius:12px;}
-
-.card img,.card video{
-  width:100%;
-  height:260px;
-  object-fit:cover;
-  border-radius:10px;
-}
-
-/* team */
-.team-img{
-  width:120px;
-  height:120px;
-  border-radius:50%;
-  border:2px solid var(--accent);
-}
-.linkedin-btn{
-  display:inline-block;
-  margin-top:10px;
-  padding:8px;
-  background:#0077b5;
-  color:white;
-  text-decoration:none;
-  border-radius:6px;
+  z-index:9999;
 }
 
 /* model */
 .model-container{
   position:fixed;
-  bottom:20px;
-  right:20px;
-  width:180px;
+  width:300px;
+  height:300px;
+  bottom:50%;
+  right:50%;
+  transform:translate(50%,50%);
 }
 </style>
 </head>
 
 <body>
 
-<!-- 🎥 VIDEO -->
+<!-- VIDEO -->
 <video id="bgVideo" autoplay muted loop>
 <source src="your_background_video.mp4">
 </video>
 
-<!-- 🎬 SPLASH -->
-<div id="splash"><img src="team_orion_final.png" style="max-width:60%;"></div>
+<!-- SPLASH -->
+<div id="splash">
+<img src="team_orion_final.png" style="width:300px;">
+</div>
 
-<!-- ⚡ STRIPS -->
-<div id="neonStrips"><div class="strip"></div><div class="strip"></div></div>
-
-<!-- 🎯 HUD -->
+<!-- HUD -->
 <div id="hud">
 <div class="crosshair"></div>
-<div class="hud-text">SYSTEM: ACTIVE</div>
-</div>
 
-<!-- 📡 telemetry -->
 <div id="telemetry">
-SPEED: <span id="speed">0</span><br>
-ALT: <span id="alt">0</span>
-</div>
-
-<!-- HERO -->
-<section class="hero">
-<h2>TEAM ORION</h2>
-<p>Next-generation stealth platform</p>
-
-<div onclick="toggleCatalog()" style="margin-top:40px;cursor:pointer;">
-<div style="padding:25px;border:1px solid #444;border-radius:12px;">
-F-35D Project
+SPD: <span id="speed">0</span><br>
+ALT: <span id="alt">0</span><br>
+HDG: <span id="heading">0</span>
 </div>
 </div>
-</section>
 
-<!-- PROJECT -->
-<div id="projectContent" style="display:none;">
-
-<section class="section">
-<h2>Project Overview</h2>
-<div class="grid">
-<div class="card"><img src="F35_render1.png"></div>
-<div class="card"><img src="F35_top_view.png"></div>
-</div>
-</section>
-
-<section class="section">
-<h2>Simulation</h2>
-<div class="grid">
-<div class="card"><video autoplay muted loop src="simulation1.mp4"></video></div>
-<div class="card"><video autoplay muted loop src="simulation2.mp4"></video></div>
-</div>
-</section>
-
-<section class="section">
-<h2>Team</h2>
-<div class="grid">
-
-<div class="card">
-<img class="team-img" src="aman.jpeg">
-<b>Madasu Aman Siddharth</b><br>
-(Team Lead – Design, Fabrication & Simulation)<br>
-<a class="linkedin-btn" href="https://www.linkedin.com/in/aman-siddharth-madasu-4b6908402" target="_blank">LinkedIn</a>
-</div>
-
-<div class="card">
-<img class="team-img" src="rohan.jpeg">
-<b>Rohan</b><br>
-(Electrical and Control Systems)<br>
-<a class="linkedin-btn" href="https://www.linkedin.com/in/chilukuri-rohan-sashank-reddy-undefined-aa169336a" target="_blank">LinkedIn</a>
-</div>
-
-<div class="card">
-<img class="team-img" src="mokshagna.jpeg">
-<b>Mokshagna</b><br>
-(Electronics and Flight Control)<br>
-<a class="linkedin-btn" href="https://www.linkedin.com/in/mokshagna-baineni-54bb1a37a" target="_blank">LinkedIn</a>
-</div>
-
-<div class="card">
-<img class="team-img" src="rukesh.jpeg">
-<b>Rukesh</b><br>
-(Coadjutor)<br>
-<a class="linkedin-btn" href="https://www.linkedin.com/in/rukeshkasturi" target="_blank">LinkedIn</a>
-</div>
-
-<div class="card">
-<img class="team-img" src="abhinav.jpeg">
-<b>Abhinav</b><br>
-(PR)<br>
-<a class="linkedin-btn" href="https://www.linkedin.com/in/abhinav-varma-mudunuri-816b0a378" target="_blank">LinkedIn</a>
-</div>
-
-</div>
-</section>
-
-</div>
-
-<!-- ✈️ MODEL -->
+<!-- MODEL -->
 <div class="model-container">
-<model-viewer src="plane.glb" auto-rotate camera-controls></model-viewer>
+<model-viewer id="plane" src="plane.glb" auto-rotate camera-controls></model-viewer>
 </div>
 
 <script>
-// intro
-function runIntro(){
+/* INTRO */
+setTimeout(()=>{
 document.getElementById('splash').style.display='none';
-const strips=document.getElementById('neonStrips');
-strips.style.display='block';
-document.querySelectorAll('.strip').forEach((s,i)=>{
-s.style.animation='stripMove 1s ease forwards';
-});
-setTimeout(()=>strips.style.display='none',1200);
-}
-setTimeout(runIntro,3000);
+document.getElementById('bgVideo').style.opacity=0.4;
+},3000);
 
-// toggle
-function toggleCatalog(){
-const el=document.getElementById('projectContent');
-const vid=document.getElementById('bgVideo');
-
-if(el.style.display==='none'||el.style.display===''){
-el.style.display='block';
-vid.style.opacity='0.4';
-}else{
-el.style.display='none';
-vid.style.opacity='0';
+/* VOICE */
+function speak(msg){
+speechSynthesis.speak(new SpeechSynthesisUtterance(msg));
 }
-}
+setTimeout(()=>speak("Simulation mode activated"),2000);
 
-// crosshair
+/* CROSSHAIR */
 const crosshair=document.querySelector('.crosshair');
 document.addEventListener('mousemove',(e)=>{
 crosshair.style.left=e.clientX+'px';
 crosshair.style.top=e.clientY+'px';
 });
 
-// model control
-const model=document.querySelector('model-viewer');
-document.addEventListener('mousemove',(e)=>{
-const x=(e.clientX/window.innerWidth-0.5)*30;
-const y=(e.clientY/window.innerHeight-0.5)*20;
-model.cameraOrbit=`${x}deg ${75+y}deg 2.5m`;
+/* FLIGHT SIMULATION */
+const model=document.getElementById('plane');
+
+let pitch=75;
+let yaw=0;
+let speed=0;
+let altitude=0;
+
+document.addEventListener('keydown',(e)=>{
+if(e.key==='w') pitch-=2;
+if(e.key==='s') pitch+=2;
+if(e.key==='a') yaw-=5;
+if(e.key==='d') yaw+=5;
+
+if(e.key==='ArrowUp') speed+=10;
+if(e.key==='ArrowDown') speed-=10;
+
+model.cameraOrbit=`${yaw}deg ${pitch}deg 2.5m`;
 });
 
-// telemetry
+/* INERTIA */
 setInterval(()=>{
-document.getElementById('speed').innerText=Math.floor(Math.random()*900);
-document.getElementById('alt').innerText=Math.floor(Math.random()*10000);
-},1000);
+speed*=0.98;
+altitude+=speed*0.1;
 
-// voice
-function speak(msg){
-speechSynthesis.speak(new SpeechSynthesisUtterance(msg));
-}
-setTimeout(()=>speak("System online"),2000);
+document.getElementById('speed').innerText=Math.floor(speed);
+document.getElementById('alt').innerText=Math.floor(altitude);
+document.getElementById('heading').innerText=yaw;
+},100);
 
-// threat
+/* THREAT SYSTEM */
 setInterval(()=>{
 if(Math.random()>0.7){
-document.querySelector('.hud-text').innerText="⚠ THREAT";
-speak("Incoming threat");
+speak("Warning incoming threat");
+document.querySelector('.crosshair').style.borderColor="red";
 }else{
-document.querySelector('.hud-text').innerText="SYSTEM OK";
+document.querySelector('.crosshair').style.borderColor="#00ff88";
 }
 },6000);
 </script>
