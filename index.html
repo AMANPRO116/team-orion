@@ -4,19 +4,35 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TEAM ORION</title>
+
 <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
-:root{--bg:#050505;--text:#fff;--accent:#00ff88}
+:root{--text:#fff;--accent:#00ff88}
 *{margin:0;padding:0;box-sizing:border-box}
+
 body{
   font-family:'Inter',sans-serif;
+  background:black;
   color:var(--text);
   overflow-x:hidden;
-  background:black;
 }
 
+/* BACKGROUND VIDEO */
+#bgVideo{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  z-index:-2;
+  opacity:0;
+  transition:opacity 1s ease;
+}
+
+/* STAR BACKGROUND */
 body::before{
   content:"";
   position:fixed;
@@ -28,7 +44,6 @@ body::before{
   opacity:0.15;
   z-index:-1;
 }
-
 @keyframes starsMove{
   from{transform:translate(0,0);}
   to{transform:translate(-500px,-500px);}
@@ -46,52 +61,24 @@ body::after{
   z-index:-1;
 }
 
-@keyframes twinkle{
-  0%{opacity:0.1}
-  50%{opacity:0.3}
-  100%{opacity:0.15}
-}
-
-/* neon strips FIXED */
-#neonStrips{
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  pointer-events:none;
-  z-index:15000;
-  display:none;
-}
-
-.strip{
-  position:absolute;
-  width:250%;
-  height:6px;
-  background:linear-gradient(90deg, transparent, #00ff88, #00ff88, transparent);
-  filter:blur(10px);
-  transform:rotate(45deg);
-}
-
-@keyframes stripMove{
-  0%{transform:translate(-120%, -120%) rotate(45deg); opacity:1}
-  100%{transform:translate(120%, 120%) rotate(45deg); opacity:0}
-}
-
-
-/* splash */
+/* SPLASH */
 #splash{
   position:fixed;
-  top:0;left:0;width:100%;height:100%;
+  width:100%;
+  height:100%;
   background:black;
   display:flex;
-  align-items:center;
   justify-content:center;
+  align-items:center;
   z-index:20000;
+  pointer-events:none;
+  animation:fadeOut 2s ease 3s forwards;
 }
-#splash img{max-width:60%;}
+@keyframes fadeOut{
+  to{opacity:0; visibility:hidden;}
+}
 
-/* layout basics */
+/* HERO */
 .hero{
   height:100vh;
   display:flex;
@@ -100,247 +87,182 @@ body::after{
   align-items:center;
   text-align:center;
 }
+
 .section{padding:80px 40px; max-width:1100px; margin:auto;}
 .grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:20px;}
 .card{background:rgba(255,255,255,0.05); padding:20px; border-radius:12px;}
-.model-container{position:fixed; bottom:20px; right:20px; width:180px; height:180px; z-index:1000;}
 
-/* Added missing Team & Button CSS */
-.team-img {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-bottom: 15px;
-  border: 2px solid var(--accent);
+.card img,
+.card video{
+  width:100%;
+  height:260px;
+  object-fit:cover;
+  border-radius:10px;
 }
 
-.linkedin-btn {
-  display: inline-block;
-  margin-top: 10px;
-  padding: 8px 16px;
-  background: #0077b5;
-  color: #fff;
-  text-decoration: none;
-  border-radius: 6px;
-  font-weight: 600;
-  transition: opacity 0.3s;
+.team-img{
+  width:120px;
+  height:120px;
+  border-radius:50%;
+  object-fit:cover;
+  border:2px solid var(--accent);
 }
 
-.linkedin-btn:hover {
-  opacity: 0.8;
+.linkedin-btn{
+  display:inline-block;
+  margin-top:10px;
+  padding:8px 16px;
+  background:#0077b5;
+  color:#fff;
+  text-decoration:none;
+  border-radius:6px;
 }
 
-/* Added hidden class for initial load */
-.hidden {
-  display: none;
+.model-container{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  width:200px;
+  height:200px;
 }
 </style>
 </head>
 
 <body>
 
+<!-- BACKGROUND VIDEO -->
+<video id="bgVideo" autoplay muted loop>
+  <source src="your_background_video.mp4" type="video/mp4">
+</video>
+
+<!-- SPLASH -->
 <div id="splash">
-  <img src="team_orion_final.png" alt="Orion">
+  <img src="team_orion_final.png" style="max-width:60%;">
 </div>
 
-<div id="neonStrips">
-  <div class="strip"></div>
-  <div class="strip"></div>
-</div>
-
+<!-- HERO -->
 <section class="hero">
 <h2>TEAM ORION</h2>
 <p>Next-generation stealth platform</p>
 
-<div style="margin-top:40px; max-width:500px;" onclick="toggleCatalog()">
-  <div style="padding:25px; border:1px solid rgba(255,255,255,0.1); border-radius:14px; cursor:pointer; background:rgba(255,255,255,0.03); transition:0.3s;">
-    <h3 style="margin-bottom:5px;">F-35D Project</h3>
-    <p style="color:#aaa; font-size:14px;">Click to explore mission data</p>
+<div onclick="toggleCatalog()" style="margin-top:40px; cursor:pointer;">
+  <div style="padding:25px; border:1px solid #444; border-radius:12px;">
+    <h3>F-35D Project</h3>
+    <p style="color:#aaa;">Click to explore mission data</p>
   </div>
 </div>
 </section>
 
-<div id="projectContent" class="hidden">
+<!-- PROJECT CONTENT -->
+<div id="projectContent" style="display:none;">
 
 <section class="section">
 <h2>Project Overview</h2>
-<div class="card">
-<img src="F35_render1.png" style="max-width:100%; border-radius:8px; margin-bottom:10px;">
-<img src="F35_top_view.png" style="max-width:100%; border-radius:8px;">
+<div class="grid">
+<div class="card"><img src="F35_render1.png"></div>
+<div class="card"><img src="F35_top_view.png"></div>
 </div>
 </section>
 
 <section class="section">
 <h2>Simulation Videos</h2>
 <div class="grid">
-<div class="card"><video autoplay muted loop style="max-width:100%; border-radius:8px;"><source src="simulation1.mp4"></video></div>
-<div class="card"><video autoplay muted loop style="max-width:100%; border-radius:8px;"><source src="simulation2.mp4"></video></div>
+<div class="card"><video autoplay muted loop src="simulation1.mp4"></video></div>
+<div class="card"><video autoplay muted loop src="simulation2.mp4"></video></div>
 </div>
 </section>
 
 <section class="section">
 <h2>Introduction</h2>
 <div class="card">
-<p><b>Objective:</b> Design a stealth UAV inspired by modern fighter aircraft with enhanced aerodynamic performance and mission adaptability.</p><br>
-<p>The F-35D UAV project focuses on integrating aerodynamics, control systems, and structural design to create a high-efficiency unmanned platform.</p><br>
-<ul style="margin-left:20px; line-height:1.6;">
-<li>Low observability using stealth shaping</li>
-<li>High aerodynamic efficiency for extended endurance</li>
-<li>Autonomous and semi-autonomous operation</li>
-<li>Optimized for surveillance and reconnaissance missions</li>
+<p><b>Objective:</b> Design a stealth UAV inspired by modern fighter aircraft.</p>
+<ul>
+<li>Low observability</li>
+<li>High aerodynamic efficiency</li>
+<li>Autonomous capability</li>
 </ul>
-</div>
-</section>
-
-<section class="section">
-<h2>Design Inspiration</h2>
-<div class="card">
-<p>The design draws inspiration from 5th generation fighter aircraft to achieve stealth and performance.</p><br>
-<ul style="margin-left:20px; line-height:1.6;">
-<li>Edge alignment to reduce radar cross-section</li>
-<li>Blended wing-body configuration</li>
-<li>Minimized vertical stabilizers</li>
-<li>Smooth aerodynamic contours</li>
-</ul>
-</div>
-</section>
-
-<section class="section">
-<h2>System Architecture</h2>
-<div class="card">
-<ul style="margin-left:20px; line-height:1.6;">
-<li>Dual EDF (Electric Ducted Fan) propulsion system</li>
-<li>Flight controller with IMU-based stabilization</li>
-<li>Sensor integration for environmental awareness</li>
-<li>Communication module for remote control</li>
-<li>Power distribution system for efficient energy usage</li>
-</ul>
-</div>
-</section>
-
-<section class="section">
-<h2>Safety System (CAASS)</h2>
-<div class="card">
-<p>Control Authority Aware Safety System (CAASS) ensures stable and safe operation by continuously monitoring system parameters.</p><br>
-<ul style="margin-left:20px; line-height:1.6;">
-<li>Thrust effectiveness monitoring</li>
-<li>Tilt response validation</li>
-<li>IMU-based motion tracking</li>
-<li>Power system health monitoring</li>
-<li>Communication integrity checks</li>
-<li>Prediction of unstable flight conditions</li>
-</ul>
-</div>
-</section>
-
-<section class="section">
-<h2>Emergency Detachment System</h2>
-<div class="card">
-<p>The aircraft is equipped with a detachable front module designed for critical failure scenarios.</p><br>
-<ul style="margin-left:20px; line-height:1.6;">
-<li>Front EDF module detaches during rear propulsion failure</li>
-<li>Ensures survival of critical onboard data</li>
-<li>Improves mission success in hostile environments</li>
-<li>Prevents total system loss during emergencies</li>
-</ul>
-</div>
-</section>
-
-<section class="section">
-<h2>Theoretical Calculations</h2>
-<div class="card">
-<p><b>Lift:</b> 220.5 N</p>
-<p><b>Drag:</b> 13.78 N</p>
-<p><b>L/D Ratio:</b> 16</p><br>
-<p>These values indicate high aerodynamic efficiency suitable for long-duration missions.</p>
-</div>
-</section>
-
-<section class="section">
-<h2>Progress</h2>
-<div class="grid">
-<div class="card" style="text-align:center;"><a href="https://www.instagram.com/reel/DQuQb1KEk-A/" target="_blank" style="color:var(--accent); text-decoration:none;">Part 1</a></div>
-<div class="card" style="text-align:center;"><a href="https://www.instagram.com/reel/DQztDomE3H0/" target="_blank" style="color:var(--accent); text-decoration:none;">Part 2</a></div>
-<div class="card" style="text-align:center;"><a href="https://www.instagram.com/reel/DQ7DV5CkrLg/" target="_blank" style="color:var(--accent); text-decoration:none;">Part 3</a></div>
-<div class="card" style="text-align:center;"><a href="https://www.instagram.com/reel/DRFg02_kmwo/" target="_blank" style="color:var(--accent); text-decoration:none;">Part 4</a></div>
-<div class="card" style="text-align:center;"><a href="https://www.instagram.com/reel/DRU6Qc6Esit/" target="_blank" style="color:var(--accent); text-decoration:none;">Part 5</a></div>
-<div class="card" style="text-align:center;"><a href="https://www.instagram.com/reel/DT79YQFgSec/" target="_blank" style="color:var(--accent); text-decoration:none;">Part 6</a></div>
-<div class="card" style="text-align:center;"><a href="https://www.instagram.com/reel/DXCmHrNkyyx/" target="_blank" style="color:var(--accent); text-decoration:none;">Part 7</a></div>
 </div>
 </section>
 
 <section class="section">
 <h2>Team</h2>
-<div class="grid" style="text-align:center;">
-<div class="card"><img class="team-img" src="aman.jpeg"><br><b>Madasu Aman Siddharth</b><br><span style="font-size:14px; color:#aaa;">(Team Lead – Design, Fabrication & Simulation)</span><br><a class="linkedin-btn" href="https://www.linkedin.com/in/aman-siddharth-madasu-4b6908402" target="_blank">LinkedIn</a></div>
-<div class="card"><img class="team-img" src="rohan.jpeg"><br><b>Rohan</b><br><span style="font-size:14px; color:#aaa;">(Electrical and Control Systems)</span><br><a class="linkedin-btn" href="https://www.linkedin.com/in/chilukuri-rohan-sashank-reddy-undefined-aa169336a" target="_blank">LinkedIn</a></div>
-<div class="card"><img class="team-img" src="mokshagna.jpeg"><br><b>Mokshagna</b><br><span style="font-size:14px; color:#aaa;">(Electronics and Flight Control)</span><br><a class="linkedin-btn" href="https://www.linkedin.com/in/mokshagna-baineni-54bb1a37a" target="_blank">LinkedIn</a></div>
-<div class="card"><img class="team-img" src="rukesh.jpeg"><br><b>Rukesh</b><br><span style="font-size:14px; color:#aaa;">(Coadjutor)</span><br><a class="linkedin-btn" href="https://www.linkedin.com/in/rukeshkasturi" target="_blank">LinkedIn</a></div>
-<div class="card"><img class="team-img" src="abhinav.jpeg"><br><b>Abhinav</b><br><span style="font-size:14px; color:#aaa;">(Public Relations (PR))</span><br><a class="linkedin-btn" href="https://www.linkedin.com/in/abhinav-varma-mudunuri-816b0a378" target="_blank">LinkedIn</a></div>
+<div class="grid">
+
+<div class="card">
+<img class="team-img" src="aman.jpeg">
+<b>Madasu Aman Siddharth</b><br>
+(Team Lead – Design, Fabrication & Simulation)<br>
+<a class="linkedin-btn" href="https://www.linkedin.com/in/aman-siddharth-madasu-4b6908402" target="_blank">LinkedIn</a>
+</div>
+
+<div class="card">
+<img class="team-img" src="rohan.jpeg">
+<b>Rohan</b><br>
+(Electrical and Control Systems)<br>
+<a class="linkedin-btn" href="https://www.linkedin.com/in/chilukuri-rohan-sashank-reddy-undefined-aa169336a" target="_blank">LinkedIn</a>
+</div>
+
+<div class="card">
+<img class="team-img" src="mokshagna.jpeg">
+<b>Mokshagna</b><br>
+(Electronics and Flight Control)<br>
+<a class="linkedin-btn" href="https://www.linkedin.com/in/mokshagna-baineni-54bb1a37a" target="_blank">LinkedIn</a>
+</div>
+
+<div class="card">
+<img class="team-img" src="rukesh.jpeg">
+<b>Rukesh</b><br>
+(Coadjutor)<br>
+<a class="linkedin-btn" href="https://www.linkedin.com/in/rukeshkasturi" target="_blank">LinkedIn</a>
+</div>
+
+<div class="card">
+<img class="team-img" src="abhinav.jpeg">
+<b>Abhinav</b><br>
+(Public Relations (PR))<br>
+<a class="linkedin-btn" href="https://www.linkedin.com/in/abhinav-varma-mudunuri-816b0a378" target="_blank">LinkedIn</a>
+</div>
+
 </div>
 </section>
 
 </div>
 
+<!-- MODEL -->
 <div class="model-container">
-<model-viewer src="plane.glb" auto-rotate camera-controls></model-viewer>
+<model-viewer 
+  src="plane.glb" 
+  auto-rotate 
+  camera-controls 
+  device-orientation-permission-ui="auto">
+</model-viewer>
 </div>
 
 <script>
-// scroll reveal
-const sections = document.querySelectorAll('.section');
-window.addEventListener('scroll', () => {
-  sections.forEach(sec => {
-    if (sec.getBoundingClientRect().top < window.innerHeight - 100) {
-      sec.classList.add('show');
-    }
-  });
-});
-
-// project toggle (FIXED)
 function toggleCatalog(){
   const el = document.getElementById('projectContent');
+  const video = document.getElementById('bgVideo');
 
   if (el.style.display === 'none' || el.style.display === '') {
     el.style.display = 'block';
     el.scrollIntoView({ behavior: 'smooth' });
+
+    video.style.opacity = '0.4';
+    video.play();
+
   } else {
     el.style.display = 'none';
+
+    video.style.opacity = '0';
+    video.pause();
   }
 }
 
-// splash + strips (SAFE & GUARANTEED)
-function runIntro(){
+// splash remove
+setTimeout(()=>{
   const splash = document.getElementById('splash');
-  const strips = document.getElementById('neonStrips');
-
-  // hide splash
-  if (splash) splash.style.display = 'none';
-
-  // play strips
-  if (strips){
-    strips.style.display = 'block';
-
-    const stripElems = document.querySelectorAll('.strip');
-    stripElems.forEach((s, i) => {
-      s.style.animation = 'stripMove 1.2s ease forwards';
-      s.style.animationDelay = (i * 0.2) + 's';
-    });
-
-    setTimeout(()=>{
-      strips.style.display = 'none';
-    },1500);
-  }
-}
-
-// ensure it NEVER gets stuck
-window.addEventListener('load', () => {
-  setTimeout(runIntro, 4000); // reduced time for reliability
-});
-
-// fallback (if load fails)
-setTimeout(runIntro, 5000);
+  if(splash) splash.remove();
+},4000);
 </script>
 
 </body>
