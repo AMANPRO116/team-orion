@@ -55,6 +55,24 @@ body::before{
   justify-content:center;
   align-items:center;
   z-index:9999;
+  transition:opacity 1.2s ease;
+}
+
+#orionLogo{
+  width:300px;
+  opacity:0;
+  transform:scale(0.9);
+  animation:logoFade 1.5s ease forwards,
+             logoGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes logoFade{
+  to{opacity:1; transform:scale(1);}
+}
+
+@keyframes logoGlow{
+  from{filter:drop-shadow(0 0 10px #00ff88);}
+  to{filter:drop-shadow(0 0 25px #00ff88);}
 }
 
 /* HERO */
@@ -119,9 +137,9 @@ body::before{
 <source src="your_background_video.mp4">
 </video>
 
-<!-- SPLASH -->
+<!-- 🎬 SPLASH -->
 <div id="splash">
-<img src="team_orion_final.png" style="width:300px;">
+  <img src="team_orion_final.png" id="orionLogo">
 </div>
 
 <!-- HERO -->
@@ -139,7 +157,6 @@ F-35D Project (Click)
 <!-- PROJECT -->
 <div id="projectContent" style="display:none;">
 
-<!-- OVERVIEW -->
 <section class="section">
 <h2>Project Overview</h2>
 <div class="grid">
@@ -148,7 +165,6 @@ F-35D Project (Click)
 </div>
 </section>
 
-<!-- SIMULATION -->
 <section class="section">
 <h2>Simulation Videos</h2>
 <div class="grid">
@@ -157,20 +173,18 @@ F-35D Project (Click)
 </div>
 </section>
 
-<!-- INTRO -->
 <section class="section">
 <h2>Introduction</h2>
 <div class="card">
-<p><b>Objective:</b> Design a stealth UAV inspired by fighter aircraft.</p>
+<p><b>Objective:</b> Design a stealth UAV inspired by modern fighter aircraft.</p>
 <ul>
 <li>Low observability</li>
 <li>High aerodynamic efficiency</li>
-<li>Autonomous operation</li>
+<li>Autonomous capability</li>
 </ul>
 </div>
 </section>
 
-<!-- TEAM -->
 <section class="section">
 <h2>Team</h2>
 <div class="grid">
@@ -215,50 +229,56 @@ F-35D Project (Click)
 
 </div>
 
-<!-- MODEL -->
+<!-- ✈️ MODEL -->
 <div class="model-container">
 <model-viewer src="plane.glb" auto-rotate camera-controls></model-viewer>
 </div>
 
 <script>
-// splash
-setTimeout(()=>{
-document.getElementById('splash').style.display='none';
-},3000);
+// 🎬 SAFE SPLASH
+window.addEventListener("load", () => {
+  const splash = document.getElementById("splash");
 
-// 🎥 cinematic video logic
+  setTimeout(() => {
+    splash.style.opacity = "0";
+
+    setTimeout(() => {
+      splash.style.display = "none";
+    }, 1200);
+  }, 3000);
+});
+
+// 🎥 CINEMATIC VIDEO
 function playCinematicVideo(){
-const video=document.getElementById('bgVideo');
+  const video = document.getElementById('bgVideo');
 
-video.style.opacity='0.5';
-video.currentTime=0;
-video.play();
+  video.style.opacity = '0.5';
+  video.currentTime = 0;
+  video.play();
 
-// stop
-setTimeout(()=>video.pause(),5000);
+  setTimeout(()=> video.pause(),5000);
 
-// blur
-setTimeout(()=>{
-video.style.filter='blur(8px)';
-video.style.opacity='0.3';
-},6000);
+  setTimeout(()=>{
+    video.style.filter = 'blur(8px)';
+    video.style.opacity = '0.3';
+  },6000);
 }
 
-// toggle
+// 📦 TOGGLE
 function toggleCatalog(){
-const el=document.getElementById('projectContent');
+  const el = document.getElementById('projectContent');
 
-if(el.style.display==='none'||el.style.display===''){
-el.style.display='block';
-el.scrollIntoView({behavior:'smooth'});
-playCinematicVideo();
-}else{
-el.style.display='none';
+  if(el.style.display === 'none' || el.style.display === ''){
+    el.style.display = 'block';
+    el.scrollIntoView({behavior:'smooth'});
+    playCinematicVideo();
+  }else{
+    el.style.display = 'none';
 
-const video=document.getElementById('bgVideo');
-video.style.opacity='0';
-video.style.filter='blur(0px');
-}
+    const video = document.getElementById('bgVideo');
+    video.style.opacity = '0';
+    video.style.filter = 'blur(0px)';
+  }
 }
 </script>
 
