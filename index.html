@@ -8,14 +8,21 @@
 <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 
 <style>
+
+/* =========================
+   GLOBAL STYLES
+========================= */
 body{
   margin:0;
-  font-family:Arial;
+  font-family:Arial, sans-serif;
   background:black;
   color:white;
+  overflow-x:hidden;
 }
 
-/* VIDEO */
+/* =========================
+   BACKGROUND VIDEO
+========================= */
 #bgVideo{
   position:fixed;
   width:100%;
@@ -24,10 +31,30 @@ body{
   z-index:-2;
   opacity:0;
   filter:blur(0px);
-  transition:1s;
+  transition:opacity 1s ease, filter 2s ease;
 }
 
-/* SPLASH */
+/* =========================
+   STARS BACKGROUND
+========================= */
+body::before{
+  content:"";
+  position:fixed;
+  width:200%;
+  height:200%;
+  background:radial-gradient(white 1px, transparent 1px);
+  background-size:50px 50px;
+  opacity:0.1;
+  animation:starsMove 60s linear infinite;
+  z-index:-1;
+}
+@keyframes starsMove{
+  to{transform:translate(-500px,-500px);}
+}
+
+/* =========================
+   SPLASH SCREEN
+========================= */
 #splash{
   position:fixed;
   width:100%;
@@ -44,18 +71,21 @@ body{
   width:300px;
   opacity:0;
   transform:scale(0.9);
-  animation:fade 1.5s forwards, glow 2s infinite alternate;
+  animation:fadeIn 1.5s forwards, glow 2s infinite alternate;
 }
 
-@keyframes fade{
+@keyframes fadeIn{
   to{opacity:1; transform:scale(1);}
 }
+
 @keyframes glow{
   from{filter:drop-shadow(0 0 10px #00ff88);}
-  to{filter:drop-shadow(0 0 25px #00ff88);}
+  to{filter:drop-shadow(0 0 30px #00ff88);}
 }
 
-/* HERO */
+/* =========================
+   HERO SECTION
+========================= */
 .hero{
   height:100vh;
   display:flex;
@@ -65,17 +95,39 @@ body{
   text-align:center;
 }
 
-/* SECTION */
-.section{
-  padding:60px;
-  max-width:1000px;
-  margin:auto;
-}
-
-h2{
+.hero h1{
+  font-size:48px;
   color:#00ff88;
 }
 
+.hero button{
+  margin-top:20px;
+  padding:12px 24px;
+  border:none;
+  background:#00ff88;
+  color:black;
+  font-weight:bold;
+  cursor:pointer;
+  border-radius:8px;
+}
+
+/* =========================
+   SECTION STYLING
+========================= */
+.section{
+  padding:60px;
+  max-width:1100px;
+  margin:auto;
+}
+
+.section h2{
+  color:#00ff88;
+  margin-bottom:20px;
+}
+
+/* =========================
+   GRID + CARDS
+========================= */
 .grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
@@ -88,7 +140,14 @@ h2{
   border-radius:10px;
 }
 
-/* TEAM */
+img, video{
+  width:100%;
+  border-radius:10px;
+}
+
+/* =========================
+   TEAM
+========================= */
 .team-img{
   width:120px;
   height:120px;
@@ -97,197 +156,140 @@ h2{
 }
 
 .linkedin{
+  display:inline-block;
+  margin-top:10px;
   background:#0077b5;
-  padding:5px 10px;
+  padding:6px 12px;
   color:white;
   text-decoration:none;
-  border-radius:5px;
+  border-radius:6px;
 }
 
-/* MODEL */
+/* =========================
+   MODEL
+========================= */
 .model{
   position:fixed;
   bottom:20px;
   right:20px;
   width:200px;
 }
+
 </style>
 </head>
 
 <body>
 
+<!-- =========================
+     BACKGROUND VIDEO
+========================= -->
 <video id="bgVideo" muted loop>
 <source src="background.mp4">
 </video>
 
+<!-- =========================
+     SPLASH
+========================= -->
 <div id="splash">
-<img src="team_orion_final.png" id="orionLogo">
+  <img src="team_orion_final.png" id="orionLogo">
 </div>
 
+<!-- =========================
+     HERO
+========================= -->
 <div class="hero">
 <h1>TEAM ORION</h1>
 <p>Next-generation stealth UAV platform</p>
 <button onclick="toggleProject()">Enter Mission Data</button>
 </div>
 
+<!-- =========================
+     PROJECT CONTENT
+========================= -->
 <div id="project" style="display:none;">
 
+<!-- PROJECT OVERVIEW -->
+<div class="section">
+<h2>Project Overview</h2>
+<div class="grid">
+<div class="card"><img src="F35_render1.png"></div>
+<div class="card"><img src="F35_top_view.png"></div>
+</div>
+</div>
+
+<!-- SIMULATION -->
+<div class="section">
+<h2>Simulation Videos</h2>
+<div class="grid">
+<div class="card">
+<video src="simulation1.mp4" autoplay muted loop controls></video>
+</div>
+<div class="card">
+<video src="simulation2.mp4" autoplay muted loop controls></video>
+</div>
+</div>
+</div>
+
+<!-- INTRODUCTION -->
 <div class="section">
 <h2>Introduction</h2>
 <p>
-UAVs are critical in modern defense systems. Key requirements include:
+UAVs are critical in modern defense systems. Key requirements include low observability, high efficiency, and endurance.
+This project develops a stealth UAV inspired by fighter jet aerodynamics.
 </p>
-<ul>
-<li>Low observability</li>
-<li>High aerodynamic efficiency</li>
-<li>Long endurance</li>
-</ul>
-<p>This project focuses on a stealth UAV platform inspired by advanced fighter aerodynamics.</p>
 </div>
 
+<!-- DESIGN -->
 <div class="section">
 <h2>Design Inspiration</h2>
 <ul>
-<li>Inspired by F-35 Lightning II</li>
+<li>F-35 Lightning II inspiration</li>
+<li>Blended Wing Body</li>
 <li>Edge alignment</li>
-<li>Blended Wing Body (BWB)</li>
-<li>Reduced vertical surfaces</li>
-<li>Adapted for subsonic UAV operation</li>
+<li>Reduced radar signature</li>
 </ul>
 </div>
 
+<!-- OBJECTIVE -->
 <div class="section">
 <h2>Objective</h2>
 <ul>
-<li>Design a stealth-inspired UAV</li>
-<li>Reach subsonic speeds</li>
-<li>Applications:
-  <ul>
-    <li>Cargo</li>
-    <li>Stealth missions</li>
-    <li>Surveillance</li>
-    <li>Emergency medical</li>
-  </ul>
-</li>
+<li>Stealth UAV design</li>
+<li>Subsonic operation</li>
+<li>Surveillance & cargo missions</li>
 </ul>
 </div>
 
+<!-- CALCULATIONS -->
 <div class="section">
 <h2>Theoretical Calculations</h2>
-<p>Lift = 220.5 N</p>
-<p>Drag = 13.78 N</p>
-<p>L/D Ratio = 16</p>
-<p>Reynolds Number ≈ 1.02 × 10⁶</p>
+<p>Lift: 220.5 N</p>
+<p>Drag: 13.78 N</p>
+<p>L/D Ratio: 16</p>
+<p>Re ≈ 1.02×10⁶</p>
 </div>
 
+<!-- SYSTEM -->
 <div class="section">
-<h2>Physical Model</h2>
-<p>
-CG and COM are yet to be determined due to pending material weight estimation.
-</p>
-</div>
-
-<div class="section">
-<h2>Simulations</h2>
-<p>External flow domain created (~5–10× UAV length)</p>
-</div>
-
-<div class="section">
-<h2>Boundary Conditions</h2>
+<h2>System Architecture</h2>
 <ul>
-<li>Velocity Inlet</li>
-<li>Pressure Outlet</li>
-<li>No-slip wall (UAV surface)</li>
+<li>Dual EDF propulsion</li>
+<li>IMU based control</li>
+<li>Communication module</li>
 </ul>
 </div>
 
+<!-- SAFETY -->
 <div class="section">
-<h2>Wing Profile (NACA 23012)</h2>
+<h2>Safety System</h2>
 <ul>
-<li>Moderate camber → lift at low AoA</li>
-<li>12% thickness → strength</li>
-<li>Low pitching moment</li>
-<li>Good stall behavior</li>
+<li>Thrust monitoring</li>
+<li>Tilt validation</li>
+<li>Communication check</li>
 </ul>
 </div>
 
-<div class="section">
-<h2>Propulsion System</h2>
-<ul>
-<li>Front EDF: 30° tilt</li>
-<li>Rear EDFs: swivel duct</li>
-</ul>
-</div>
-
-<div class="section">
-<h2>Emergency Detaching System</h2>
-<p>
-Front module detaches during failures or threats to preserve critical data.
-Ensures controlled descent and recovery of mission intelligence.
-</p>
-</div>
-
-<div class="section">
-<h2>System Modes</h2>
-<ul>
-<li>Combined Mode (VTOL hybrid)</li>
-<li>Separated Mode (two UAVs)</li>
-</ul>
-</div>
-
-<div class="section">
-<h2>Electrical Architecture</h2>
-<ul>
-<li>Dual independent power systems</li>
-<li>Front & Rear modules operate independently</li>
-</ul>
-</div>
-
-<div class="section">
-<h2>Power & Propulsion</h2>
-<ul>
-<li>Separate batteries</li>
-<li>Front EDF + Dual rear EDFs</li>
-<li>Independent ESC control</li>
-</ul>
-</div>
-
-<div class="section">
-<h2>Avionics & Communication</h2>
-<ul>
-<li>Master-slave flight controllers</li>
-<li>Wired (UART/CAN) + Wireless (LoRa)</li>
-<li>Data exchange: thrust, tilt, flight mode</li>
-</ul>
-</div>
-
-<div class="section">
-<h2>Control System</h2>
-<ul>
-<li>Rear FC = Master</li>
-<li>Front FC = Executor</li>
-<li>Thrust vectoring with tilt control</li>
-</ul>
-</div>
-
-<div class="section">
-<h2>Safety System (CAASS)</h2>
-<ul>
-<li>Monitors thrust, tilt, IMU</li>
-<li>Detects failures & instability</li>
-<li>Actions: abort, hover, safe mode</li>
-</ul>
-</div>
-
-<div class="section">
-<h2>Failsafe & Integration</h2>
-<ul>
-<li>Dual battery safety</li>
-<li>Communication monitoring</li>
-<li>Independent UAV capability</li>
-</ul>
-</div>
-
+<!-- TEAM -->
 <div class="section">
 <h2>Team</h2>
 <div class="grid">
@@ -306,7 +308,7 @@ Ensures controlled descent and recovery of mission intelligence.
 
 <div class="card">
 <img src="mokshagna.jpeg" class="team-img">
-<p>Mokshagna - Flight Control</p>
+<p>Mokshagna - Control</p>
 <a class="linkedin" href="https://www.linkedin.com/in/mokshagna-baineni-54bb1a37a">LinkedIn</a>
 </div>
 
@@ -327,11 +329,17 @@ Ensures controlled descent and recovery of mission intelligence.
 
 </div>
 
+<!-- MODEL -->
 <div class="model">
 <model-viewer src="plane.glb" auto-rotate camera-controls></model-viewer>
 </div>
 
+<!-- =========================
+     SCRIPT
+========================= -->
 <script>
+
+/* SPLASH FIX */
 window.addEventListener("load", ()=>{
   setTimeout(()=>{
     let s=document.getElementById("splash");
@@ -340,23 +348,29 @@ window.addEventListener("load", ()=>{
   },3000);
 });
 
+/* VIDEO EFFECT */
 function playVideo(){
   let v=document.getElementById("bgVideo");
+
   v.style.opacity="0.5";
+  v.currentTime=0;
   v.play();
 
   setTimeout(()=>v.pause(),5000);
+
   setTimeout(()=>{
     v.style.filter="blur(8px)";
     v.style.opacity="0.3";
   },6000);
 }
 
+/* TOGGLE */
 function toggleProject(){
   let p=document.getElementById("project");
   p.style.display="block";
   playVideo();
 }
+
 </script>
 
 </body>
