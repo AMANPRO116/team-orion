@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TEAM ORION</title>
+<title>TEAM ORION - F35D UAV</title>
 
 <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 
@@ -24,7 +24,7 @@ body{
   z-index:-2;
   opacity:0;
   filter:blur(0px);
-  transition:opacity 1s ease, filter 2s ease;
+  transition:1s;
 }
 
 /* SPLASH */
@@ -50,7 +50,6 @@ body{
 @keyframes fade{
   to{opacity:1; transform:scale(1);}
 }
-
 @keyframes glow{
   from{filter:drop-shadow(0 0 10px #00ff88);}
   to{filter:drop-shadow(0 0 25px #00ff88);}
@@ -63,11 +62,18 @@ body{
   flex-direction:column;
   justify-content:center;
   align-items:center;
+  text-align:center;
 }
 
 /* SECTION */
 .section{
   padding:60px;
+  max-width:1000px;
+  margin:auto;
+}
+
+h2{
+  color:#00ff88;
 }
 
 .grid{
@@ -79,11 +85,6 @@ body{
 .card{
   background:#111;
   padding:15px;
-  border-radius:10px;
-}
-
-img, video{
-  width:100%;
   border-radius:10px;
 }
 
@@ -115,72 +116,175 @@ img, video{
 
 <body>
 
-<!-- VIDEO -->
 <video id="bgVideo" muted loop>
 <source src="background.mp4">
 </video>
 
-<!-- SPLASH -->
 <div id="splash">
 <img src="team_orion_final.png" id="orionLogo">
 </div>
 
-<!-- HERO -->
 <div class="hero">
 <h1>TEAM ORION</h1>
-<p>Next-generation stealth UAV</p>
-<button onclick="toggleProject()">Open F-35D Project</button>
+<p>Next-generation stealth UAV platform</p>
+<button onclick="toggleProject()">Enter Mission Data</button>
 </div>
 
-<!-- PROJECT -->
 <div id="project" style="display:none;">
-
-<div class="section">
-<h2>Project Overview</h2>
-<div class="grid">
-<img src="F35_render1.png">
-<img src="F35_top_view.png">
-</div>
-</div>
-
-<div class="section">
-<h2>Simulation Videos</h2>
-<div class="grid">
-<video src="simulation1.mp4" autoplay muted loop></video>
-<video src="simulation2.mp4" autoplay muted loop></video>
-</div>
-</div>
 
 <div class="section">
 <h2>Introduction</h2>
 <p>
-The F-35D UAV is an advanced unmanned aerial system designed with a focus on stealth, aerodynamic efficiency, and mission adaptability.
-It integrates propulsion, control systems, and structural design to achieve optimal performance.
+UAVs are critical in modern defense systems. Key requirements include:
 </p>
 <ul>
 <li>Low observability</li>
 <li>High aerodynamic efficiency</li>
-<li>Autonomous capabilities</li>
+<li>Long endurance</li>
+</ul>
+<p>This project focuses on a stealth UAV platform inspired by advanced fighter aerodynamics.</p>
+</div>
+
+<div class="section">
+<h2>Design Inspiration</h2>
+<ul>
+<li>Inspired by F-35 Lightning II</li>
+<li>Edge alignment</li>
+<li>Blended Wing Body (BWB)</li>
+<li>Reduced vertical surfaces</li>
+<li>Adapted for subsonic UAV operation</li>
 </ul>
 </div>
 
 <div class="section">
-<h2>System Architecture</h2>
+<h2>Objective</h2>
 <ul>
-<li>Dual EDF propulsion</li>
-<li>IMU-based flight control</li>
-<li>Sensor integration</li>
-<li>Communication module</li>
+<li>Design a stealth-inspired UAV</li>
+<li>Reach subsonic speeds</li>
+<li>Applications:
+  <ul>
+    <li>Cargo</li>
+    <li>Stealth missions</li>
+    <li>Surveillance</li>
+    <li>Emergency medical</li>
+  </ul>
+</li>
+</ul>
+</div>
+
+<div class="section">
+<h2>Theoretical Calculations</h2>
+<p>Lift = 220.5 N</p>
+<p>Drag = 13.78 N</p>
+<p>L/D Ratio = 16</p>
+<p>Reynolds Number ≈ 1.02 × 10⁶</p>
+</div>
+
+<div class="section">
+<h2>Physical Model</h2>
+<p>
+CG and COM are yet to be determined due to pending material weight estimation.
+</p>
+</div>
+
+<div class="section">
+<h2>Simulations</h2>
+<p>External flow domain created (~5–10× UAV length)</p>
+</div>
+
+<div class="section">
+<h2>Boundary Conditions</h2>
+<ul>
+<li>Velocity Inlet</li>
+<li>Pressure Outlet</li>
+<li>No-slip wall (UAV surface)</li>
+</ul>
+</div>
+
+<div class="section">
+<h2>Wing Profile (NACA 23012)</h2>
+<ul>
+<li>Moderate camber → lift at low AoA</li>
+<li>12% thickness → strength</li>
+<li>Low pitching moment</li>
+<li>Good stall behavior</li>
+</ul>
+</div>
+
+<div class="section">
+<h2>Propulsion System</h2>
+<ul>
+<li>Front EDF: 30° tilt</li>
+<li>Rear EDFs: swivel duct</li>
+</ul>
+</div>
+
+<div class="section">
+<h2>Emergency Detaching System</h2>
+<p>
+Front module detaches during failures or threats to preserve critical data.
+Ensures controlled descent and recovery of mission intelligence.
+</p>
+</div>
+
+<div class="section">
+<h2>System Modes</h2>
+<ul>
+<li>Combined Mode (VTOL hybrid)</li>
+<li>Separated Mode (two UAVs)</li>
+</ul>
+</div>
+
+<div class="section">
+<h2>Electrical Architecture</h2>
+<ul>
+<li>Dual independent power systems</li>
+<li>Front & Rear modules operate independently</li>
+</ul>
+</div>
+
+<div class="section">
+<h2>Power & Propulsion</h2>
+<ul>
+<li>Separate batteries</li>
+<li>Front EDF + Dual rear EDFs</li>
+<li>Independent ESC control</li>
+</ul>
+</div>
+
+<div class="section">
+<h2>Avionics & Communication</h2>
+<ul>
+<li>Master-slave flight controllers</li>
+<li>Wired (UART/CAN) + Wireless (LoRa)</li>
+<li>Data exchange: thrust, tilt, flight mode</li>
+</ul>
+</div>
+
+<div class="section">
+<h2>Control System</h2>
+<ul>
+<li>Rear FC = Master</li>
+<li>Front FC = Executor</li>
+<li>Thrust vectoring with tilt control</li>
 </ul>
 </div>
 
 <div class="section">
 <h2>Safety System (CAASS)</h2>
 <ul>
-<li>Thrust monitoring</li>
-<li>Tilt validation</li>
-<li>Power system health</li>
-<li>Communication checks</li>
+<li>Monitors thrust, tilt, IMU</li>
+<li>Detects failures & instability</li>
+<li>Actions: abort, hover, safe mode</li>
+</ul>
+</div>
+
+<div class="section">
+<h2>Failsafe & Integration</h2>
+<ul>
+<li>Dual battery safety</li>
+<li>Communication monitoring</li>
+<li>Independent UAV capability</li>
 </ul>
 </div>
 
@@ -190,31 +294,31 @@ It integrates propulsion, control systems, and structural design to achieve opti
 
 <div class="card">
 <img src="aman.jpeg" class="team-img">
-<p>Madasu Aman Siddharth<br>(Team Lead – Design, Fabrication & Simulation)</p>
+<p>Aman - Team Lead</p>
 <a class="linkedin" href="https://www.linkedin.com/in/aman-siddharth-madasu-4b6908402">LinkedIn</a>
 </div>
 
 <div class="card">
 <img src="rohan.jpeg" class="team-img">
-<p>Rohan<br>(Electrical and Control Systems)</p>
+<p>Rohan - Electrical</p>
 <a class="linkedin" href="https://www.linkedin.com/in/chilukuri-rohan-sashank-reddy-undefined-aa169336a">LinkedIn</a>
 </div>
 
 <div class="card">
 <img src="mokshagna.jpeg" class="team-img">
-<p>Mokshagna<br>(Electronics and Flight Control)</p>
+<p>Mokshagna - Flight Control</p>
 <a class="linkedin" href="https://www.linkedin.com/in/mokshagna-baineni-54bb1a37a">LinkedIn</a>
 </div>
 
 <div class="card">
 <img src="rukesh.jpeg" class="team-img">
-<p>Rukesh<br>(Coadjutor)</p>
+<p>Rukesh - Support</p>
 <a class="linkedin" href="https://www.linkedin.com/in/rukeshkasturi">LinkedIn</a>
 </div>
 
 <div class="card">
 <img src="abhinav.jpeg" class="team-img">
-<p>Abhinav<br>(Public Relations)</p>
+<p>Abhinav - PR</p>
 <a class="linkedin" href="https://www.linkedin.com/in/abhinav-varma-mudunuri-816b0a378">LinkedIn</a>
 </div>
 
@@ -223,14 +327,11 @@ It integrates propulsion, control systems, and structural design to achieve opti
 
 </div>
 
-<!-- MODEL -->
 <div class="model">
 <model-viewer src="plane.glb" auto-rotate camera-controls></model-viewer>
 </div>
 
 <script>
-
-/* SPLASH FIX */
 window.addEventListener("load", ()=>{
   setTimeout(()=>{
     let s=document.getElementById("splash");
@@ -239,38 +340,23 @@ window.addEventListener("load", ()=>{
   },3000);
 });
 
-/* VIDEO EFFECT */
 function playVideo(){
   let v=document.getElementById("bgVideo");
-
   v.style.opacity="0.5";
-  v.currentTime=0;
   v.play();
 
   setTimeout(()=>v.pause(),5000);
-
   setTimeout(()=>{
     v.style.filter="blur(8px)";
     v.style.opacity="0.3";
   },6000);
 }
 
-/* TOGGLE */
 function toggleProject(){
   let p=document.getElementById("project");
-
-  if(p.style.display==="none" || p.style.display===""){
-    p.style.display="block";
-    playVideo();
-  } else {
-    p.style.display="none";
-
-    let v=document.getElementById("bgVideo");
-    v.style.opacity="0";
-    v.style.filter="blur(0px)";
-  }
+  p.style.display="block";
+  playVideo();
 }
-
 </script>
 
 </body>
