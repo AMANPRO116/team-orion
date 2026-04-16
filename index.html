@@ -6,20 +6,16 @@
 <title>TEAM ORION</title>
 
 <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
-:root{--accent:#00ff88}
-*{margin:0;padding:0;box-sizing:border-box}
-
 body{
-  font-family:'Inter',sans-serif;
+  margin:0;
+  font-family:Arial;
   background:black;
   color:white;
-  overflow-x:hidden;
 }
 
-/* 🎥 VIDEO */
+/* VIDEO */
 #bgVideo{
   position:fixed;
   width:100%;
@@ -28,24 +24,10 @@ body{
   z-index:-2;
   opacity:0;
   filter:blur(0px);
-  transition:opacity 1s ease, filter 2s ease;
+  transition:1s;
 }
 
-/* 🌌 STARS */
-body::before{
-  content:"";
-  position:fixed;
-  width:200%;
-  height:200%;
-  background:radial-gradient(white 1px, transparent 1px);
-  background-size:50px 50px;
-  animation:starsMove 60s linear infinite;
-  opacity:0.15;
-  z-index:-1;
-}
-@keyframes starsMove{to{transform:translate(-500px,-500px);}}
-
-/* 🎬 SPLASH */
+/* SPLASH */
 #splash{
   position:fixed;
   width:100%;
@@ -55,22 +37,21 @@ body::before{
   justify-content:center;
   align-items:center;
   z-index:9999;
-  transition:opacity 1.2s ease;
+  transition:opacity 1s ease;
 }
 
 #orionLogo{
   width:300px;
   opacity:0;
   transform:scale(0.9);
-  animation:logoFade 1.5s ease forwards,
-             logoGlow 2s ease-in-out infinite alternate;
+  animation:fade 1.5s forwards, glow 2s infinite alternate;
 }
 
-@keyframes logoFade{
+@keyframes fade{
   to{opacity:1; transform:scale(1);}
 }
 
-@keyframes logoGlow{
+@keyframes glow{
   from{filter:drop-shadow(0 0 10px #00ff88);}
   to{filter:drop-shadow(0 0 25px #00ff88);}
 }
@@ -82,23 +63,28 @@ body::before{
   flex-direction:column;
   justify-content:center;
   align-items:center;
-  text-align:center;
 }
 
-/* CONTENT */
-.section{padding:80px 40px; max-width:1100px; margin:auto;}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;}
+/* SECTION */
+.section{
+  padding:60px;
+}
+
+/* GRID */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:20px;
+}
 
 .card{
-  background:rgba(255,255,255,0.05);
-  padding:20px;
-  border-radius:12px;
+  background:#111;
+  padding:15px;
+  border-radius:10px;
 }
 
-.card img,.card video{
+img, video{
   width:100%;
-  height:260px;
-  object-fit:cover;
   border-radius:10px;
 }
 
@@ -107,179 +93,150 @@ body::before{
   width:120px;
   height:120px;
   border-radius:50%;
-  border:2px solid var(--accent);
+  border:2px solid #00ff88;
 }
 
-.linkedin-btn{
-  display:inline-block;
-  margin-top:10px;
-  padding:6px 12px;
+.linkedin{
   background:#0077b5;
+  padding:5px 10px;
   color:white;
   text-decoration:none;
-  border-radius:6px;
+  border-radius:5px;
 }
 
 /* MODEL */
-.model-container{
+.model{
   position:fixed;
   bottom:20px;
   right:20px;
-  width:180px;
+  width:200px;
 }
 </style>
 </head>
 
 <body>
 
-<!-- 🎥 BACKGROUND VIDEO -->
+<!-- VIDEO -->
 <video id="bgVideo" muted loop>
-<source src="your_background_video.mp4">
+<source src="background.mp4">
 </video>
 
-<!-- 🎬 SPLASH -->
+<!-- SPLASH -->
 <div id="splash">
-  <img src="team_orion_final.png" id="orionLogo">
+<img src="team_orion_final.png" id="orionLogo">
 </div>
 
 <!-- HERO -->
-<section class="hero">
+<div class="hero">
 <h1>TEAM ORION</h1>
-<p>Next-generation stealth UAV platform</p>
+<p>Next-gen stealth UAV</p>
 
-<div onclick="toggleCatalog()" style="margin-top:40px;cursor:pointer;">
-<div style="padding:25px;border:1px solid #444;border-radius:12px;">
-F-35D Project (Click)
+<button onclick="openProject()">Open F-35D Project</button>
 </div>
-</div>
-</section>
 
 <!-- PROJECT -->
-<div id="projectContent" style="display:none;">
+<div id="project" style="display:none;">
 
-<section class="section">
-<h2>Project Overview</h2>
+<div class="section">
+<h2>Overview</h2>
 <div class="grid">
-<div class="card"><img src="F35_render1.png"></div>
-<div class="card"><img src="F35_top_view.png"></div>
+<img src="F35_render1.png">
+<img src="F35_top_view.png">
 </div>
-</section>
+</div>
 
-<section class="section">
-<h2>Simulation Videos</h2>
+<div class="section">
+<h2>Simulation</h2>
 <div class="grid">
-<div class="card"><video autoplay muted loop src="simulation1.mp4"></video></div>
-<div class="card"><video autoplay muted loop src="simulation2.mp4"></video></div>
+<video src="simulation1.mp4" autoplay muted loop></video>
+<video src="simulation2.mp4" autoplay muted loop></video>
 </div>
-</section>
+</div>
 
-<section class="section">
+<div class="section">
 <h2>Introduction</h2>
-<div class="card">
-<p><b>Objective:</b> Design a stealth UAV inspired by modern fighter aircraft.</p>
-<ul>
-<li>Low observability</li>
-<li>High aerodynamic efficiency</li>
-<li>Autonomous capability</li>
-</ul>
+<p>
+Design and development of a stealth UAV inspired by modern fighter jets.
+Includes aerodynamic optimization, propulsion integration and control systems.
+</p>
 </div>
-</section>
 
-<section class="section">
+<div class="section">
 <h2>Team</h2>
 <div class="grid">
 
 <div class="card">
-<img class="team-img" src="aman.jpeg">
-<b>Madasu Aman Siddharth</b><br>
-(Team Lead – Design, Fabrication & Simulation)<br>
-<a class="linkedin-btn" href="https://www.linkedin.com/in/aman-siddharth-madasu-4b6908402" target="_blank">LinkedIn</a>
+<img src="aman.jpeg" class="team-img">
+<p>Aman - Lead</p>
+<a class="linkedin" href="https://www.linkedin.com/in/aman-siddharth-madasu-4b6908402">LinkedIn</a>
 </div>
 
 <div class="card">
-<img class="team-img" src="rohan.jpeg">
-<b>Rohan</b><br>
-(Electrical and Control Systems)<br>
-<a class="linkedin-btn" href="https://www.linkedin.com/in/chilukuri-rohan-sashank-reddy-undefined-aa169336a" target="_blank">LinkedIn</a>
+<img src="rohan.jpeg" class="team-img">
+<p>Rohan - Electrical</p>
+<a class="linkedin" href="https://www.linkedin.com/in/chilukuri-rohan-sashank-reddy-undefined-aa169336a">LinkedIn</a>
 </div>
 
 <div class="card">
-<img class="team-img" src="mokshagna.jpeg">
-<b>Mokshagna</b><br>
-(Electronics and Flight Control)<br>
-<a class="linkedin-btn" href="https://www.linkedin.com/in/mokshagna-baineni-54bb1a37a" target="_blank">LinkedIn</a>
+<img src="mokshagna.jpeg" class="team-img">
+<p>Mokshagna - Control</p>
+<a class="linkedin" href="https://www.linkedin.com/in/mokshagna-baineni-54bb1a37a">LinkedIn</a>
 </div>
 
 <div class="card">
-<img class="team-img" src="rukesh.jpeg">
-<b>Rukesh</b><br>
-(Coadjutor)<br>
-<a class="linkedin-btn" href="https://www.linkedin.com/in/rukeshkasturi" target="_blank">LinkedIn</a>
+<img src="rukesh.jpeg" class="team-img">
+<p>Rukesh - Support</p>
+<a class="linkedin" href="https://www.linkedin.com/in/rukeshkasturi">LinkedIn</a>
 </div>
 
 <div class="card">
-<img class="team-img" src="abhinav.jpeg">
-<b>Abhinav</b><br>
-(Public Relations (PR))<br>
-<a class="linkedin-btn" href="https://www.linkedin.com/in/abhinav-varma-mudunuri-816b0a378" target="_blank">LinkedIn</a>
+<img src="abhinav.jpeg" class="team-img">
+<p>Abhinav - PR</p>
+<a class="linkedin" href="https://www.linkedin.com/in/abhinav-varma-mudunuri-816b0a378">LinkedIn</a>
 </div>
 
 </div>
-</section>
+</div>
 
 </div>
 
-<!-- ✈️ MODEL -->
-<div class="model-container">
+<!-- MODEL -->
+<div class="model">
 <model-viewer src="plane.glb" auto-rotate camera-controls></model-viewer>
 </div>
 
 <script>
-// 🎬 SAFE SPLASH
-window.addEventListener("load", () => {
-  const splash = document.getElementById("splash");
 
-  setTimeout(() => {
-    splash.style.opacity = "0";
-
-    setTimeout(() => {
-      splash.style.display = "none";
-    }, 1200);
-  }, 3000);
+// SPLASH FIX
+window.addEventListener("load", ()=>{
+  setTimeout(()=>{
+    let s=document.getElementById("splash");
+    s.style.opacity="0";
+    setTimeout(()=>s.style.display="none",1000);
+  },3000);
 });
 
-// 🎥 CINEMATIC VIDEO
-function playCinematicVideo(){
-  const video = document.getElementById('bgVideo');
+// VIDEO EFFECT
+function playVideo(){
+  let v=document.getElementById("bgVideo");
 
-  video.style.opacity = '0.5';
-  video.currentTime = 0;
-  video.play();
+  v.style.opacity="0.5";
+  v.play();
 
-  setTimeout(()=> video.pause(),5000);
+  setTimeout(()=>v.pause(),5000);
 
   setTimeout(()=>{
-    video.style.filter = 'blur(8px)';
-    video.style.opacity = '0.3';
+    v.style.filter="blur(8px)";
+    v.style.opacity="0.3";
   },6000);
 }
 
-// 📦 TOGGLE
-function toggleCatalog(){
-  const el = document.getElementById('projectContent');
-
-  if(el.style.display === 'none' || el.style.display === ''){
-    el.style.display = 'block';
-    el.scrollIntoView({behavior:'smooth'});
-    playCinematicVideo();
-  }else{
-    el.style.display = 'none';
-
-    const video = document.getElementById('bgVideo');
-    video.style.opacity = '0';
-    video.style.filter = 'blur(0px)';
-  }
+// OPEN PROJECT
+function openProject(){
+  document.getElementById("project").style.display="block";
+  playVideo();
 }
+
 </script>
 
 </body>
