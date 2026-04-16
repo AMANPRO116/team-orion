@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TEAM ORION - WAR INTERFACE</title>
+<title>TEAM ORION - F35D INTERFACE</title>
 
 <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 
@@ -30,7 +30,7 @@ body::before{
   height:200%;
   background:radial-gradient(#00ff88 1px, transparent 1px);
   background-size:40px 40px;
-  opacity:0.1;
+  opacity:0.08;
   animation:stars 80s linear infinite;
   z-index:-1;
 }
@@ -49,7 +49,7 @@ body::before{
   z-index:-2;
   opacity:0;
   filter:blur(0px);
-  transition:1s;
+  transition:opacity 1s ease, filter 2s ease;
 }
 
 /* =========================
@@ -94,6 +94,7 @@ body::before{
 
 .hero h1{
   color:#00ff88;
+  font-size:42px;
 }
 
 .hero button{
@@ -101,6 +102,7 @@ body::before{
   background:#00ff88;
   border:none;
   cursor:pointer;
+  border-radius:8px;
 }
 
 /* =========================
@@ -122,7 +124,9 @@ body::before{
   transform:translate(-50%,-50%);
 }
 
-/* telemetry */
+/* =========================
+   TELEMETRY
+========================= */
 #telemetry{
   position:fixed;
   bottom:20px;
@@ -132,7 +136,7 @@ body::before{
 }
 
 /* =========================
-   SECTIONS
+   SECTION
 ========================= */
 .section{
   padding:60px;
@@ -140,6 +144,13 @@ body::before{
   margin:auto;
 }
 
+.section h2{
+  color:#00ff88;
+}
+
+/* =========================
+   GRID
+========================= */
 .grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
@@ -157,7 +168,9 @@ img, video{
   border-radius:10px;
 }
 
-/* TEAM */
+/* =========================
+   TEAM
+========================= */
 .team-img{
   width:120px;
   height:120px;
@@ -166,14 +179,18 @@ img, video{
 }
 
 .linkedin{
+  display:inline-block;
+  margin-top:10px;
   background:#0077b5;
-  padding:5px 10px;
+  padding:6px 12px;
   color:white;
   text-decoration:none;
-  border-radius:5px;
+  border-radius:6px;
 }
 
-/* MODEL */
+/* =========================
+   MODEL
+========================= */
 .model{
   position:fixed;
   right:20px;
@@ -235,7 +252,34 @@ HDG: <span id="heading">0</span>
 
 <div class="section">
 <h2>Introduction</h2>
-<p>Stealth UAV designed for defense applications.</p>
+<p>UAVs are critical in modern defense systems with focus on stealth and efficiency.</p>
+</div>
+
+<div class="section">
+<h2>Design Inspiration</h2>
+<ul>
+<li>F-35 inspired</li>
+<li>BWB structure</li>
+<li>Edge alignment</li>
+</ul>
+</div>
+
+<div class="section">
+<h2>Objective</h2>
+<ul>
+<li>Stealth UAV</li>
+<li>Subsonic performance</li>
+<li>Multi-role capability</li>
+</ul>
+</div>
+
+<div class="section">
+<h2>Safety System</h2>
+<ul>
+<li>CAASS monitoring</li>
+<li>Failure detection</li>
+<li>Safe recovery</li>
+</ul>
 </div>
 
 <div class="section">
@@ -244,13 +288,19 @@ HDG: <span id="heading">0</span>
 
 <div class="card">
 <img src="aman.jpeg" class="team-img">
-<p>Aman</p>
+<p>Aman (Lead)</p>
 <a class="linkedin" href="#">LinkedIn</a>
 </div>
 
 <div class="card">
 <img src="rohan.jpeg" class="team-img">
 <p>Rohan</p>
+<a class="linkedin" href="#">LinkedIn</a>
+</div>
+
+<div class="card">
+<img src="mokshagna.jpeg" class="team-img">
+<p>Mokshagna</p>
 <a class="linkedin" href="#">LinkedIn</a>
 </div>
 
@@ -266,7 +316,7 @@ HDG: <span id="heading">0</span>
 
 <script>
 
-/* SPLASH */
+/* SPLASH FIX */
 window.onload=()=>{
 setTimeout(()=>{
 let s=document.getElementById("splash");
@@ -315,15 +365,6 @@ let x=(e.clientX/window.innerWidth-0.5)*30;
 let y=(e.clientY/window.innerHeight-0.5)*20;
 document.getElementById("plane").cameraOrbit=`${x}deg ${75+y}deg 2.5m`;
 });
-
-/* THREAT */
-setInterval(()=>{
-if(Math.random()>0.7){
-document.querySelector(".crosshair").style.borderColor="red";
-}else{
-document.querySelector(".crosshair").style.borderColor="#00ff88";
-}
-},4000);
 
 </script>
 
