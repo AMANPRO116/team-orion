@@ -3,25 +3,43 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TEAM ORION - F35D UAV</title>
+<title>TEAM ORION - WAR INTERFACE</title>
 
 <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 
 <style>
 
 /* =========================
-   GLOBAL STYLES
+   GLOBAL
 ========================= */
 body{
   margin:0;
-  font-family:Arial, sans-serif;
+  font-family:Arial;
   background:black;
   color:white;
-  overflow-x:hidden;
+  overflow:hidden;
 }
 
 /* =========================
-   BACKGROUND VIDEO
+   STAR FIELD
+========================= */
+body::before{
+  content:"";
+  position:fixed;
+  width:200%;
+  height:200%;
+  background:radial-gradient(#00ff88 1px, transparent 1px);
+  background-size:40px 40px;
+  opacity:0.1;
+  animation:stars 80s linear infinite;
+  z-index:-1;
+}
+@keyframes stars{
+  to{transform:translate(-600px,-600px);}
+}
+
+/* =========================
+   VIDEO
 ========================= */
 #bgVideo{
   position:fixed;
@@ -31,29 +49,11 @@ body{
   z-index:-2;
   opacity:0;
   filter:blur(0px);
-  transition:opacity 1s ease, filter 2s ease;
+  transition:1s;
 }
 
 /* =========================
-   STARS BACKGROUND
-========================= */
-body::before{
-  content:"";
-  position:fixed;
-  width:200%;
-  height:200%;
-  background:radial-gradient(white 1px, transparent 1px);
-  background-size:50px 50px;
-  opacity:0.1;
-  animation:starsMove 60s linear infinite;
-  z-index:-1;
-}
-@keyframes starsMove{
-  to{transform:translate(-500px,-500px);}
-}
-
-/* =========================
-   SPLASH SCREEN
+   SPLASH
 ========================= */
 #splash{
   position:fixed;
@@ -64,27 +64,25 @@ body::before{
   justify-content:center;
   align-items:center;
   z-index:9999;
-  transition:opacity 1s ease;
+  transition:opacity 1s;
 }
 
 #orionLogo{
   width:300px;
   opacity:0;
-  transform:scale(0.9);
-  animation:fadeIn 1.5s forwards, glow 2s infinite alternate;
+  animation:fade 1.5s forwards, glow 2s infinite alternate;
 }
 
-@keyframes fadeIn{
-  to{opacity:1; transform:scale(1);}
+@keyframes fade{
+  to{opacity:1;}
 }
-
 @keyframes glow{
   from{filter:drop-shadow(0 0 10px #00ff88);}
-  to{filter:drop-shadow(0 0 30px #00ff88);}
+  to{filter:drop-shadow(0 0 40px #00ff88);}
 }
 
 /* =========================
-   HERO SECTION
+   HERO
 ========================= */
 .hero{
   height:100vh;
@@ -92,42 +90,56 @@ body::before{
   flex-direction:column;
   justify-content:center;
   align-items:center;
-  text-align:center;
 }
 
 .hero h1{
-  font-size:48px;
   color:#00ff88;
 }
 
 .hero button{
-  margin-top:20px;
   padding:12px 24px;
-  border:none;
   background:#00ff88;
-  color:black;
-  font-weight:bold;
+  border:none;
   cursor:pointer;
-  border-radius:8px;
 }
 
 /* =========================
-   SECTION STYLING
+   HUD
+========================= */
+#hud{
+  position:fixed;
+  width:100%;
+  height:100%;
+  pointer-events:none;
+  z-index:10;
+}
+
+.crosshair{
+  position:absolute;
+  width:80px;
+  height:80px;
+  border:2px solid #00ff88;
+  transform:translate(-50%,-50%);
+}
+
+/* telemetry */
+#telemetry{
+  position:fixed;
+  bottom:20px;
+  left:20px;
+  font-size:12px;
+  color:#00ff88;
+}
+
+/* =========================
+   SECTIONS
 ========================= */
 .section{
   padding:60px;
-  max-width:1100px;
+  max-width:1000px;
   margin:auto;
 }
 
-.section h2{
-  color:#00ff88;
-  margin-bottom:20px;
-}
-
-/* =========================
-   GRID + CARDS
-========================= */
 .grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
@@ -145,9 +157,7 @@ img, video{
   border-radius:10px;
 }
 
-/* =========================
-   TEAM
-========================= */
+/* TEAM */
 .team-img{
   width:120px;
   height:120px;
@@ -156,22 +166,18 @@ img, video{
 }
 
 .linkedin{
-  display:inline-block;
-  margin-top:10px;
   background:#0077b5;
-  padding:6px 12px;
+  padding:5px 10px;
   color:white;
   text-decoration:none;
-  border-radius:6px;
+  border-radius:5px;
 }
 
-/* =========================
-   MODEL
-========================= */
+/* MODEL */
 .model{
   position:fixed;
-  bottom:20px;
   right:20px;
+  bottom:20px;
   width:200px;
 }
 
@@ -180,148 +186,72 @@ img, video{
 
 <body>
 
-<!-- =========================
-     BACKGROUND VIDEO
-========================= -->
+<!-- VIDEO -->
 <video id="bgVideo" muted loop>
 <source src="background.mp4">
 </video>
 
-<!-- =========================
-     SPLASH
-========================= -->
+<!-- SPLASH -->
 <div id="splash">
-  <img src="team_orion_final.png" id="orionLogo">
+<img src="team_orion_final.png" id="orionLogo">
 </div>
 
-<!-- =========================
-     HERO
-========================= -->
+<!-- HUD -->
+<div id="hud">
+<div class="crosshair"></div>
+</div>
+
+<!-- TELEMETRY -->
+<div id="telemetry">
+SPD: <span id="speed">0</span><br>
+ALT: <span id="alt">0</span><br>
+HDG: <span id="heading">0</span>
+</div>
+
+<!-- HERO -->
 <div class="hero">
 <h1>TEAM ORION</h1>
-<p>Next-generation stealth UAV platform</p>
-<button onclick="toggleProject()">Enter Mission Data</button>
+<button onclick="openSystem()">ENTER SYSTEM</button>
 </div>
 
-<!-- =========================
-     PROJECT CONTENT
-========================= -->
-<div id="project" style="display:none;">
+<!-- PROJECT -->
+<div id="project" style="display:none; overflow:auto; height:100vh;">
 
-<!-- PROJECT OVERVIEW -->
 <div class="section">
 <h2>Project Overview</h2>
 <div class="grid">
-<div class="card"><img src="F35_render1.png"></div>
-<div class="card"><img src="F35_top_view.png"></div>
+<img src="F35_render1.png">
+<img src="F35_top_view.png">
 </div>
 </div>
 
-<!-- SIMULATION -->
 <div class="section">
 <h2>Simulation Videos</h2>
 <div class="grid">
-<div class="card">
-<video src="simulation1.mp4" autoplay muted loop controls></video>
-</div>
-<div class="card">
-<video src="simulation2.mp4" autoplay muted loop controls></video>
-</div>
+<video src="simulation1.mp4" autoplay muted loop></video>
+<video src="simulation2.mp4" autoplay muted loop></video>
 </div>
 </div>
 
-<!-- INTRODUCTION -->
 <div class="section">
 <h2>Introduction</h2>
-<p>
-UAVs are critical in modern defense systems. Key requirements include low observability, high efficiency, and endurance.
-This project develops a stealth UAV inspired by fighter jet aerodynamics.
-</p>
+<p>Stealth UAV designed for defense applications.</p>
 </div>
 
-<!-- DESIGN -->
-<div class="section">
-<h2>Design Inspiration</h2>
-<ul>
-<li>F-35 Lightning II inspiration</li>
-<li>Blended Wing Body</li>
-<li>Edge alignment</li>
-<li>Reduced radar signature</li>
-</ul>
-</div>
-
-<!-- OBJECTIVE -->
-<div class="section">
-<h2>Objective</h2>
-<ul>
-<li>Stealth UAV design</li>
-<li>Subsonic operation</li>
-<li>Surveillance & cargo missions</li>
-</ul>
-</div>
-
-<!-- CALCULATIONS -->
-<div class="section">
-<h2>Theoretical Calculations</h2>
-<p>Lift: 220.5 N</p>
-<p>Drag: 13.78 N</p>
-<p>L/D Ratio: 16</p>
-<p>Re ≈ 1.02×10⁶</p>
-</div>
-
-<!-- SYSTEM -->
-<div class="section">
-<h2>System Architecture</h2>
-<ul>
-<li>Dual EDF propulsion</li>
-<li>IMU based control</li>
-<li>Communication module</li>
-</ul>
-</div>
-
-<!-- SAFETY -->
-<div class="section">
-<h2>Safety System</h2>
-<ul>
-<li>Thrust monitoring</li>
-<li>Tilt validation</li>
-<li>Communication check</li>
-</ul>
-</div>
-
-<!-- TEAM -->
 <div class="section">
 <h2>Team</h2>
 <div class="grid">
 
 <div class="card">
 <img src="aman.jpeg" class="team-img">
-<p>Aman - Team Lead</p>
-<a class="linkedin" href="https://www.linkedin.com/in/aman-siddharth-madasu-4b6908402">LinkedIn</a>
+<p>Aman</p>
+<a class="linkedin" href="#">LinkedIn</a>
 </div>
 
 <div class="card">
 <img src="rohan.jpeg" class="team-img">
-<p>Rohan - Electrical</p>
-<a class="linkedin" href="https://www.linkedin.com/in/chilukuri-rohan-sashank-reddy-undefined-aa169336a">LinkedIn</a>
-</div>
-
-<div class="card">
-<img src="mokshagna.jpeg" class="team-img">
-<p>Mokshagna - Control</p>
-<a class="linkedin" href="https://www.linkedin.com/in/mokshagna-baineni-54bb1a37a">LinkedIn</a>
-</div>
-
-<div class="card">
-<img src="rukesh.jpeg" class="team-img">
-<p>Rukesh - Support</p>
-<a class="linkedin" href="https://www.linkedin.com/in/rukeshkasturi">LinkedIn</a>
-</div>
-
-<div class="card">
-<img src="abhinav.jpeg" class="team-img">
-<p>Abhinav - PR</p>
-<a class="linkedin" href="https://www.linkedin.com/in/abhinav-varma-mudunuri-816b0a378">LinkedIn</a>
+<p>Rohan</p>
+<a class="linkedin" href="#">LinkedIn</a>
 </div>
 
 </div>
@@ -331,45 +261,69 @@ This project develops a stealth UAV inspired by fighter jet aerodynamics.
 
 <!-- MODEL -->
 <div class="model">
-<model-viewer src="plane.glb" auto-rotate camera-controls></model-viewer>
+<model-viewer id="plane" src="plane.glb" auto-rotate camera-controls></model-viewer>
 </div>
 
-<!-- =========================
-     SCRIPT
-========================= -->
 <script>
 
-/* SPLASH FIX */
-window.addEventListener("load", ()=>{
-  setTimeout(()=>{
-    let s=document.getElementById("splash");
-    s.style.opacity="0";
-    setTimeout(()=>s.style.display="none",1000);
-  },3000);
+/* SPLASH */
+window.onload=()=>{
+setTimeout(()=>{
+let s=document.getElementById("splash");
+s.style.opacity=0;
+setTimeout(()=>s.style.display="none",1000);
+},3000);
+};
+
+/* VIDEO */
+function playVideo(){
+let v=document.getElementById("bgVideo");
+v.style.opacity=0.5;
+v.play();
+
+setTimeout(()=>v.pause(),5000);
+
+setTimeout(()=>{
+v.style.filter="blur(8px)";
+v.style.opacity="0.3";
+},6000);
+}
+
+/* OPEN */
+function openSystem(){
+document.getElementById("project").style.display="block";
+playVideo();
+}
+
+/* CROSSHAIR */
+document.addEventListener("mousemove",(e)=>{
+let c=document.querySelector(".crosshair");
+c.style.left=e.clientX+"px";
+c.style.top=e.clientY+"px";
 });
 
-/* VIDEO EFFECT */
-function playVideo(){
-  let v=document.getElementById("bgVideo");
+/* TELEMETRY */
+setInterval(()=>{
+document.getElementById("speed").innerText=Math.floor(Math.random()*900);
+document.getElementById("alt").innerText=Math.floor(Math.random()*10000);
+document.getElementById("heading").innerText=Math.floor(Math.random()*360);
+},1000);
 
-  v.style.opacity="0.5";
-  v.currentTime=0;
-  v.play();
+/* MODEL TRACK */
+document.addEventListener("mousemove",(e)=>{
+let x=(e.clientX/window.innerWidth-0.5)*30;
+let y=(e.clientY/window.innerHeight-0.5)*20;
+document.getElementById("plane").cameraOrbit=`${x}deg ${75+y}deg 2.5m`;
+});
 
-  setTimeout(()=>v.pause(),5000);
-
-  setTimeout(()=>{
-    v.style.filter="blur(8px)";
-    v.style.opacity="0.3";
-  },6000);
+/* THREAT */
+setInterval(()=>{
+if(Math.random()>0.7){
+document.querySelector(".crosshair").style.borderColor="red";
+}else{
+document.querySelector(".crosshair").style.borderColor="#00ff88";
 }
-
-/* TOGGLE */
-function toggleProject(){
-  let p=document.getElementById("project");
-  p.style.display="block";
-  playVideo();
-}
+},4000);
 
 </script>
 
