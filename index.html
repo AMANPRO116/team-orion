@@ -95,6 +95,16 @@ img, video{
   right:20px;
   width:200px;
 }
+
+/* Additional styling for equations and PDF content */
+.equation {
+  background:#1a1a1a;
+  padding:15px;
+  border-radius:8px;
+  font-family:monospace;
+  margin:10px 0;
+  white-space:pre-wrap;
+}
 </style>
 </head>
 
@@ -141,34 +151,308 @@ img, video{
 <!-- INTRO -->
 <div class="section">
 <h2>Introduction</h2>
-<p>
-UAVs are critical in modern defense systems. Key requirements include:
-</p>
+<p>UAVs are critical in modern defense systems.</p>
+<p><strong>Key requirements:</strong></p>
 <ul>
 <li>Low observability</li>
 <li>High aerodynamic efficiency</li>
 <li>Long endurance</li>
 </ul>
+<p>This work focuses on a stealth UAV platform inspired by advanced fighter aerodynamics.</p>
 </div>
 
 <!-- DESIGN -->
 <div class="section">
 <h2>Design Inspiration</h2>
+<p>Inspired by F-35 Lightning II</p>
+<p><strong>Key adopted features:</strong></p>
 <ul>
-<li>Inspired by F-35 Lightning II</li>
-<li>Blended Wing Body</li>
-<li>Reduced radar signature</li>
+<li>Edge alignment</li>
+<li>Blended wing-body (BWB)</li>
+<li>Reduced vertical surfaces</li>
 </ul>
+<p>Adapted for subsonic UAV operation.</p>
 </div>
 
 <!-- OBJECTIVE -->
 <div class="section">
 <h2>Objective</h2>
+<ol>
+<li>Design a stealth-inspired UAV</li>
+<li>Reach sub-sonic speeds</li>
+<li>Making it more versatile :</li>
+</ol>
 <ul>
-<li>Stealth UAV design</li>
-<li>Subsonic operation</li>
-<li>Surveillance and cargo</li>
+<li>Cargo applications</li>
+<li>Stealth applications</li>
+<li>Surveillance applications</li>
+<li>Emergency medical applications</li>
 </ul>
+</div>
+
+<!-- THEORETICAL CALCULATIONS (added from PDF) -->
+<div class="section">
+<h2>Theoretical Calculations based on simulations</h2>
+<div class="grid">
+
+<div class="card">
+<h3>Reynolds Number</h3>
+<p>Re = ρVL / μ</p>
+<div class="equation">
+Re = (1.225 × 30 × 0.5) / (1.8 × 10^{-5})
+</div>
+<p><strong>Final Answer:</strong> Re ≈ 1.02 × 10^6</p>
+</div>
+
+<div class="card">
+<h3>Lift Calculation</h3>
+<p>L = ½ ρ V² S C_L</p>
+<div class="equation">
+L = ½ × 1.225 × (30)² × 0.5 × 0.8
+</div>
+<p><strong>Final Answer:</strong> L = 220.5 N</p>
+</div>
+
+<div class="card">
+<h3>Drag Calculation</h3>
+<p>D = ½ ρ V² S C_D</p>
+<div class="equation">
+D = ½ × 1.225 × (30)² × 0.5 × 0.05
+</div>
+<p><strong>Final Answer:</strong> D = 13.78 N</p>
+</div>
+
+<div class="card">
+<h3>Aerodynamic Efficiency</h3>
+<p>L/D = C_L / C_D = 0.8 / 0.05</p>
+<p><strong>Final Answer:</strong> L/D = 16</p>
+</div>
+
+</div>
+</div>
+
+<!-- PHYSICAL MODEL (added from PDF) -->
+<div class="section">
+<h2>Physical Model</h2>
+<p><strong>Note:</strong> The Center of Gravity (CG) and Center of Mass (COM) of the UAV are yet to be determined, as the exact material distribution and component weights have not been finalized. Accurate evaluation will be performed after detailed weight estimation and material selection.</p>
+</div>
+
+<!-- SIMULATIONS (added from PDF) -->
+<div class="section">
+<h2>Simulations</h2>
+<p>External flow domain created around UAV</p>
+<p><strong>Domain Size:</strong> 5-10 times UAV length</p>
+<p><strong>Iteration = 193</strong></p>
+<p>Velocity [m/s] — Flow Trajectories 1</p>
+</div>
+
+<!-- BOUNDARY CONDITIONS (added from PDF) -->
+<div class="section">
+<h2>Boundary Conditions</h2>
+<div class="grid">
+<div class="card"><strong>Velocity Inlet</strong><br>Defines freestream airflow</div>
+<div class="card"><strong>Pressure Outlet</strong><br>Atmospheric condition</div>
+<div class="card"><strong>UAV Surface</strong><br>No-slip wall</div>
+</div>
+</div>
+
+<!-- WING PROFILE (added from PDF) -->
+<div class="section">
+<h2>Wing profile</h2>
+<p>The NACA 23012 is a 5-digit airfoil from the National Advisory Committee for Aeronautics (NACA) series, designed for good lift and stable performance at moderate speeds.</p>
+<p><strong>The 5-digit NACA system encodes aerodynamic properties:</strong></p>
+<ul>
+<li>2 → Design lift coefficient ≈ 0.3</li>
+<li>3 → Position of maximum camber (≈ 15% of chord)</li>
+<li>0 → Type of camber (standard camber line)</li>
+<li>12 → Maximum thickness = 12% of chord</li>
+</ul>
+<p>Moderate camber → Produces lift even at low angles of attack</p>
+<p>Thickness (12%) → Good structural strength + space for internal components</p>
+<p>Low pitching moment → Stable and predictable behavior</p>
+<p>Good stall characteristics → Smooth, gradual stall</p>
+</div>
+
+<!-- FRONT EDF AND BACK EDF'S (added from PDF) -->
+<div class="section">
+<h2>FRONT EDF AND BACK EDF'S</h2>
+<div class="grid">
+<div class="card">
+<h3>FRONT EDF</h3>
+<p>30 degrees mechanical tilt</p>
+</div>
+<div class="card">
+<h3>BACK EDF'S</h3>
+<p>three-bearing swivel duct nozzle</p>
+</div>
+</div>
+</div>
+
+<!-- EMERGENCY DETACHING SYSTEM (added from PDF) -->
+<div class="section">
+<h2>Emergency Detaching System</h2>
+<p>The UAV incorporates an emergency detachment system in which the front section—housing the forward EDF unit and critical onboard systems—can be separated during high-risk scenarios. This mechanism is designed to activate in situations such as rear propulsion (EDF) failure or imminent external threats (e.g., incoming missile detection).</p>
+<p>The primary objective is to preserve mission-critical data and essential avionics by isolating the front module from the main airframe. Upon detachment, the front section is capable of independent stabilization and controlled descent/recovery, ensuring that valuable reconnaissance information gathered during close-range surveillance of hostile zones is not lost.</p>
+<p>The system is engineered for rapid response, structural reliability, and minimal aerodynamic penalty during normal operation.</p>
+</div>
+
+<!-- SYSTEM MODES (added from PDF) -->
+<div class="section">
+<h2>SYSTEM MODES</h2>
+<p><strong>Dual-Mode Architecture</strong></p>
+<p>The system operates in two configurations:</p>
+<ol>
+<li><strong>Combined Mode</strong><br>Functions as a hybrid VTOL aircraft<br>Distributed propulsion<br>Centralized control</li>
+<li><strong>Separated Mode</strong><br>Splits into two independent UAVs<br>Each module stabilizes autonomously<br>Optional cooperative operation</li>
+</ol>
+</div>
+
+<!-- ELECTRICAL SYSTEM ARCHITECTURE (added from PDF) -->
+<div class="section">
+<h2>ELECTRICAL SYSTEM ARCHITECTURE</h2>
+<p><strong>Distributed Electrical Design</strong></p>
+<p>Two independent power domains:</p>
+<ul>
+<li>Front Module → FC1 + Battery 1</li>
+<li>Rear Module → FC2 + Battery 2</li>
+</ul>
+<p>Each module operates:</p>
+<ul>
+<li>Independently (after separation)</li>
+<li>As a unified system (when docked)</li>
+</ul>
+</div>
+
+<!-- POWER & PROPULSION SYSTEM (added from PDF) -->
+<div class="section">
+<h2>POWER & PROPULSION SYSTEM</h2>
+<p><strong>Power System</strong></p>
+<p>Dedicated batteries for each module</p>
+<p>Separate regulated rails: 6-7.4V → Servos 5V → Controllers &amp; communication</p>
+<p><strong>Propulsion Configuration</strong></p>
+<p>Front EDF (tilting) Rear EDFs (2×, tilting) Independent ESC control (no mechanical linkage)</p>
+</div>
+
+<!-- AVIONICS & COMMUNICATION (added from PDF) -->
+<div class="section">
+<h2>AVIONICS &amp; COMMUNICATION</h2>
+<p><strong>Flight Controllers</strong></p>
+<ul>
+<li>FC2 (Rear) → Master Controller</li>
+<li>FC1 (Front) → Slave / Independent Controller</li>
+</ul>
+<p><strong>Communication</strong></p>
+<ul>
+<li>Wired link (UART/CAN) when docked</li>
+<li>Wireless link (LoRa/RF) when separated</li>
+</ul>
+<p><strong>Data Exchange</strong></p>
+<ul>
+<li>Thrust commands</li>
+<li>Tilt angles (front &amp; rear)</li>
+<li>Flight mode</li>
+<li>Status feedback</li>
+</ul>
+<p><strong>Key Insight:</strong> Communication replaces mechanical coupling between propulsion units.</p>
+</div>
+
+<!-- CONTROL SYSTEM ARCHITECTURE (added from PDF) -->
+<div class="section">
+<h2>CONTROL SYSTEM ARCHITECTURE</h2>
+<p><strong>Control Philosophy:</strong> Distributed hardware with centralized control authority in combined mode.</p>
+<p><strong>Combined Mode (Docked Operation)</strong></p>
+<p>FC2 (Rear) → Master</p>
+<p>Computes:</p>
+<ul>
+<li>Total lift</li>
+<li>Pitch &amp; roll stability</li>
+<li>Transition control</li>
+</ul>
+<p><strong>Rear EDFs</strong></p>
+<p>Tilt range: 90° → 0°</p>
+<p>Role:</p>
+<ul>
+<li>90° → Full vertical lift (hover)</li>
+<li>Gradually reduce tilt → shift to forward thrust</li>
+</ul>
+<p><strong>Thrust Vectoring Logic (CRITICAL)</strong></p>
+<p>Front EDF — Tilt range: 0° → 30°</p>
+<p>Role:</p>
+<ul>
+<li>0° → Hover assist</li>
+<li>10°-30° → Transition + forward thrust</li>
+</ul>
+<p><strong>Control Execution</strong></p>
+<p>FC1 executes: Ailerons, Elevator, Front EDF tilt</p>
+<p><strong>Separated Mode</strong></p>
+<p>FC1 → Independent fixed-wing UAV<br>FC2 → Independent hover UAV</p>
+</div>
+
+<!-- SAFETY SYSTEM (added from PDF) -->
+<div class="section">
+<h2>SAFETY SYSTEM (CAASS + RED FLAGS)</h2>
+<p><strong>CAASS (CONTROL AUTHORITY AWARE SAFETY SYSTEM)</strong></p>
+<ul>
+<li>Monitors thrust effectiveness</li>
+<li>Checks tilt response (front &amp; rear)</li>
+<li>Tracks aircraft motion (IMU)</li>
+<li>Observes power limits</li>
+<li>Monitors communication health</li>
+</ul>
+<p><strong>RED FLAGS</strong></p>
+<ul>
+<li>High-thrust descent</li>
+<li>Tilt mismatch</li>
+<li>Power overload / voltage drop</li>
+<li>Control delay</li>
+<li>Communication failure</li>
+<li>Predicted instability</li>
+</ul>
+<p><strong>DECISION LOGIC</strong></p>
+<p>Requires multiple condition confirmation</p>
+<p><strong>Actions</strong></p>
+<ul>
+<li>Abort transition</li>
+<li>Return to hover</li>
+<li>Enter safe mode</li>
+</ul>
+</div>
+
+<!-- FAILSAFE & SYSTEM INTEGRATION (added from PDF) -->
+<div class="section">
+<h2>FAILSAFE &amp; SYSTEM INTEGRATION</h2>
+<p><strong>ELECTRICAL SAFETY</strong></p>
+<ul>
+<li>Dual battery system</li>
+<li>Isolated power lines</li>
+</ul>
+<p><strong>CONTROL SAFETY</strong></p>
+<ul>
+<li>Master-slave architecture</li>
+<li>Continuous communication check</li>
+</ul>
+<p><strong>FAILURE HANDLING</strong></p>
+<ul>
+<li>Front failure → controlled descent</li>
+<li>Rear thrust issue → abort transition</li>
+<li>Comm loss → safe mode</li>
+</ul>
+<p><strong>FINAL CAPABILITY</strong></p>
+<ul>
+<li>Smooth hover-to-cruise transition</li>
+<li>Unified aircraft operation</li>
+<li>Splits into two independent UAVs</li>
+</ul>
+</div>
+
+<!-- FOLLOW OUR JOURNEY (added from PDF) -->
+<div class="section" style="text-align:center; padding-top:40px;">
+<h2 style="background:#ff0; color:#000; display:inline-block; padding:10px 30px; border-radius:8px;">FOLLOW OUR JOURNEY</h2>
+<p style="margin:20px 0 10px 0; font-size:18px;">Scan the QR code to continue the journey</p>
+<div style="background:#111; padding:20px; display:inline-block; border-radius:12px;">
+<p style="font-family:monospace; font-size:120px; line-height:1; margin:0; color:#0f0;">□ ■ □ ■</p>
+<p style="margin:10px 0 0 0; font-size:22px; letter-spacing:8px;">TQRCG</p>
+</div>
 </div>
 
 <!-- TEAM -->
@@ -179,30 +463,35 @@ UAVs are critical in modern defense systems. Key requirements include:
 <div class="card">
 <img src="aman.jpeg" class="team-img">
 <p>Madasu Aman Siddharth</p>
+<p><strong>Team Lead – Design, Fabrication &amp; Simulation</strong></p>
 <a class="linkedin" href="https://www.linkedin.com/in/aman-siddharth-madasu-4b6908402">LinkedIn</a>
 </div>
 
 <div class="card">
 <img src="rohan.jpeg" class="team-img">
 <p>Rohan</p>
+<p><strong>Electrical and Control Systems</strong></p>
 <a class="linkedin" href="https://www.linkedin.com/in/chilukuri-rohan-sashank-reddy-undefined-aa169336a">LinkedIn</a>
 </div>
 
 <div class="card">
 <img src="mokshagna.jpeg" class="team-img">
 <p>Mokshagna</p>
+<p><strong>Electronics and Flight Control</strong></p>
 <a class="linkedin" href="https://www.linkedin.com/in/mokshagna-baineni-54bb1a37a">LinkedIn</a>
 </div>
 
 <div class="card">
 <img src="rukesh.jpeg" class="team-img">
 <p>Rukesh</p>
+<p><strong>Coadjutor</strong></p>
 <a class="linkedin" href="https://www.linkedin.com/in/rukeshkasturi">LinkedIn</a>
 </div>
 
 <div class="card">
 <img src="abhinav.jpeg" class="team-img">
 <p>Abhinav</p>
+<p><strong>Public Relations (PR)</strong></p>
 <a class="linkedin" href="https://www.linkedin.com/in/abhinav-varma-mudunuri-816b0a378">LinkedIn</a>
 </div>
 
