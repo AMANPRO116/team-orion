@@ -3,44 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TEAM ORION - F35D INTERFACE</title>
+<title>TEAM ORION</title>
 
 <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 
 <style>
-
-/* =========================
-   GLOBAL
-========================= */
 body{
   margin:0;
   font-family:Arial;
   background:black;
   color:white;
-  overflow:hidden;
 }
 
-/* =========================
-   STAR FIELD
-========================= */
-body::before{
-  content:"";
-  position:fixed;
-  width:200%;
-  height:200%;
-  background:radial-gradient(#00ff88 1px, transparent 1px);
-  background-size:40px 40px;
-  opacity:0.08;
-  animation:stars 80s linear infinite;
-  z-index:-1;
-}
-@keyframes stars{
-  to{transform:translate(-600px,-600px);}
-}
-
-/* =========================
-   VIDEO
-========================= */
+/* VIDEO */
 #bgVideo{
   position:fixed;
   width:100%;
@@ -48,13 +23,10 @@ body::before{
   object-fit:cover;
   z-index:-2;
   opacity:0;
-  filter:blur(0px);
-  transition:opacity 1s ease, filter 2s ease;
+  transition:1s;
 }
 
-/* =========================
-   SPLASH
-========================= */
+/* SPLASH */
 #splash{
   position:fixed;
   width:100%;
@@ -67,23 +39,7 @@ body::before{
   transition:opacity 1s;
 }
 
-#orionLogo{
-  width:300px;
-  opacity:0;
-  animation:fade 1.5s forwards, glow 2s infinite alternate;
-}
-
-@keyframes fade{
-  to{opacity:1;}
-}
-@keyframes glow{
-  from{filter:drop-shadow(0 0 10px #00ff88);}
-  to{filter:drop-shadow(0 0 40px #00ff88);}
-}
-
-/* =========================
-   HERO
-========================= */
+/* HERO */
 .hero{
   height:100vh;
   display:flex;
@@ -92,65 +48,13 @@ body::before{
   align-items:center;
 }
 
-.hero h1{
-  color:#00ff88;
-  font-size:42px;
-}
-
-.hero button{
-  padding:12px 24px;
-  background:#00ff88;
-  border:none;
-  cursor:pointer;
-  border-radius:8px;
-}
-
-/* =========================
-   HUD
-========================= */
-#hud{
-  position:fixed;
-  width:100%;
-  height:100%;
-  pointer-events:none;
-  z-index:10;
-}
-
-.crosshair{
-  position:absolute;
-  width:80px;
-  height:80px;
-  border:2px solid #00ff88;
-  transform:translate(-50%,-50%);
-}
-
-/* =========================
-   TELEMETRY
-========================= */
-#telemetry{
-  position:fixed;
-  bottom:20px;
-  left:20px;
-  font-size:12px;
-  color:#00ff88;
-}
-
-/* =========================
-   SECTION
-========================= */
+/* SECTIONS */
 .section{
   padding:60px;
   max-width:1000px;
   margin:auto;
 }
 
-.section h2{
-  color:#00ff88;
-}
-
-/* =========================
-   GRID
-========================= */
 .grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
@@ -168,9 +72,7 @@ img, video{
   border-radius:10px;
 }
 
-/* =========================
-   TEAM
-========================= */
+/* TEAM */
 .team-img{
   width:120px;
   height:120px;
@@ -179,8 +81,6 @@ img, video{
 }
 
 .linkedin{
-  display:inline-block;
-  margin-top:10px;
   background:#0077b5;
   padding:6px 12px;
   color:white;
@@ -188,16 +88,13 @@ img, video{
   border-radius:6px;
 }
 
-/* =========================
-   MODEL
-========================= */
+/* MODEL */
 .model{
   position:fixed;
-  right:20px;
   bottom:20px;
+  right:20px;
   width:200px;
 }
-
 </style>
 </head>
 
@@ -210,30 +107,20 @@ img, video{
 
 <!-- SPLASH -->
 <div id="splash">
-<img src="team_orion_final.png" id="orionLogo">
-</div>
-
-<!-- HUD -->
-<div id="hud">
-<div class="crosshair"></div>
-</div>
-
-<!-- TELEMETRY -->
-<div id="telemetry">
-SPD: <span id="speed">0</span><br>
-ALT: <span id="alt">0</span><br>
-HDG: <span id="heading">0</span>
+<img src="team_orion_final.png" style="width:300px;">
 </div>
 
 <!-- HERO -->
 <div class="hero">
 <h1>TEAM ORION</h1>
-<button onclick="openSystem()">ENTER SYSTEM</button>
+<p>Next-generation stealth UAV platform</p>
+<button onclick="toggleProject()">F-35D Project</button>
 </div>
 
 <!-- PROJECT -->
-<div id="project" style="display:none; overflow:auto; height:100vh;">
+<div id="project" style="display:none;">
 
+<!-- OVERVIEW -->
 <div class="section">
 <h2>Project Overview</h2>
 <div class="grid">
@@ -242,6 +129,7 @@ HDG: <span id="heading">0</span>
 </div>
 </div>
 
+<!-- SIMULATION -->
 <div class="section">
 <h2>Simulation Videos</h2>
 <div class="grid">
@@ -250,58 +138,72 @@ HDG: <span id="heading">0</span>
 </div>
 </div>
 
+<!-- INTRO -->
 <div class="section">
 <h2>Introduction</h2>
-<p>UAVs are critical in modern defense systems with focus on stealth and efficiency.</p>
+<p>
+UAVs are critical in modern defense systems. Key requirements include:
+</p>
+<ul>
+<li>Low observability</li>
+<li>High aerodynamic efficiency</li>
+<li>Long endurance</li>
+</ul>
 </div>
 
+<!-- DESIGN -->
 <div class="section">
 <h2>Design Inspiration</h2>
 <ul>
-<li>F-35 inspired</li>
-<li>BWB structure</li>
-<li>Edge alignment</li>
+<li>Inspired by F-35 Lightning II</li>
+<li>Blended Wing Body</li>
+<li>Reduced radar signature</li>
 </ul>
 </div>
 
+<!-- OBJECTIVE -->
 <div class="section">
 <h2>Objective</h2>
 <ul>
-<li>Stealth UAV</li>
-<li>Subsonic performance</li>
-<li>Multi-role capability</li>
+<li>Stealth UAV design</li>
+<li>Subsonic operation</li>
+<li>Surveillance and cargo</li>
 </ul>
 </div>
 
-<div class="section">
-<h2>Safety System</h2>
-<ul>
-<li>CAASS monitoring</li>
-<li>Failure detection</li>
-<li>Safe recovery</li>
-</ul>
-</div>
-
+<!-- TEAM -->
 <div class="section">
 <h2>Team</h2>
 <div class="grid">
 
 <div class="card">
 <img src="aman.jpeg" class="team-img">
-<p>Aman (Lead)</p>
-<a class="linkedin" href="#">LinkedIn</a>
+<p>Madasu Aman Siddharth</p>
+<a class="linkedin" href="https://www.linkedin.com/in/aman-siddharth-madasu-4b6908402">LinkedIn</a>
 </div>
 
 <div class="card">
 <img src="rohan.jpeg" class="team-img">
 <p>Rohan</p>
-<a class="linkedin" href="#">LinkedIn</a>
+<a class="linkedin" href="https://www.linkedin.com/in/chilukuri-rohan-sashank-reddy-undefined-aa169336a">LinkedIn</a>
 </div>
 
 <div class="card">
 <img src="mokshagna.jpeg" class="team-img">
 <p>Mokshagna</p>
-<a class="linkedin" href="#">LinkedIn</a>
+<a class="linkedin" href="https://www.linkedin.com/in/mokshagna-baineni-54bb1a37a">LinkedIn</a>
+</div>
+
+<div class="card">
+<img src="rukesh.jpeg" class="team-img">
+<p>Rukesh</p>
+<a class="linkedin" href="https://www.linkedin.com/in/rukeshkasturi">LinkedIn</a>
+</div>
+
+<div class="card">
+<img src="abhinav.jpeg" class="team-img">
+<p>Abhinav</p>
+<a class="linkedin" href="https://www.linkedin.com/in/abhinav-varma-mudunuri-816b0a378">LinkedIn</a>
 </div>
 
 </div>
@@ -311,60 +213,40 @@ HDG: <span id="heading">0</span>
 
 <!-- MODEL -->
 <div class="model">
-<model-viewer id="plane" src="plane.glb" auto-rotate camera-controls></model-viewer>
+<model-viewer src="plane.glb" auto-rotate camera-controls></model-viewer>
 </div>
 
 <script>
 
 /* SPLASH FIX */
-window.onload=()=>{
-setTimeout(()=>{
-let s=document.getElementById("splash");
-s.style.opacity=0;
-setTimeout(()=>s.style.display="none",1000);
-},3000);
+window.onload = () => {
+  setTimeout(()=>{
+    let s = document.getElementById("splash");
+    s.style.opacity = 0;
+    setTimeout(()=> s.style.display="none",1000);
+  },3000);
 };
 
 /* VIDEO */
 function playVideo(){
-let v=document.getElementById("bgVideo");
-v.style.opacity=0.5;
-v.play();
+  let v = document.getElementById("bgVideo");
+  v.style.opacity = 0.4;
+  v.play();
 
-setTimeout(()=>v.pause(),5000);
-
-setTimeout(()=>{
-v.style.filter="blur(8px)";
-v.style.opacity="0.3";
-},6000);
+  setTimeout(()=> v.pause(),5000);
 }
 
-/* OPEN */
-function openSystem(){
-document.getElementById("project").style.display="block";
-playVideo();
+/* TOGGLE */
+function toggleProject(){
+  let p = document.getElementById("project");
+
+  if(p.style.display==="none" || p.style.display===""){
+    p.style.display="block";
+    playVideo();
+  }else{
+    p.style.display="none";
+  }
 }
-
-/* CROSSHAIR */
-document.addEventListener("mousemove",(e)=>{
-let c=document.querySelector(".crosshair");
-c.style.left=e.clientX+"px";
-c.style.top=e.clientY+"px";
-});
-
-/* TELEMETRY */
-setInterval(()=>{
-document.getElementById("speed").innerText=Math.floor(Math.random()*900);
-document.getElementById("alt").innerText=Math.floor(Math.random()*10000);
-document.getElementById("heading").innerText=Math.floor(Math.random()*360);
-},1000);
-
-/* MODEL TRACK */
-document.addEventListener("mousemove",(e)=>{
-let x=(e.clientX/window.innerWidth-0.5)*30;
-let y=(e.clientY/window.innerHeight-0.5)*20;
-document.getElementById("plane").cameraOrbit=`${x}deg ${75+y}deg 2.5m`;
-});
 
 </script>
 
